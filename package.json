@@ -1,0 +1,55 @@
+{
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "keywords": [
+    "react-native",
+    "react",
+    "yarn-workspaces",
+    "monorepo",
+    "ios",
+    "android",
+    "pwa"
+  ],
+  "scripts": {
+    "start": "concurrently \"yarn web\" \"yarn native\"",
+    "web": "yarn workspace @app/web start",
+    "build:web": "yarn workspace @app/web build",
+    "native": "yarn workspace @app/native start",
+    "android": "yarn workspace @app/native android",
+    "studio": "yarn workspace @app/native studio",
+    "ios": "yarn workspace @app/native ios",
+    "xcode": "yarn workspace @app/native xcode",
+    "pod": "cd ./packages/native/ios && pod install",
+    "clean": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + && rm -rf packages/native/ios/Pods"
+  },
+  "devDependencies": {
+    "airbnb": "^0.0.2",
+    "babel-eslint": "^10.1.0",
+    "concurrently": "^5.2.0",
+    "eslint": "^6.6.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-config-react-app": "^5.2.1",
+    "eslint-plugin-flowtype": "^5.1.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.20.0",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.6",
+    "prettier": "^2.0.5",
+    "pretty-quick": "^2.0.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/!(node_modules)/*.{js,jsx,ts,tsx}": [
+      "pretty-quick —-staged",
+      "eslint --fix"
+    ]
+  }
+}
