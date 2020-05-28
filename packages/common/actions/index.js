@@ -1,1 +1,4 @@
 export const HELLO_BUTTON_CLICKED = 'HELLO_BUTTON_CLICKED';
+
+export const USER_AUTH_SUCCESS = 'USER_AUTH_SUCCESS';
+export const LOGOUT = 'LOGOUT';

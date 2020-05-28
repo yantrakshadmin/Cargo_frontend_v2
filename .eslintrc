@@ -7,7 +7,8 @@
   },
   "extends": [
     "airbnb",
-    "prettier"
+    "prettier",
+    "plugin:react-hooks/recommended"
   ],
   "env": {
     "browser": true,

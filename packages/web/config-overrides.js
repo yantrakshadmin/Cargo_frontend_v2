@@ -1,8 +1,23 @@
-const {override, fixBabelImports, addLessLoader, useBabelRc} = require('customize-cra');
+const {
+  override,
+  fixBabelImports,
+  addLessLoader,
+  useBabelRc: babelRC,
+  addWebpackResolve,
+} = require('customize-cra');
 const theme = require('@app/common/theme').default;
+const path = require('path');
 
+console.log(__dirname);
+console.log(path.resolve(__dirname, '../../', 'node_modules', 'react'));
 module.exports = override(
-  useBabelRc(),
+  addWebpackResolve({
+    alias: {
+      react: path.resolve(__dirname, '../../', 'node_modules', 'react'),
+      'react-redux': path.resolve(__dirname, '../../', 'node_modules', 'react-redux'),
+    },
+  }),
+  babelRC(),
   fixBabelImports('import', {
     libraryName: 'antd',
     libraryDirectory: 'es',
@@ -10,6 +25,6 @@ module.exports = override(
   }),
   addLessLoader({
     javascriptEnabled: true,
-    modifyVars: {'@primary-color': theme.brand_primary},
+    modifyVars: { '@primary-color': theme.brand_primary },
   }),
 );
