@@ -1,21 +1,25 @@
-import React, { useState } from 'react';
-import { Link, Router } from '@reach/router';
-import { Layout, Menu, Breadcrumb, Divider, Avatar } from 'antd';
+import React, { useState, Suspense } from 'react';
+import { Link } from '@reach/router';
+import { Layout, Menu, Divider, Avatar } from 'antd';
 import {
   UserOutlined,
-  LaptopOutlined,
-  NotificationOutlined,
   MenuUnfoldOutlined,
   MenuFoldOutlined,
+  LoadingOutlined,
 } from '@ant-design/icons';
 import logo from '@app/common/assets/Yantraksh Logo.png';
 
 const { SubMenu } = Menu;
-const { Header, Content, Sider } = Layout;
+const { Header, Content, Sider, Footer } = Layout;
 
 function ScreenWrapper({ children, routes }) {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [collapsedWidth, setCollapsedWidth] = useState(80);
+  const loading = () => (
+    <div className=''>
+      <LoadingOutlined />
+    </div>
+  );
   return (
     <Layout className=''>
       <Header
@@ -42,7 +46,7 @@ function ScreenWrapper({ children, routes }) {
           )}
         </div>
         <div className='row align-center'>
-          <p className='m-2'>Demo_shipper</p>
+          <p className='m-2'>demo_shipper</p>
           <Avatar size='large' icon={<UserOutlined />} />
         </div>
       </Header>
@@ -60,9 +64,10 @@ function ScreenWrapper({ children, routes }) {
           }}
           className='site-layout-background'>
           <Menu
+            theme='dark'
             mode='inline'
-            defaultSelectedKeys={['1']}
-            defaultOpenKeys={['sub1']}
+            defaultSelectedKeys={[routes[0].name]}
+            defaultOpenKeys={[routes[0].name]}
             style={{ height: '100%', borderRight: 0 }}>
             {routes.map((i) => {
               if (i.subMenu) {
@@ -88,30 +93,26 @@ function ScreenWrapper({ children, routes }) {
             })}
           </Menu>
         </Sider>
-        <Layout style={{ padding: '0 24px 24px' }}>
-          <Content
-            className='site-layout-background'
-            style={{
-              padding: 24,
-              margin: 0,
-              minHeight: 280,
-            }}>
-            <Router>
-              {routes.map((i) => {
-                return i.subMenu
-                  ? i.subMenu.map((subI, ind) => (
-                    <subI.component path={subI.path} key={ind.toString()} />
-                  ))
-                  : null;
-              })}
-              {routes.map((i, index) => {
-                return <i.component path={i.path} key={index.toString()} />;
-              })}
-              {/* {children} */}
-            </Router>
-          </Content>
+        <Layout style={{ padding: '24px' }}>
+          <Suspense fallback={loading()}>
+            <Content
+              className='site-layout-background content-style'
+              style={{ minHeight: `calc( 100vh - 184px )` }}>
+              {children}
+            </Content>
+          </Suspense>
         </Layout>
       </Layout>
+      <Divider style={{ margin: 0, padding: 0 }} />
+      <Footer className='row justify-end '>
+        <span>
+          <a target='_blank' rel='noreferrer' href='https://yantraksh.com'>
+            Yantraksh Logistics Pvt. Ltd
+          </a>
+          {' '}
+          &copy; All rights reserved
+        </span>
+      </Footer>
     </Layout>
   );
 }
