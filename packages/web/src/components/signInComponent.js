@@ -14,9 +14,11 @@ function SignInComponent(props) {
 
   return (
     <div className='sign-in-form'>
-      <Title level={3}>Welcome to Yantraksh</Title>
-      <Title level={4}>Sign In</Title>
-      <Form onSubmit={handleSubmit} layout='vertical'>
+      <div className='sign-heading-container'>
+        <h1>Login</h1>
+        <p>Sign in to your account</p>
+      </div>
+      <Form onSubmit={handleSubmit} layout='vertical' hideRequiredMark>
         {formItemCreate(
           'username',
           [{ required: true, message: 'Please input your username!' }],

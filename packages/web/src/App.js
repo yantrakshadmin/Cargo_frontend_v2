@@ -1,36 +1,50 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import './App.css';
-
 import { Router } from '@reach/router';
 import { Provider } from 'react-redux';
-
 import { store } from '@app/common/reducers';
 
-import SignInScreen from 'screens/public/signIn';
-import SignUpShipper from 'screens/public/signup.shipper';
-import SignUpSupplier from 'screens/public/signUp.supplier';
-import ScreenWrapper from 'components/screenWrapper';
-import VendorForm from 'forms/vendor.form';
-import AddressForm from 'forms/address.form';
-import { Profile } from 'screens/profile';
+import ScreenWrapper from './components/screenWrapper';
+import { shipperRoutes, publicRoutes } from './helpers/routes';
+import Loading from './components/loadingComponent';
 
 function App() {
-  const routes = [
-    { Component: SignInScreen, path: '/' },
-    { Component: SignUpShipper, path: '/sign-up-shipper/' },
-    { Component: SignUpSupplier, path: '/sign-up-supplier/' },
-    { Component: ScreenWrapper, path: '/screen/' },
-    { Component: VendorForm, path: '/vendor/' },
-    { Component: AddressForm, path: '/address/' },
-    { Component: Profile, path: '/profile/' },
-  ];
+  const userType = 'anonymous';
+  const getRouter = () => {
+    switch (userType) {
+      case 'anonymous':
+        return (
+          <Router>
+            {publicRoutes.map((i, index) => {
+              return <i.component path={i.path} key={index.toString()} />;
+            })}
+          </Router>
+        );
+      case 'supplier':
+        return (
+          <ScreenWrapper routes={shipperRoutes}>
+            <Router>
+              {shipperRoutes.map((i, index) => {
+                return <i.component path={i.path} key={index.toString()} />;
+              })}
+              {shipperRoutes.map((i) => {
+                return i.subMenu
+                  ? i.subMenu.map((subI, ind) => (
+                    <subI.component path={subI.path} key={ind.toString()} />
+                  ))
+                  : null;
+              })}
+            </Router>
+          </ScreenWrapper>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <Provider store={store}>
-      <Router>
-        {routes.map((Route, index) => (
-          <Route.Component path={Route.path} key={index.toString()} />
-        ))}
-      </Router>
+      <Suspense fallback={Loading}>{getRouter()}</Suspense>
     </Provider>
   );
 }

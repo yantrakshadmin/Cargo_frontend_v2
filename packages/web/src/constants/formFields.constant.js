@@ -12,6 +12,7 @@ export const FORM_ELEMENT_TYPES = {
   RADIO: 'radio',
   SWITCH: 'switch',
   HIDDEN: 'hidden',
+  DATE: 'date',
   CASCADER: 'cascader',
 };
 

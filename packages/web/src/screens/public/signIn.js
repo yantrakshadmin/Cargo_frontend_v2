@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Typography } from 'antd';
-import { ApartmentOutlined } from '@ant-design/icons';
+import { ApartmentOutlined, LoadingOutlined } from '@ant-design/icons';
 import { Link } from '@reach/router';
 
 import SignInComponent from 'components/signInComponent';
