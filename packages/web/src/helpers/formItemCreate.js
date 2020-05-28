@@ -1,11 +1,11 @@
 import React from 'react';
-import { Form, Input, Upload, Select, Radio } from 'antd';
+import { Form, Input, Upload, Select, Radio, DatePicker } from 'antd';
 import { Icon } from '@ant-design/compatible';
 import { FORM_ELEMENT_TYPES } from '../constants/formFields.constant';
 
 const { Option } = Select;
 
-export const formItemCreate = (key, rules, kwargs, type, others, customLabel) => {
+export const formItemCreate = (key, rules, kwargs, type, others, customLabel, noLabel) => {
   const onChange = (e) => {
     console.log('radio checked', e.target.value);
   };
@@ -14,7 +14,7 @@ export const formItemCreate = (key, rules, kwargs, type, others, customLabel) =>
     case FORM_ELEMENT_TYPES.INPUT:
       return (
         <Form.Item
-          label={customLabel || key.charAt(0).toUpperCase() + key.slice(1)}
+          label={noLabel ? null : customLabel || key.charAt(0).toUpperCase() + key.slice(1)}
           name={key}
           rules={rules}>
           <Input {...kwargs} />
@@ -23,7 +23,7 @@ export const formItemCreate = (key, rules, kwargs, type, others, customLabel) =>
     case FORM_ELEMENT_TYPES.FILE_DRAG_DROP:
       return (
         <Form.Item
-          label={customLabel || key.charAt(0).toUpperCase() + key.slice(1)}
+          label={noLabel ? null : customLabel || key.charAt(0).toUpperCase() + key.slice(1)}
           name={key}
           rules={rules}>
           <Upload.Dragger {...kwargs}>
@@ -38,7 +38,7 @@ export const formItemCreate = (key, rules, kwargs, type, others, customLabel) =>
     case FORM_ELEMENT_TYPES.SELECT:
       return (
         <Form.Item
-          label={customLabel || key.charAt(0).toUpperCase() + key.slice(1)}
+          label={noLabel ? null : customLabel || key.charAt(0).toUpperCase() + key.slice(1)}
           name={key}
           rules={rules}>
           <Select {...kwargs}>
@@ -53,7 +53,7 @@ export const formItemCreate = (key, rules, kwargs, type, others, customLabel) =>
     case FORM_ELEMENT_TYPES.RADIO:
       return (
         <Form.Item
-          label={customLabel || key.charAt(0).toUpperCase() + key.slice(1)}
+          label={noLabel ? null : customLabel || key.charAt(0).toUpperCase() + key.slice(1)}
           name={key}
           rules={rules}>
           <Radio.Group onChange={onChange} value='Ggg'>
@@ -61,6 +61,15 @@ export const formItemCreate = (key, rules, kwargs, type, others, customLabel) =>
               <Radio value={item.value}>{item.label}</Radio>
             ))}
           </Radio.Group>
+        </Form.Item>
+      );
+    case FORM_ELEMENT_TYPES.DATE:
+      return (
+        <Form.Item
+          label={noLabel ? null : customLabel || key.charAt(0).toUpperCase() + key.slice(1)}
+          name={key}
+          rules={rules}>
+          <DatePicker />
         </Form.Item>
       );
     default:
