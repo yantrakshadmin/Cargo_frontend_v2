@@ -44,8 +44,8 @@ export const shipperRoutes = [
   {
     name: 'Sales Order',
     icon: <LayoutOutlined />,
-    path: '/dashboard',
-    component: lazy(() => import('../screens/private/supplier/dashboard')),
+    path: '/sales-orders',
+    component: lazy(() => import('../screens/private/shipper/salesOrder.shipper')),
   },
   {
     name: 'Carrier Selection',
