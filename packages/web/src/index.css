@@ -10,7 +10,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 .color-black {
-  color: '#000';
+  color: #000;
+}
+.h-100{
+  min-height: 100vh;
+}
+.w-100{
+  min-width: 100vw;
 }
 .bg-white {
   background-color: #ffffff;

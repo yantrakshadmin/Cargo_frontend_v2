@@ -1,13 +1,9 @@
 import React, { useState, Suspense } from 'react';
 import { Link } from '@reach/router';
 import { Layout, Menu, Divider, Avatar } from 'antd';
-import {
-  UserOutlined,
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
-  LoadingOutlined,
-} from '@ant-design/icons';
+import { UserOutlined, MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 import logo from '@app/common/assets/Yantraksh Logo.png';
+import Loading from './loadingComponent';
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider, Footer } = Layout;
@@ -15,11 +11,7 @@ const { Header, Content, Sider, Footer } = Layout;
 function ScreenWrapper({ children, routes }) {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [collapsedWidth, setCollapsedWidth] = useState(80);
-  const loading = () => (
-    <div className=''>
-      <LoadingOutlined />
-    </div>
-  );
+
   return (
     <Layout className=''>
       <Header
@@ -94,7 +86,7 @@ function ScreenWrapper({ children, routes }) {
           </Menu>
         </Sider>
         <Layout style={{ padding: '24px' }}>
-          <Suspense fallback={loading()}>
+          <Suspense fallback={Loading}>
             <Content
               className='site-layout-background content-style'
               style={{ minHeight: `calc( 100vh - 184px )` }}>

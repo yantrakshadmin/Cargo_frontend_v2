@@ -5,10 +5,9 @@ import { FORM_ELEMENT_TYPES } from '../../constants/formFields.constant';
 
 const { Title } = Typography;
 
-function VendorForm(props) {
+function VendorForm({ onCancel }) {
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.form.validateFields((err, values) => {});
   };
   const mainFields = [
     {
@@ -129,138 +128,141 @@ function VendorForm(props) {
   ];
 
   return (
-    <div className='container-vendor'>
-      <Title level={3} className='bg-dark heading-vendor'>
-        Add Vendor
-      </Title>
-      <div className='vendor-form-container'>
-        <Form onSubmit={handleSubmit} layout='horizontal' hideRequiredMark>
-          <Row>
-            <Col span={8}>
-              {mainFields.slice(0, 2).map((item) => (
-                <div className='p-2'>
-                  {formItemCreate(
-                    item.key,
-                    item.rules,
-                    item.kwargs,
-                    item.type,
-                    item.others,
-                    item.label,
-                  )}
-                </div>
-              ))}
-            </Col>
-            <Col span={8}>
-              {mainFields.slice(2, 4).map((item) => (
-                <div className='p-2'>
-                  {formItemCreate(
-                    item.key,
-                    item.rules,
-                    item.kwargs,
-                    item.type,
-                    item.others,
-                    item.label,
-                  )}
-                </div>
-              ))}
-            </Col>
-            <Col span={8}>
-              {mainFields.slice(4, 6).map((item) => (
-                <div className='p-2'>
-                  {formItemCreate(
-                    item.key,
-                    item.rules,
-                    item.kwargs,
-                    item.type,
-                    item.others,
-                    item.label,
-                  )}
-                </div>
-              ))}
-            </Col>
-          </Row>
-          <Row>
-            <Col span={12}>
-              {addressFiels.slice(0, 1).map((item) => (
-                <div className='p-2'>
-                  {formItemCreate(
-                    item.key,
-                    item.rules,
-                    item.kwargs,
-                    item.type,
-                    item.others,
-                    item.label,
-                  )}
-                </div>
-              ))}
-            </Col>
-            <Col span={12}>
-              {addressFiels.slice(1, 2).map((item) => (
-                <div className='p-2'>
-                  {formItemCreate(
-                    item.key,
-                    item.rules,
-                    item.kwargs,
-                    item.type,
-                    item.others,
-                    item.label,
-                  )}
-                </div>
-              ))}
-            </Col>
-          </Row>
-          <Row>
-            <Col span={8}>
-              {addressFiels.slice(2, 3).map((item) => (
-                <div className='p-2'>
-                  {formItemCreate(
-                    item.key,
-                    item.rules,
-                    item.kwargs,
-                    item.type,
-                    item.others,
-                    item.label,
-                  )}
-                </div>
-              ))}
-            </Col>
+    <div className=''>
+      <Form onSubmit={handleSubmit} layout='horizontal' hideRequiredMark>
+        <Row>
+          <Col span={8}>
+            {mainFields.slice(0, 2).map((item) => (
+              <div className='p-2'>
+                {formItemCreate(
+                  item.key,
+                  item.rules,
+                  item.kwargs,
+                  item.type,
+                  item.others,
+                  item.label,
+                )}
+              </div>
+            ))}
+          </Col>
+          <Col span={8}>
+            {mainFields.slice(2, 4).map((item) => (
+              <div className='p-2'>
+                {formItemCreate(
+                  item.key,
+                  item.rules,
+                  item.kwargs,
+                  item.type,
+                  item.others,
+                  item.label,
+                )}
+              </div>
+            ))}
+          </Col>
+          <Col span={8}>
+            {mainFields.slice(4, 6).map((item) => (
+              <div className='p-2'>
+                {formItemCreate(
+                  item.key,
+                  item.rules,
+                  item.kwargs,
+                  item.type,
+                  item.others,
+                  item.label,
+                )}
+              </div>
+            ))}
+          </Col>
+        </Row>
+        <Row>
+          <Col span={12}>
+            {addressFiels.slice(0, 1).map((item) => (
+              <div className='p-2'>
+                {formItemCreate(
+                  item.key,
+                  item.rules,
+                  item.kwargs,
+                  item.type,
+                  item.others,
+                  item.label,
+                )}
+              </div>
+            ))}
+          </Col>
+          <Col span={12}>
+            {addressFiels.slice(1, 2).map((item) => (
+              <div className='p-2'>
+                {formItemCreate(
+                  item.key,
+                  item.rules,
+                  item.kwargs,
+                  item.type,
+                  item.others,
+                  item.label,
+                )}
+              </div>
+            ))}
+          </Col>
+        </Row>
+        <Row>
+          <Col span={8}>
+            {addressFiels.slice(2, 3).map((item) => (
+              <div className='p-2'>
+                {formItemCreate(
+                  item.key,
+                  item.rules,
+                  item.kwargs,
+                  item.type,
+                  item.others,
+                  item.label,
+                )}
+              </div>
+            ))}
+          </Col>
 
-            <Col span={8}>
-              {addressFiels.slice(3, 4).map((item) => (
-                <div className='p-2'>
-                  {formItemCreate(
-                    item.key,
-                    item.rules,
-                    item.kwargs,
-                    item.type,
-                    item.others,
-                    item.label,
-                  )}
-                </div>
-              ))}
-            </Col>
-            <Col span={8}>
-              {addressFiels.slice(4, 5).map((item) => (
-                <div className='p-2'>
-                  {formItemCreate(
-                    item.key,
-                    item.rules,
-                    item.kwargs,
-                    item.type,
-                    item.others,
-                    item.label,
-                  )}
-                </div>
-              ))}
-            </Col>
-          </Row>
-          <Row>
-            <Button type='primary'>Save</Button>
-            <div className='p-2' />
-            <Button type='primary'>Cancel</Button>
-          </Row>
-        </Form>
-      </div>
+          <Col span={8}>
+            {addressFiels.slice(3, 4).map((item) => (
+              <div className='p-2'>
+                {formItemCreate(
+                  item.key,
+                  item.rules,
+                  item.kwargs,
+                  item.type,
+                  item.others,
+                  item.label,
+                )}
+              </div>
+            ))}
+          </Col>
+          <Col span={8}>
+            {addressFiels.slice(4, 5).map((item) => (
+              <div className='p-2'>
+                {formItemCreate(
+                  item.key,
+                  item.rules,
+                  item.kwargs,
+                  item.type,
+                  item.others,
+                  item.label,
+                )}
+              </div>
+            ))}
+          </Col>
+        </Row>
+        <Row>
+          <Button
+            type='primary'
+            onClick={() => {
+              onCancel();
+            }}>
+            Save
+          </Button>
+          <div className='p-2' />
+          <Button type='primary' onClick={onCancel}>
+            Cancel
+          </Button>
+        </Row>
+      </Form>
     </div>
   );
 }

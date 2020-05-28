@@ -3,18 +3,12 @@ import './App.css';
 import { Router } from '@reach/router';
 import { Provider } from 'react-redux';
 import { store } from '@app/common/reducers';
-import { LoadingOutlined } from '@ant-design/icons';
 import ScreenWrapper from './components/screenWrapper';
-import { supplierRoutes, publicRoutes } from './helpers/routes';
+import { shipperRoutes, publicRoutes } from './helpers/routes';
+import Loading from './components/loadingComponent';
 
 function App() {
-  const loading = () => (
-    <div className=''>
-      <LoadingOutlined />
-    </div>
-  );
-
-  const userType = 'anonymous';
+  const userType = 'supplier';
   const getRouter = () => {
     switch (userType) {
       case 'anonymous':
@@ -27,12 +21,12 @@ function App() {
         );
       case 'supplier':
         return (
-          <ScreenWrapper routes={supplierRoutes}>
+          <ScreenWrapper routes={shipperRoutes}>
             <Router>
-              {supplierRoutes.map((i, index) => {
+              {shipperRoutes.map((i, index) => {
                 return <i.component path={i.path} key={index.toString()} />;
               })}
-              {supplierRoutes.map((i) => {
+              {shipperRoutes.map((i) => {
                 return i.subMenu
                   ? i.subMenu.map((subI, ind) => (
                     <subI.component path={subI.path} key={ind.toString()} />
@@ -48,7 +42,7 @@ function App() {
   };
   return (
     <Provider store={store}>
-      <Suspense fallback={loading()}>{getRouter()}</Suspense>
+      <Suspense fallback={Loading}>{getRouter()}</Suspense>
     </Provider>
   );
 }
