@@ -1,9 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Form, Button, notification, Modal, Input } from 'antd';
+import React, { useState } from 'react';
+import { Form, Button, notification, Modal, Input, Typography } from 'antd';
 import { useDispatch } from 'react-redux';
-
-import * as jwtDecode from 'jwt-decode';
-import { reactLocalStorage } from 'reactjs-localstorage';
 
 import { Icon } from '@ant-design/compatible';
 import { loadAPI } from '@app/common/helpers/api';
@@ -11,13 +8,14 @@ import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '@app/common/constants/storage';
 import { userAuthenticated } from '@app/common/actions/auth';
+import { getUserMeta } from '@app/common/helpers/auth';
 import { formItemCreate } from '../helpers/formItemCreate';
 import { FORM_ELEMENT_TYPES } from '../constants/formFields.constant';
 
-const { confirm } = Modal;
+const { Title } = Typography;
 
-function VerifyUserModal({ username, password, signIn, close }) {
-  const [otp, setOTP] = useState(0);
+function VerifyUserModal({ username, password, signIn, close, open }) {
+  const [otp, setOTP] = useState('');
 
   const handleVerification = async (c) => {
     const { error } = await loadAPI('/verifyOTP/', {
@@ -32,34 +30,30 @@ function VerifyUserModal({ username, password, signIn, close }) {
       });
     else {
       await signIn({ username, password });
-      c();
       close();
     }
   };
 
-  useEffect(() => {
-    confirm({
-      title: 'Your account is not verified',
-      icon: <ExclamationCircleOutlined />,
-      okText: 'Verify',
-      onOk: handleVerification,
-      onCancel: close,
-      content: (
-        <div>
-          Enter verification OTP you received in mail
-          <Input
-            prefix={<Icon type='lock' style={{ color: 'rgba(0,0,0,.25)' }} />}
-            placeholder='6 digit OTP'
-            onChange={(e) => setOTP(e.target.value)}
-            type='number'
-            onPressEnter={handleVerification}
-          />
-        </div>
-      ),
-    });
-  }, [username]);
-
-  return null;
+  return (
+    <Modal onOk={handleVerification} onCancel={close} visible={open} okText='Verify my account'>
+      <Title level={4}>
+        <ExclamationCircleOutlined style={{ color: '#FFB108' }} />
+        {' '}
+        Your account is not verified yet
+      </Title>
+      <div>
+        Enter verification OTP you received in mail
+        <Input
+          value={otp}
+          prefix={<Icon type='lock' style={{ color: 'rgba(0,0,0,.25)' }} />}
+          placeholder='6 digit OTP'
+          onChange={(e) => setOTP(e.target.value)}
+          type='number'
+          onPressEnter={handleVerification}
+        />
+      </div>
+    </Modal>
+  );
 }
 
 function SignInComponent() {
@@ -68,17 +62,17 @@ function SignInComponent() {
 
   const handelSignIn = async ({ username, password }) => {
     try {
-      const { data: tokens } = await loadAPI('/auth/token/', {
+      const { data: tokens } = await loadAPI('/api/token/', {
         method: 'POST',
         data: { username, password },
+        secure: false,
       });
 
-      const accessToken = tokens.access_token;
-      reactLocalStorage.setObject(ACCESS_TOKEN, accessToken);
-      reactLocalStorage.setObject(REFRESH_TOKEN, tokens.refresh_token);
+      const { access, refresh } = tokens;
+      await window.storage.set(ACCESS_TOKEN, access);
+      await window.storage.set(REFRESH_TOKEN, refresh);
 
-      const { type, name } = jwtDecode(accessToken);
-      dispatch(userAuthenticated({ name, type }));
+      await getUserMeta(dispatch);
     } catch (e) {
       notification.error({ message: `Can't SignIn user: ${username}`, description: e.toString() });
     }
@@ -86,7 +80,7 @@ function SignInComponent() {
 
   // eslint-disable-next-line consistent-return
   const handleSubmit = async ({ username, password }) => {
-    const { data: verified, error } = await loadAPI('/user/meta/', {
+    const { data: verified, error } = await loadAPI('/verification/', {
       params: { username },
       secure: false,
     });
@@ -101,14 +95,12 @@ function SignInComponent() {
         <h1>Login</h1>
         <p>Sign in to your account</p>
       </div>
-      {verify.open ? (
-        <VerifyUserModal
-          username={verify.username}
-          password={verify.password}
-          signIn={handelSignIn}
-          close={() => setVerify({ open: false, username: '', password: '' })}
-        />
-      ) : null}
+      <VerifyUserModal
+        {...verify}
+        signIn={handelSignIn}
+        close={() => setVerify({ open: false, username: '', password: '' })}
+      />
+
       <Form onFinish={handleSubmit} layout='vertical' hideRequiredMark>
         {formItemCreate(
           'username',

@@ -1,15 +1,19 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import './App.css';
 import { Router } from '@reach/router';
-import { Provider } from 'react-redux';
+import { Provider, useDispatch } from 'react-redux';
 import { store } from '@app/common/reducers';
 
 import { useUser } from '@app/common/hooks/user';
 import { $User$SHIPPER, $User$Supplier$FTL } from '@app/common/constants/userTypes';
 
+import { getUserMeta } from '@app/common/helpers/auth';
+
+import { Spin } from 'antd';
 import ScreenWrapper from './components/screenWrapper';
 import { shipperRoutes, publicRoutes, supplierFTLRoutes } from './helpers/routes';
 import Loading from './components/loadingComponent';
+import { storage } from './helpers/store';
 
 function PrivateRoutes({ routes }) {
   return (
@@ -34,7 +38,33 @@ function PrivateRoutes({ routes }) {
  * @return {null}
  */
 function RootRouter() {
+  const [loading, setLoading] = useState(true);
+
   const user = useUser();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const init = async () => {
+      console.log({ storage });
+      await getUserMeta(dispatch);
+    };
+
+    init().then(() => setLoading(false));
+  }, []);
+
+  if (loading)
+    return (
+      <div
+        style={{
+          width: '100vw',
+          height: '100vh',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+        <Spin />
+      </div>
+    );
 
   switch (user.type) {
     case null:
