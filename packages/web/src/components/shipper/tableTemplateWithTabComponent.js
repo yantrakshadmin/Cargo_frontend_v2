@@ -10,6 +10,7 @@ function TableTemplateWithTabComponent({ title, tabs, modalBody }) {
   const callback = (key) => {
     setActiveTab(key);
   };
+
   const getIndex = () => {
     let activeIndex = 0;
     tabs.filter((i, index) => {

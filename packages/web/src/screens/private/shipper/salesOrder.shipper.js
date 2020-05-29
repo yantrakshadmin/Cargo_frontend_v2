@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { CloseSquareOutlined, EditOutlined } from '@ant-design/icons';
-import TableTemplateWithTabComponent
-  from '../../../components/shipper/tableTemplateWithTabComponent';
+import TableTemplateWithTabComponent from '../../../components/shipper/tableTemplateWithTabComponent';
 import { yantraColors } from '../../../helpers/yantraColors';
+import SalesOrderForm from '../../../components/forms/salesOrder.form';
 
 function SalesOrder() {
   const dataSource = [
@@ -75,37 +75,54 @@ function SalesOrder() {
 
   const tabs = [
     {
-      name:'All Sales Orders',
-      key:'allSalesOrder',
-      data:dataSource,
-      columns
-    },{
-      name:'On Hold',
-      key:'onHold',
-      data:dataSource,
-      columns
-    },{
-      name:'Ready To Dispatch',
-      key:'readyToDispatch',
-      data:dataSource,
-      menu:[
-        { title:'dispatch',
-          onClick:()=>{console.log('worked')},type:'danger' },
-        { title:'dispatch',
-          onClick:()=>{console.log('worked')}, },
-        { title:'dispatch',
-          onClick:()=>{console.log('worked')},type:'default' },],
-      columns
-    },{
-      name:'Dispatched',
-      key:'dispatched',
-      data:dataSource,
-      columns
-
+      name: 'All Sales Orders',
+      key: 'allSalesOrder',
+      data: dataSource,
+      columns,
     },
-  ]
+    {
+      name: 'On Hold',
+      key: 'onHold',
+      data: dataSource,
+      columns,
+    },
+    {
+      name: 'Ready To Dispatch',
+      key: 'readyToDispatch',
+      data: dataSource,
+      menu: [
+        {
+          title: 'dispatch',
+          onClick: () => {
+            console.log('worked');
+          },
+          type: 'danger',
+        },
+        {
+          title: 'dispatch',
+          onClick: () => {
+            console.log('worked');
+          },
+        },
+        {
+          title: 'dispatch',
+          onClick: () => {
+            console.log('worked');
+          },
+          type: 'default',
+        },
+      ],
+      columns,
+    },
+    {
+      name: 'Dispatched',
+      key: 'dispatched',
+      data: dataSource,
+      columns,
+    },
+  ];
   return (
-    <TableTemplateWithTabComponent tabs={tabs} title='Sales Orders' modalBody={null} />
+    <TableTemplateWithTabComponent tabs={tabs} title='Sales Orders' modalBody={SalesOrderForm} />
   );
 }
 

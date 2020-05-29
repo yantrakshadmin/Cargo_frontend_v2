@@ -3,38 +3,49 @@ import { Typography, Button, Divider, Row, Col, Table, Modal } from 'antd';
 
 const { Title } = Typography;
 
-function MasterTemplateComponent({ title, data, columns, modalBody }) {
+function MasterTemplateComponent({
+  title,
+  data,
+  columns,
+  modalBody,
+  hideRightButton,
+  customRightButtonLabel,
+}) {
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <div>
-      <Modal
-        visible={modalVisible}
-        onCancel={() => {
-          setModalVisible(false);
-        }}
-        style={{ minWidth: '80vw' }}
-        title={`Add ${title}`}
-        footer={null}>
-        {modalBody({
-          onCancel: () => {
+      {hideRightButton ? null : (
+        <Modal
+          visible={modalVisible}
+          onCancel={() => {
             setModalVisible(false);
-          },
-        })}
-      </Modal>
+          }}
+          style={{ minWidth: '80vw' }}
+          title={customRightButtonLabel || `Add ${title}`}
+          footer={null}>
+          {modalBody({
+            onCancel: () => {
+              setModalVisible(false);
+            },
+          })}
+        </Modal>
+      )}
       <Row justify='space-between'>
         <Col>
           <Title level={3}>{title}</Title>
         </Col>
         <Col>
-          <Button
-            type='primary'
-            onClick={() => {
-              setModalVisible(true);
-            }}>
-            Add 
-            {' '}
-            {title}
-          </Button>
+          {hideRightButton ? null : (
+            <Button
+              type='primary'
+              onClick={() => {
+                setModalVisible(true);
+              }}>
+              Add 
+              {' '}
+              {title}
+            </Button>
+          )}
         </Col>
       </Row>
       <Divider style={{ margin: 0, padding: 0 }} />
