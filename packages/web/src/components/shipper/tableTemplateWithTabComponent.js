@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-import { Typography, Button, Divider, Row, Col, Table, Modal,Tabs } from 'antd';
+import { Typography, Button, Divider, Row, Col, Table, Modal, Tabs } from 'antd';
 
 const { Title } = Typography;
 const { TabPane } = Tabs;
@@ -7,19 +7,19 @@ const { TabPane } = Tabs;
 function TableTemplateWithTabComponent({ title, tabs, modalBody }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [activeTab, setActiveTab] = useState(tabs[0].key);
-  const callback=(key)=>{
+  const callback = (key) => {
     setActiveTab(key);
-  }
-  const getIndex=()=>{
-    let activeIndex =0;
-    tabs.filter((i,index)=>{
-      if(i.key === activeTab){
-        activeIndex=index
+  };
+  const getIndex = () => {
+    let activeIndex = 0;
+    tabs.filter((i, index) => {
+      if (i.key === activeTab) {
+        activeIndex = index;
       }
-      return null
-    })
-    return activeIndex
-  }
+      return null;
+    });
+    return activeIndex;
+  };
 
   return (
     <div>
@@ -31,11 +31,13 @@ function TableTemplateWithTabComponent({ title, tabs, modalBody }) {
         style={{ minWidth: '80vw' }}
         title={`Add ${title}`}
         footer={null}>
-        {modalBody?modalBody({
-          onCancel: () => {
-            setModalVisible(false);
-          },
-        }):null}
+        {modalBody
+          ? modalBody({
+            onCancel: () => {
+              setModalVisible(false);
+            },
+          })
+          : null}
       </Modal>
       <Row justify='space-between'>
         <Col>
@@ -47,7 +49,7 @@ function TableTemplateWithTabComponent({ title, tabs, modalBody }) {
             onClick={() => {
               setModalVisible(true);
             }}>
-            Add
+            Add 
             {' '}
             {title}
           </Button>
@@ -56,30 +58,36 @@ function TableTemplateWithTabComponent({ title, tabs, modalBody }) {
       <Divider style={{ margin: 0, padding: 0 }} />
       <Row />
       {
-        tabs[getIndex()]?
-          tabs[getIndex()].menu?(
+        // eslint-disable-next-line no-nested-ternary
+        tabs[getIndex()] ? (
+          tabs[getIndex()].menu ? (
             <Row>
               <Col span={24}>
-                {
-          tabs[getIndex()].menu.map((i,) => (
-            <Button className='m-2 ' type={i.type || "primary"} key={i.title} onClick={i.onClick}>{i.title}</Button>
-          ))
-        }
+                {tabs[getIndex()].menu.map((i) => (
+                  <Button
+                    className='m-2 '
+                    type={i.type || 'primary'}
+                    key={i.title}
+                    onClick={i.onClick}>
+                    {i.title}
+                  </Button>
+                ))}
               </Col>
             </Row>
-          ):null:null
+          ) : null
+        ) : null
       }
       <Row>
         <Col span={24}>
-          {tabs?(
+          {tabs ? (
             <Tabs defaultActiveKey={tabs[0].key} onChange={callback}>
-              {tabs.map((tab)=>(
+              {tabs.map((tab) => (
                 <TabPane tab={tab.name} key={tab.key}>
                   <Table bordered dataSource={tab.data} columns={tab.columns} />
                 </TabPane>
               ))}
             </Tabs>
-          ):null}
+          ) : null}
         </Col>
       </Row>
     </div>

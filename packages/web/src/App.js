@@ -4,47 +4,62 @@ import { Router } from '@reach/router';
 import { Provider } from 'react-redux';
 import { store } from '@app/common/reducers';
 
+import { useUser } from '@app/common/hooks/user';
+import { $User$SHIPPER, $User$Supplier$FTL } from '@app/common/constants/userTypes';
+
 import ScreenWrapper from './components/screenWrapper';
-import { shipperRoutes, publicRoutes } from './helpers/routes';
+import { shipperRoutes, publicRoutes, supplierFTLRoutes } from './helpers/routes';
 import Loading from './components/loadingComponent';
 
-function App() {
-  const userType = 'anonymous';
-  const getRouter = () => {
-    switch (userType) {
-      case 'anonymous':
-        return (
-          <Router>
-            {publicRoutes.map((i, index) => {
-              return <i.component path={i.path} key={index.toString()} />;
-            })}
-          </Router>
-        );
-      case 'supplier':
-        return (
-          <ScreenWrapper routes={shipperRoutes}>
-            <Router>
-              {shipperRoutes.map((i, index) => {
-                return <i.component path={i.path} key={index.toString()} />;
-              })}
-              {shipperRoutes.map((i) => {
-                return i.subMenu
-                  ? i.subMenu.map((subI, ind) => (
-                    <subI.component path={subI.path} key={ind.toString()} />
-                  ))
-                  : null;
-              })}
-            </Router>
-          </ScreenWrapper>
-        );
-      default:
-        return null;
-    }
-  };
+function PrivateRoutes({ routes }) {
+  return (
+    <ScreenWrapper routes={routes}>
+      <Router>
+        {routes.map((Route, index) => {
+          return <Route.Component path={Route.path} key={index.toString()} />;
+        })}
+        {routes.map((Route) => {
+          return Route.subMenu
+            ? Route.subMenu.map((ChildRoute, ind) => (
+              <ChildRoute.Component path={ChildRoute.path} key={ind.toString()} />
+            ))
+            : null;
+        })}
+      </Router>
+    </ScreenWrapper>
+  );
+}
 
+/**
+ * @return {null}
+ */
+function RootRouter() {
+  const user = useUser();
+
+  switch (user.type) {
+    case null:
+      return (
+        <Router>
+          {publicRoutes.map((Route, index) => {
+            return <Route.Component path={Route.path} key={index.toString()} />;
+          })}
+        </Router>
+      );
+    case $User$SHIPPER:
+      return <PrivateRoutes routes={shipperRoutes} />;
+    case $User$Supplier$FTL:
+      return <PrivateRoutes routes={supplierFTLRoutes} />;
+    default:
+      return null;
+  }
+}
+
+function App() {
   return (
     <Provider store={store}>
-      <Suspense fallback={Loading}>{getRouter()}</Suspense>
+      <Suspense fallback={Loading}>
+        <RootRouter />
+      </Suspense>
     </Provider>
   );
 }

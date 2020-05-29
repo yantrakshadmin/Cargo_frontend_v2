@@ -1,4 +1,4 @@
-import { USER_AUTH_SUCCESS } from 'packages/common/actions/index';
+import { USER_AUTH_SUCCESS } from './index';
 
 export const userAuthenticated = ({ name, type }) => ({
   type: USER_AUTH_SUCCESS,

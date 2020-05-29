@@ -1,12 +1,12 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import { View, Text } from 'react-native';
 
-import {Button} from '@ant-design/react-native';
-import {useDispatch, useSelector} from 'react-redux';
+import { Button } from '@ant-design/react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
-import {demoButtonClicked} from '@app/common/actions/demo';
+import { demoButtonClicked } from '@app/common/actions/demo';
 
-import {styles} from 'styles/default';
+import { styles } from 'styles/default';
 
 export const HelloButton = () => {
   const count = useSelector((state) => state.demo.clicked);
@@ -19,7 +19,7 @@ export const HelloButton = () => {
         Count:
         {count}
       </Text>
-      <Button onPress={() => dispatch(demoButtonClicked())} type="primary">
+      <Button onPress={() => dispatch(demoButtonClicked())} type='primary'>
         Click me to increase count
       </Button>
     </View>

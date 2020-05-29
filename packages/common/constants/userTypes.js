@@ -1,3 +1,3 @@
-export const $User$SUPPLIER = 's';
-export const $User$FTL = 'f';
-export const $User$PTL = 'p';
+export const $User$SHIPPER = 's';
+export const $User$Supplier$FTL = 'f';
+export const $User$Supplier$PTL = 'p';
