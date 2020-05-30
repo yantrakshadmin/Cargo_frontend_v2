@@ -1,17 +1,24 @@
 import React, { useState, Suspense } from 'react';
 import { Layout, Menu, Divider, Avatar } from 'antd';
 import { Link } from '@reach/router';
-import { UserOutlined, MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
+import { useDispatch } from 'react-redux';
+import { UserOutlined } from '@ant-design/icons';
+
 import logo from '@app/common/assets/Yantraksh Logo.png';
+import { useUser } from '@app/common/hooks/user';
 
 import { Loading } from 'components/Loding';
+import { logout } from '@app/common/actions/auth';
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider, Footer } = Layout;
 
-export const ScreenWrapper = ({ children, routes }) => {
+export const ScreenWrapper = ({ routes, navigate, children }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [collapsedWidth, setCollapsedWidth] = useState(80);
+  const dispatch = useDispatch();
+
+  const user = useUser();
 
   return (
     <Layout className=''>
@@ -20,28 +27,20 @@ export const ScreenWrapper = ({ children, routes }) => {
         style={{ backgroundColor: '#fff', paddingLeft: 20, paddingRight: 20 }}>
         <div className='bg-white m-0 row align-center'>
           <img style={{ width: 120, height: 30, marginRight: 10 }} alt='Yantraksh' src={logo} />
-          {isCollapsed ? (
-            <MenuUnfoldOutlined
-              onClick={() => {
-                setIsCollapsed(false);
-                setCollapsedWidth(80);
-              }}
-              style={{ color: 'rgba(0,0,0,.65)', fontSize: 30 }}
-            />
-          ) : (
-            <MenuFoldOutlined
-              onClick={() => {
-                setCollapsedWidth(0);
-                setIsCollapsed(true);
-              }}
-              style={{ color: 'rgba(0,0,0,.65)', fontSize: 30 }}
-            />
-          )}
         </div>
-        <div className='row align-center'>
-          <p className='m-2'>demo_shipper</p>
+
+        {/* eslint-disable-next-line max-len */}
+        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+        <div
+          className='row align-center'
+          onClick={() => {
+            dispatch(logout());
+            navigate('');
+          }}>
+          <p className='m-2'>{user.name}</p>
           <Avatar size='large' icon={<UserOutlined />} />
         </div>
+
       </Header>
       <Divider style={{ margin: 0, padding: 0 }} />
       <Layout>

@@ -4,7 +4,7 @@ import axios from 'axios';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '../constants/storage';
 import { DEFAULT_BASE_URL } from '../constants/enviroment';
 
-import { getStorage } from './storage';
+import { getStorage } from './shared';
 
 axios.defaults.baseURL = DEFAULT_BASE_URL;
 

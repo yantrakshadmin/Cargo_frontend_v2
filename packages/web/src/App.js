@@ -4,9 +4,7 @@ import React, { Suspense } from 'react';
 import { Provider } from 'react-redux';
 import { store } from '@app/common/reducers';
 
-// Import to initialize window.storage
-// eslint-disable-next-line no-unused-vars
-import { storage } from 'helpers/store';
+import 'helpers/shared';
 
 import { Loading } from 'components/Loding';
 import { RootRouter } from 'components/RootRouter';

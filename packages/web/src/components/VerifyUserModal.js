@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Input, Modal, notification, Typography } from 'antd';
 
-import { loadAPI } from '@app/common/helpers/api';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { Icon } from '@ant-design/compatible';
+import { verifyUser } from '@app/common/api';
 
 const { Title } = Typography;
 
@@ -11,11 +11,7 @@ export const VerifyUserModal = ({ username, password, signIn, close, open }) => 
   const [otp, setOTP] = useState('');
 
   const handleVerification = async () => {
-    const { error } = await loadAPI('/verifyOTP/', {
-      method: 'POST',
-      data: { username, otp },
-      secure: false,
-    });
+    const { error } = await verifyUser({ username, otp });
     if (error)
       notification.error({
         message: `Cant verify user: ${username}`,

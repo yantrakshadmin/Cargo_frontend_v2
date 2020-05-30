@@ -3,7 +3,6 @@ import { Form, Button, notification } from 'antd';
 import { useDispatch } from 'react-redux';
 
 import { Icon } from '@ant-design/compatible';
-import { loadAPI } from '@app/common/helpers/api';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '@app/common/constants/storage';
 import { getUserMeta } from '@app/common/helpers/auth';
 
@@ -12,17 +11,15 @@ import { FORM_ELEMENT_TYPES } from 'constants/formFields.constant';
 
 import { VerifyUserModal } from 'components/VerifyUserModal';
 
+import { getJWTTokens, isUserVerified } from '@app/common/api';
+
 export const SignInCard = () => {
   const [verify, setVerify] = useState({ open: false, username: '', password: '' });
   const dispatch = useDispatch();
 
   const handelSignIn = async ({ username, password }) => {
     try {
-      const { data: tokens } = await loadAPI('/api/token/', {
-        method: 'POST',
-        data: { username, password },
-        secure: false,
-      });
+      const { data: tokens } = await getJWTTokens({ username, password });
 
       const { access, refresh } = tokens;
       await window.storage.set(ACCESS_TOKEN, access);
@@ -36,10 +33,8 @@ export const SignInCard = () => {
 
   // eslint-disable-next-line consistent-return
   const handleSubmit = async ({ username, password }) => {
-    const { data: verified, error } = await loadAPI('/verification/', {
-      params: { username },
-      secure: false,
-    });
+    const { data: verified, error } = await isUserVerified({ username });
+
     if (error)
       notification.error({
         message: `Error with user: ${username}`,
