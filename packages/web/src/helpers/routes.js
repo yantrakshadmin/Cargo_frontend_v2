@@ -69,33 +69,27 @@ export const shipperRoutes = [
 
 export const supplierFTLRoutes = [
   {
-    name: 'Freight Exchange',
-    icon: <LayoutOutlined />,
-    path: '/freight-exchange',
-    Component: lazy(() => import('../screens/private/supplier/dashboard')),
-  },
-  {
     name: 'View available loads',
     icon: <LayoutOutlined />,
     path: '/view-available-loads',
-    Component: lazy(() => () => import('../screens/private/supplier/dashboard')),
+    Component: lazy(() => import('../screens/private/supplier/FTL/ViewAvailableLoads')),
   },
   {
     name: 'Post Truck',
     icon: <LayoutOutlined />,
     path: '/post-truck',
-    Component: lazy(() => import('../screens/private/supplier/dashboard')),
+    Component: lazy(() => import('../screens/private/supplier/FTL/postTruck')),
   },
   {
-    name: 'Quotation',
+    name: 'My Bids',
     icon: <LayoutOutlined />,
-    path: '/quotation',
-    Component: lazy(() => import('../screens/private/supplier/dashboard')),
+    path: '/my-bids',
+    Component: lazy(() => import('../screens/private/supplier/FTL/myBids')),
   },
   {
     name: 'Trips Management',
     icon: <LayoutOutlined />,
     path: '/trips-management',
-    Component: lazy(() => import('../screens/private/supplier/dashboard')),
+    Component: lazy(() => import('../screens/private/supplier/FTL/tripManagement')),
   },
 ];

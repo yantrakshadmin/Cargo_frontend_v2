@@ -66,7 +66,8 @@ function RootRouter() {
       </div>
     );
 
-  switch (user.type) {
+  // switch (user.type) {
+  switch ($User$Supplier$FTL) {
     case null:
       return (
         <Router>

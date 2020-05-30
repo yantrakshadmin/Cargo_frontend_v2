@@ -61,7 +61,7 @@ function VendorForm({ onCancel }) {
       label: 'Secondary Phone',
     },
     {
-      key: 'truckType',
+      key: 'truck_type',
       rules: [{ required: true, message: 'Please input truck type!' }],
       kwargs: {
         placeholder: 'Truck Type',

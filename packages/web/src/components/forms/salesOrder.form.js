@@ -310,12 +310,4 @@ function SalesOrderForm(props) {
     </div>
   );
 }
-function ModelView(props) {
-  return (
-    <Modal visible style={{ minWidth: '80vw' }} title='Add Sales Order' footer={null}>
-      <SalesOrderForm />
-    </Modal>
-  );
-}
-
-export default ModelView;
+export default SalesOrderForm;
