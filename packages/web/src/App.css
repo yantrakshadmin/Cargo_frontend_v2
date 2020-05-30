@@ -1,120 +1,132 @@
 .App {
-  text-align: center;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #e4e5e6;
-  padding: 40px;
+    text-align: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #e4e5e6;
+    padding: 40px;
 }
+
 .row {
-  display: flex;
-  flex-direction: row;
+    display: flex;
+    flex-direction: row;
 }
+
 .column {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
+
 .align-center {
-  align-items: center;
+    align-items: center;
 }
+
 .justify-center {
-  justify-content: center;
+    justify-content: center;
 }
+
 .justify-between {
-  justify-content: space-between;
+    justify-content: space-between;
 }
+
 .justify-end {
-  justify-content: flex-end;
+    justify-content: flex-end;
 }
+
 .main-sign-in {
-  min-height: 50vh;
-  min-width: 50vw;
-  box-shadow: 1px 1px 2px 2px #e4e5e6;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  background-color: #20a8d8;
-  border-color: #20a8d8;
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 5px;
+    min-height: 50vh;
+    min-width: 50vw;
+    box-shadow: 1px 1px 2px 2px #e4e5e6;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: #20a8d8;
+    border-color: #20a8d8;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 5px;
 }
+
 .sign-in-form {
-  padding: 20px 40px;
+    padding: 20px 40px;
 }
+
 .sign-heading-container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
+
 .sign-in-left-container {
-  min-width: 25vw;
-  min-height: 50vh;
-  background-color: #fff;
-  border-radius: 5px 0px 0px 5px;
+    min-width: 25vw;
+    min-height: 50vh;
+    background-color: #fff;
+    border-radius: 5px 0px 0px 5px;
 }
 
 .sign-in-right-container {
-  min-height: 50vh;
-  min-width: 25vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+    min-height: 50vh;
+    min-width: 25vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .main-sign-up-shipper {
-  min-height: 50vh;
-  min-width: 35vw;
-  box-shadow: 1px 1px 2px 2px #e4e5e6;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 20px;
-  border-color: #20a8d8;
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 5px;
-  background-color: #ffffff;
+    min-height: 50vh;
+    min-width: 35vw;
+    box-shadow: 1px 1px 2px 2px #e4e5e6;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    border-color: #20a8d8;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 5px;
+    background-color: #ffffff;
 }
 
 .sign-up-form-container {
-  min-height: 50vh;
-  min-width: 35vw;
-  display: flex;
-  flex-direction: column;
+    min-height: 50vh;
+    min-width: 35vw;
+    display: flex;
+    flex-direction: column;
 }
 
 .container-vendor {
-  /*min-height: 100vh;*/
-  min-width: 80%;
-  display: flex;
-  flex-direction: column;
-  background-color: #ffffff;
-  border-color: #e4e5e6;
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 5px;
-  margin: 40px;
+    /*min-height: 100vh;*/
+    min-width: 80%;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    border-color: #e4e5e6;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 5px;
+    margin: 40px;
 }
 
 .vendor-form-container {
-  padding: 10px 20px 10px 20px;
+    padding: 10px 20px 10px 20px;
 }
+
 .heading-vendor {
-  padding: 10px 20px 10px 20px;
-  border-radius: 5px 5px 0 0;
-  display: flex;
-  justify-content: flex-start;
+    padding: 10px 20px 10px 20px;
+    border-radius: 5px 5px 0 0;
+    display: flex;
+    justify-content: flex-start;
 }
+
 .bg-dark {
-  background-color: #eee;
+    background-color: #eee;
 }
 
 .content-style {
-  padding: 24px;
-  margin: 0;
+    padding: 24px;
+    margin: 0;
 }

@@ -20,6 +20,7 @@ export const formItemCreate = (key, rules, kwargs, type, others, customLabel, no
           <Input {...kwargs} />
         </Form.Item>
       );
+
     case FORM_ELEMENT_TYPES.FILE_DRAG_DROP:
       return (
         <Form.Item
@@ -35,6 +36,7 @@ export const formItemCreate = (key, rules, kwargs, type, others, customLabel, no
           </Upload.Dragger>
         </Form.Item>
       );
+
     case FORM_ELEMENT_TYPES.SELECT:
       return (
         <Form.Item
@@ -50,6 +52,7 @@ export const formItemCreate = (key, rules, kwargs, type, others, customLabel, no
           </Select>
         </Form.Item>
       );
+
     case FORM_ELEMENT_TYPES.RADIO:
       return (
         <Form.Item
@@ -63,6 +66,7 @@ export const formItemCreate = (key, rules, kwargs, type, others, customLabel, no
           </Radio.Group>
         </Form.Item>
       );
+
     case FORM_ELEMENT_TYPES.DATE:
       return (
         <Form.Item
