@@ -17,6 +17,6 @@ export const getUserMeta = async (dispatch) => {
       await storage.delete(REFRESH_TOKEN);
     }
   } catch (e) {
-    console.log(e);
+    // ignore error
   }
 };

@@ -115,7 +115,9 @@ exports.default = {
   primary_button_fill_tap: brandPrimaryTap,
 
   ghost_button_color: brandPrimary, // 同时应用于背景、文字颜色、边框色
-  ghost_button_fill_tap: `${brandPrimary}99`, // alpha 60%  https://codepen.io/chriscoyier/pen/XjbzAW
+
+  // alpha 60%  https://codepen.io/chriscoyier/pen/XjbzAW
+  ghost_button_fill_tap: `${brandPrimary}99`,
 
   warning_button_fill: '#e94f4f',
   warning_button_fill_tap: '#d24747',

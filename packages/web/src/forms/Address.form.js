@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Col, Row, Button } from 'antd';
-import { formItemCreate } from 'helpers/formItemCreate';
+import { formItem } from 'hocs/formItem.hoc';
 
 import { mainFormFields, addressFormFields } from '@app/common/formsFields/address.formFields';
 
@@ -15,7 +15,7 @@ export const AddressForm = ({ onCancel }) => {
         <Col span={12}>
           {mainFormFields.slice(0, 2).map((item) => (
             <div className='p-2'>
-              {formItemCreate(
+              {formItem(
                 item.key,
                 item.rules,
                 item.kwargs,
@@ -29,7 +29,7 @@ export const AddressForm = ({ onCancel }) => {
         <Col span={12}>
           {mainFormFields.slice(2, 4).map((item) => (
             <div className='p-2'>
-              {formItemCreate(
+              {formItem(
                 item.key,
                 item.rules,
                 item.kwargs,
@@ -45,7 +45,7 @@ export const AddressForm = ({ onCancel }) => {
         <Col span={8}>
           {addressFormFields.slice(0, 2).map((item) => (
             <div className='p-2'>
-              {formItemCreate(
+              {formItem(
                 item.key,
                 item.rules,
                 item.kwargs,
@@ -59,7 +59,7 @@ export const AddressForm = ({ onCancel }) => {
         <Col span={8}>
           {addressFormFields.slice(2, 4).map((item) => (
             <div className='p-2'>
-              {formItemCreate(
+              {formItem(
                 item.key,
                 item.rules,
                 item.kwargs,
@@ -73,7 +73,7 @@ export const AddressForm = ({ onCancel }) => {
         <Col span={8}>
           {addressFormFields.slice(4, 5).map((item) => (
             <div className='p-2'>
-              {formItemCreate(
+              {formItem(
                 item.key,
                 item.rules,
                 item.kwargs,

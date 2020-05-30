@@ -10,7 +10,7 @@ const { Title } = Typography;
 export const VerifyUserModal = ({ username, password, signIn, close, open }) => {
   const [otp, setOTP] = useState('');
 
-  const handleVerification = async (c) => {
+  const handleVerification = async () => {
     const { error } = await loadAPI('/verifyOTP/', {
       method: 'POST',
       data: { username, otp },

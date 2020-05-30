@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Col, Row, Button, Divider } from 'antd';
-import { formItemCreate } from 'helpers/formItemCreate';
+import { formItem } from 'hocs/formItem.hoc';
 
 import {
   salesOrderFormFields,
@@ -36,7 +36,7 @@ export const SalesOrderForm = () => {
           <Col span={8}>
             {salesOrderFormFields.slice(0, 2).map((item) => (
               <div className='p-2'>
-                {formItemCreate(
+                {formItem(
                   item.key,
                   item.rules,
                   item.kwargs,
@@ -50,7 +50,7 @@ export const SalesOrderForm = () => {
           <Col span={8}>
             {salesOrderFormFields.slice(2, 4).map((item) => (
               <div className='p-2'>
-                {formItemCreate(
+                {formItem(
                   item.key,
                   item.rules,
                   item.kwargs,
@@ -64,7 +64,7 @@ export const SalesOrderForm = () => {
           <Col span={8}>
             {salesOrderFormFields.slice(4, 5).map((item) => (
               <div className='p-2'>
-                {formItemCreate(
+                {formItem(
                   item.key,
                   item.rules,
                   item.kwargs,
@@ -111,7 +111,7 @@ export const SalesOrderForm = () => {
           <Col span={9}>
             {salesOrderItemFormField.slice(0, 1).map((item) => (
               <div className='p-2'>
-                {formItemCreate(
+                {formItem(
                   item.key,
                   item.rules,
                   item.kwargs,
@@ -125,7 +125,7 @@ export const SalesOrderForm = () => {
           <Col span={3}>
             {salesOrderItemFormField.slice(1, 2).map((item) => (
               <div className='p-2'>
-                {formItemCreate(
+                {formItem(
                   item.key,
                   item.rules,
                   item.kwargs,
@@ -139,7 +139,7 @@ export const SalesOrderForm = () => {
           <Col span={3}>
             {salesOrderItemFormField.slice(2, 3).map((item) => (
               <div className='p-2'>
-                {formItemCreate(
+                {formItem(
                   item.key,
                   item.rules,
                   item.kwargs,
@@ -153,7 +153,7 @@ export const SalesOrderForm = () => {
           <Col span={3}>
             {salesOrderItemFormField.slice(3, 4).map((item) => (
               <div className='p-2'>
-                {formItemCreate(
+                {formItem(
                   item.key,
                   item.rules,
                   item.kwargs,
@@ -167,7 +167,7 @@ export const SalesOrderForm = () => {
           <Col span={3}>
             {salesOrderItemFormField.slice(4, 5).map((item) => (
               <div className='p-2'>
-                {formItemCreate(
+                {formItem(
                   item.key,
                   item.rules,
                   item.kwargs,

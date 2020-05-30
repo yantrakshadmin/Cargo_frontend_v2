@@ -1,14 +1,12 @@
 import React from 'react';
 import { Form, Input, Upload, Select, Radio, DatePicker } from 'antd';
 import { Icon } from '@ant-design/compatible';
-import { FORM_ELEMENT_TYPES } from '../constants/formFields.constant';
+import { FORM_ELEMENT_TYPES } from 'constants/formFields.constant';
 
 const { Option } = Select;
 
-export const formItemCreate = (key, rules, kwargs, type, others, customLabel, noLabel) => {
-  const onChange = (e) => {
-    console.log('radio checked', e.target.value);
-  };
+export const formItem = (key, rules, kwargs, type, others, customLabel, noLabel) => {
+  const onChange = () => {};
 
   switch (type) {
     case FORM_ELEMENT_TYPES.INPUT:

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Col, Form, Row } from 'antd';
-import { formItemCreate } from 'helpers/formItemCreate';
+import { formItem } from 'hocs/formItem.hoc';
 
 import { postTruckFormFields } from '@app/common/formsFields/postTruck.formFields';
 
@@ -11,7 +11,7 @@ export const PostTruckForm = ({ onCancel }) => {
         <Col span={8}>
           {postTruckFormFields.slice(0, 2).map((item) => (
             <div className='p-2'>
-              {formItemCreate(
+              {formItem(
                 item.key,
                 item.rules,
                 item.kwargs,
@@ -25,7 +25,7 @@ export const PostTruckForm = ({ onCancel }) => {
         <Col span={8}>
           {postTruckFormFields.slice(3, 5).map((item) => (
             <div className='p-2'>
-              {formItemCreate(
+              {formItem(
                 item.key,
                 item.rules,
                 item.kwargs,
@@ -39,7 +39,7 @@ export const PostTruckForm = ({ onCancel }) => {
         <Col span={8}>
           {postTruckFormFields.slice(5, 7).map((item) => (
             <div className='p-2'>
-              {formItemCreate(
+              {formItem(
                 item.key,
                 item.rules,
                 item.kwargs,
@@ -55,7 +55,7 @@ export const PostTruckForm = ({ onCancel }) => {
         <Col span={12}>
           {postTruckFormFields.slice(2, 3).map((item) => (
             <div className='p-2'>
-              {formItemCreate(
+              {formItem(
                 item.key,
                 item.rules,
                 item.kwargs,

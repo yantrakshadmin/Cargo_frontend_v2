@@ -7,8 +7,8 @@ import { shipperItemColumn } from '@app/common/columns/shipperItem.column';
 function AvailableLoadsFtlSupplierScreen() {
   const [modalVisible, setModalVisible] = useState(false);
 
-  // const [biddingLoading, setBiddingLoad] = useState({});
-  // const [bidPrice, setBidPrice] = useState(0);
+  const [, setBiddingLoad] = useState({});
+  const [, setBidPrice] = useState(0);
 
   const data = [];
 
@@ -21,8 +21,7 @@ function AvailableLoadsFtlSupplierScreen() {
         <Button
           type='primary'
           onClick={() => {
-            console.log(row);
-            // setBiddingLoad(row);
+            setBiddingLoad(row);
             setModalVisible(true);
           }}>
           Bid Now
@@ -53,7 +52,7 @@ function AvailableLoadsFtlSupplierScreen() {
           <Input
             placeholder='Price in Rupees'
             onChange={(e) => {
-              // setBidPrice(e.target.value)
+              setBidPrice(e.target.value)
             }}
             type='number'
             onPressEnter={() => {}}

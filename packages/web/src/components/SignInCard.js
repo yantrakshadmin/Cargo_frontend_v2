@@ -7,7 +7,7 @@ import { loadAPI } from '@app/common/helpers/api';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '@app/common/constants/storage';
 import { getUserMeta } from '@app/common/helpers/auth';
 
-import { formItemCreate } from 'helpers/formItemCreate';
+import { formItem } from 'hocs/formItem.hoc';
 import { FORM_ELEMENT_TYPES } from 'constants/formFields.constant';
 
 import { VerifyUserModal } from 'components/VerifyUserModal';
@@ -61,7 +61,7 @@ export const SignInCard = () => {
         close={() => setVerify({ open: false, username: '', password: '' })}
       />
       <Form onFinish={handleSubmit} layout='vertical' hideRequiredMark>
-        {formItemCreate(
+        {formItem(
           'username',
           [{ required: true, message: 'Please input your username!' }],
           {
@@ -70,7 +70,7 @@ export const SignInCard = () => {
           },
           FORM_ELEMENT_TYPES.INPUT,
         )}
-        {formItemCreate(
+        {formItem(
           'password',
           [{ required: true, message: 'Please input your password!' }],
           {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Button } from 'antd';
 
-import { formItemCreate } from 'helpers/formItemCreate';
+import { formItem } from 'hocs/formItem.hoc';
 import { shipperSignUpFormFields } from 'formFields/shipper.signUp.formFields';
 
 export const ShipperSignUpScreen = () => {
@@ -17,7 +17,7 @@ export const ShipperSignUpScreen = () => {
         <div className='sign-up-form-container'>
           <Form onSubmit={handleSubmit} layout='vertical' hideRequiredMark>
             {shipperSignUpFormFields.map((item) =>
-              formItemCreate(item.key, item.rules, item.kwargs, item.type, item.others, item.label),
+              formItem(item.key, item.rules, item.kwargs, item.type, item.others, item.label),
             )}
           </Form>
         </div>
