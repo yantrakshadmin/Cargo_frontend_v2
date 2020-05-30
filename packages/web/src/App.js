@@ -36,8 +36,7 @@ function PrivateRoutes({ routes }) {
 function RootRouter() {
   const user = useUser();
 
-  // switch (user.type) {
-  switch ($User$Supplier$FTL) {
+  switch (user.type) {
     case null:
       return (
         <Router>
