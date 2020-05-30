@@ -1,9 +1,7 @@
 import React from 'react';
-import { Typography, Form, Col, Row, Button } from 'antd';
+import { Form, Col, Row, Button } from 'antd';
 import { formItemCreate } from 'helpers/formItemCreate';
 import { FORM_ELEMENT_TYPES } from 'constants/formFields.constant';
-
-const { Title } = Typography;
 
 function VendorForm({ onCancel }) {
   const handleSubmit = (e) => {

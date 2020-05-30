@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import MasterTemplateComponent from '../../../../components/shipper/masterTemplateComponent';
-import AddressForm from '../../../../components/forms/address.form';
-import PostTruckForm from '../../../../components/forms/postTruckForm';
+import React from 'react';
+import MasterTemplateComponent from 'components/shipper/masterTemplateComponent';
+import PostTruckForm from 'components/forms/postTruckForm';
 
 function PostTruck() {
   const dataSource = [

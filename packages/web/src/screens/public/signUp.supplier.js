@@ -1,10 +1,8 @@
 import React from 'react';
-import { Typography, Form, Button } from 'antd';
+import { Form, Button } from 'antd';
 import { Icon } from '@ant-design/compatible';
 import { formItemCreate } from '../../helpers/formItemCreate';
 import { FORM_ELEMENT_TYPES } from '../../constants/formFields.constant';
-
-const { Title } = Typography;
 
 function SignUpSupplier() {
   const handleSubmit = (e) => {

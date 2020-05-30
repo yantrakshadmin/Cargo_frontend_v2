@@ -1,6 +1,6 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Row, Col, Typography, Modal, Divider } from 'antd';
-import MasterTemplateComponent from '../../../../components/shipper/masterTemplateComponent';
+import MasterTemplateComponent from 'components/shipper/masterTemplateComponent';
 
 const { Text } = Typography;
 

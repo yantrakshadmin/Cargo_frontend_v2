@@ -7,7 +7,6 @@ import { loadAPI } from '@app/common/helpers/api';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '@app/common/constants/storage';
-import { userAuthenticated } from '@app/common/actions/auth';
 import { getUserMeta } from '@app/common/helpers/auth';
 import { formItemCreate } from '../helpers/formItemCreate';
 import { FORM_ELEMENT_TYPES } from '../constants/formFields.constant';
@@ -84,7 +83,8 @@ function SignInComponent() {
       params: { username },
       secure: false,
     });
-    if (error) notification.error({ message: `Error with user: ${username}`, description: error });
+    if (error)
+      notification.error({ message: `Error with user: ${username}`, description: error.toString() });
     else if (verified.verified) handelSignIn({ username, password });
     else setVerify({ open: true, username, password });
   };

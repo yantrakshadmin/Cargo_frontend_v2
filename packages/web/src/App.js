@@ -50,7 +50,7 @@ function RootRouter() {
     };
 
     init().then(() => setLoading(false));
-  }, []);
+  }, [dispatch]);
 
   if (loading)
     return (
@@ -66,8 +66,7 @@ function RootRouter() {
       </div>
     );
 
-  // switch (user.type) {
-  switch ($User$Supplier$FTL) {
+  switch (user.type) {
     case null:
       return (
         <Router>

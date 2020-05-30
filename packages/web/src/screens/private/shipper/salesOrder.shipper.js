@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { CloseSquareOutlined, EditOutlined } from '@ant-design/icons';
 import TableTemplateWithTabComponent from '../../../components/shipper/tableTemplateWithTabComponent';
 import { yantraColors } from '../../../helpers/yantraColors';

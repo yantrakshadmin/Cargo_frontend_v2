@@ -98,7 +98,7 @@ function ScreenWrapper({ children, routes }) {
       <Divider style={{ margin: 0, padding: 0 }} />
       <Footer className='row justify-end '>
         <span>
-          <a target='_blank' rel='noreferrer' href='https://yantraksh.com'>
+          <a target='_blank' rel='noopener noreferrer' href='https://yantraksh.com'>
             Yantraksh Logistics Pvt. Ltd
           </a>
           {' '}

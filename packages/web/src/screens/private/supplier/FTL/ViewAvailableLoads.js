@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { Button, Input, Modal } from 'antd';
-import { Icon } from '@ant-design/compatible';
-import MasterTemplateComponent from '../../../../components/shipper/masterTemplateComponent';
-import AddressForm from '../../../../components/forms/address.form';
+import MasterTemplateComponent from 'components/shipper/masterTemplateComponent';
 
 function ViewAvailableLoads() {
   const [modalVisible, setModalVisible] = useState(false);
-  const [biddingLoading, setBiddingLoad] = useState({});
-  const [bidPrice, setBidPrice] = useState(0);
+  // const [biddingLoading, setBiddingLoad] = useState({});
+  // const [bidPrice, setBidPrice] = useState(0);
 
   const dataSource = [
     {
@@ -72,7 +70,7 @@ function ViewAvailableLoads() {
           type='primary'
           onClick={() => {
             console.log(row);
-            setBiddingLoad(row);
+            // setBiddingLoad(row);
             setModalVisible(true);
           }}>
           Bid Now
@@ -104,7 +102,9 @@ function ViewAvailableLoads() {
           <br />
           <Input
             placeholder='Price in Rupees'
-            onChange={(e) => setBidPrice(e.target.value)}
+            onChange={(e) => {
+              // setBidPrice(e.target.value)
+            }}
             type='number'
             onPressEnter={() => {
               console.log('Ggg');

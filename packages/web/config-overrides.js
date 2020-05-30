@@ -8,8 +8,6 @@ const {
 const theme = require('@app/common/theme').default;
 const path = require('path');
 
-console.log(__dirname);
-console.log(path.resolve(__dirname, '../../', 'node_modules', 'react'));
 module.exports = override(
   addWebpackResolve({
     alias: {

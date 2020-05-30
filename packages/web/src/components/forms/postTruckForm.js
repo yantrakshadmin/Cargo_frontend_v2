@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Button, Col, Form, Row } from 'antd';
-import { formItemCreate } from '../../helpers/formItemCreate';
-import { FORM_ELEMENT_TYPES } from '../../constants/formFields.constant';
+import { formItemCreate } from 'helpers/formItemCreate';
+import { FORM_ELEMENT_TYPES } from 'constants/formFields.constant';
 // Post Truck Form
 
 // name = models.CharField(max_length=255)

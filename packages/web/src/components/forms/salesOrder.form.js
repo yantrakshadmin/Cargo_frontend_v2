@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { Typography, Form, Col, Row, Button, Divider, Modal } from 'antd';
-import { formItemCreate } from '../../helpers/formItemCreate';
-import { FORM_ELEMENT_TYPES } from '../../constants/formFields.constant';
-
-const { Title } = Typography;
+import { Form, Col, Row, Button, Divider } from 'antd';
+import { formItemCreate } from 'helpers/formItemCreate';
+import { FORM_ELEMENT_TYPES } from 'constants/formFields.constant';
 
 function SalesOrderForm(props) {
   const [items, setItems] = useState([]);
