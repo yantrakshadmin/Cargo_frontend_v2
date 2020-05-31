@@ -1,3 +1,4 @@
+import { $User$Supplier$FTL, $User$Supplier$PTL } from './constants/userTypes';
 import { loadAPI } from './helpers/api';
 
 export const getJWTTokens = ({ username, password }) => loadAPI(`/api/token/`, {
@@ -27,3 +28,23 @@ export const createShipperAccount =
       data: { first_name, last_name, username, email, password },
       secure: false,
     });
+
+
+export const createSupplierAccount =
+  // eslint-disable-next-line camelcase
+  ({ first_name, last_name, username, email, password, type }) => {
+    let url = '';
+
+    if (type === $User$Supplier$FTL)
+      url = '/create-ftl/';
+    else if (type === $User$Supplier$PTL)
+      url = '/create-ptl/';
+    else
+      throw Error('Unknown supplier type');
+
+    return loadAPI(url, {
+      method: 'POST',
+      data: { first_name, last_name, username, email, password },
+      secure: false,
+    });
+  };

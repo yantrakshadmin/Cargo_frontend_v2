@@ -1,10 +1,11 @@
 import { Icon } from '@ant-design/compatible';
 import { FORM_ELEMENT_TYPES } from 'constants/formFields.constant';
 import React from 'react';
+import { $User$Supplier$FTL, $User$Supplier$PTL } from '@app/common/constants/userTypes';
 
 export const supplierSignUpFormFields = [
   {
-    key: 'fname',
+    key: 'first_name',
     rules: [{ required: true, message: 'Please input your first name!' }],
     kwargs: {
       prefix: <Icon type='mail' style={{ color: 'rgba(0,0,0,.25)' }} />,
@@ -15,7 +16,7 @@ export const supplierSignUpFormFields = [
     label: 'First Name',
   },
   {
-    key: 'lname',
+    key: 'last_name',
     rules: [{ required: true, message: 'Please input your last name!' }],
     kwargs: {
       prefix: <Icon type='mail' style={{ color: 'rgba(0,0,0,.25)' }} />,
@@ -69,7 +70,7 @@ export const supplierSignUpFormFields = [
     label: 'Confirm Password',
   },
   {
-    key: 'userType',
+    key: 'type',
     rules: [{ required: true, message: 'Please input user type!' }],
     kwargs: {
       prefix: <Icon type='user' style={{ color: 'rgba(0,0,0,.25)' }} />,
@@ -78,8 +79,8 @@ export const supplierSignUpFormFields = [
     type: FORM_ELEMENT_TYPES.RADIO,
     others: {
       radioOptions: [
-        { value: 'ftl', label: 'FTL' },
-        { value: 'ptl', label: 'PTL' },
+        { value: $User$Supplier$FTL, label: 'FTL' },
+        { value: $User$Supplier$PTL, label: 'PTL' },
       ],
     },
     label: 'User Type',

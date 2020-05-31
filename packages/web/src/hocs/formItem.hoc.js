@@ -64,7 +64,7 @@ export const formItem = (key, rules, kwargs, type, others, customLabel, noLabel)
           rules={rules}>
           <Radio.Group onChange={onChange} value='Ggg'>
             {others.radioOptions.map((item) => (
-              <Radio value={item.value}>{item.label}</Radio>
+              <Radio key={item.value} value={item.value}>{item.label}</Radio>
             ))}
           </Radio.Group>
         </Form.Item>
