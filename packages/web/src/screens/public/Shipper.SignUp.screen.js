@@ -4,7 +4,7 @@ import { Form, Button, notification } from 'antd';
 import { formItem } from 'hocs/formItem.hoc';
 import { shipperSignUpFormFields } from 'formFields/shipper.signUp.formFields';
 
-import { createShipperAccount } from '@app/common/api';
+import { createShipperAccount } from '@app/common/api/auth';
 
 export const ShipperSignUpScreen = ({ navigate }) => {
   const handleSubmit = async (data) => {

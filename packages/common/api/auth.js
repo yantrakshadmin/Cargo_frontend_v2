@@ -1,5 +1,5 @@
-import { $User$Supplier$FTL, $User$Supplier$PTL } from './constants/userTypes';
-import { loadAPI } from './helpers/api';
+import { $User$Supplier$FTL, $User$Supplier$PTL } from '../constants/userTypes';
+import { loadAPI } from '../helpers/api';
 
 export const getJWTTokens = ({ username, password }) => loadAPI(`/api/token/`, {
   method: 'POST',

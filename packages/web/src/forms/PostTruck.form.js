@@ -3,10 +3,20 @@ import { Button, Col, Form, Row } from 'antd';
 import { formItem } from 'hocs/formItem.hoc';
 
 import { postTruckFormFields } from '@app/common/formsFields/postTruck.formFields';
+import { postTruck } from '@app/common/api/supplier';
+import { handleSubmitHOC } from 'hocs/form';
 
 export const PostTruckForm = ({ onCancel }) => {
+  const handleSubmit = handleSubmitHOC({
+    api: postTruck,
+    failure: 'Error in posting truck',
+    success: 'Successfully posted new truck',
+    onCancel,
+  });
+
+
   return (
-    <Form onFinish={() => {}} layout='horizontal' hideRequiredMark>
+    <Form onFinish={handleSubmit} layout='horizontal' hideRequiredMark>
       <Row>
         <Col span={8}>
           {postTruckFormFields.slice(0, 2).map((item) => (
@@ -75,7 +85,7 @@ export const PostTruckForm = ({ onCancel }) => {
           }}>
           Save
         </Button>
-        <div className='p-2' />
+        <div className='p-2'/>
         <Button type='primary' onClick={onCancel}>
           Cancel
         </Button>

@@ -1,6 +1,6 @@
 import { FORM_ELEMENT_TYPES } from 'constants/formFields.constant';
 
-export const mainFormFields = [
+export const mainAddressFormFields = [
   {
     key: 'name',
     rules: [{ required: true, message: 'Please input vendor name!' }],

@@ -4,15 +4,21 @@ import { formItem } from 'hocs/formItem.hoc';
 
 import { addressFormFields } from '@app/common/formsFields/address.formFields';
 import { vendorFormField } from '@app/common/formsFields/vendor.formFields';
+import { createVendor } from '@app/common/api/shipper';
+import { handleSubmitHOC } from 'hocs/form';
 
 export const VendorForm = ({ onCancel }) => {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
+  const handleSubmit = handleSubmitHOC({
+    api: createVendor,
+    failure: 'Error in creating vendor.',
+    success: 'Error in creating vendor.',
+    onCancel,
+  });
+
 
   return (
     <div className=''>
-      <Form onSubmit={handleSubmit} layout='horizontal' hideRequiredMark>
+      <Form onFinish={handleSubmit} layout='horizontal' hideRequiredMark>
         <Row>
           <Col span={8}>
             {vendorFormField.slice(0, 2).map((item) => (
@@ -140,7 +146,7 @@ export const VendorForm = ({ onCancel }) => {
             }}>
             Save
           </Button>
-          <div className='p-2' />
+          <div className='p-2'/>
           <Button type='primary' onClick={onCancel}>
             Cancel
           </Button>

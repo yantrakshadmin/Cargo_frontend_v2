@@ -9,7 +9,10 @@ const { Text } = Typography;
 export const MyBidsFTLSupplierScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
 
-  const bids = [];
+  const bids = [{
+    date: '1/2/2020',
+    price_offered: 'ddd'
+  }];
   const data = [];
 
   const columns = [

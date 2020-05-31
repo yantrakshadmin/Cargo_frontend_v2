@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Button, notification } from 'antd';
-import { createSupplierAccount } from '@app/common/api';
+import { createSupplierAccount } from '@app/common/api/auth';
 
 import { formItem } from 'hocs/formItem.hoc';
 import { supplierSignUpFormFields } from 'formFields/supplier.signUp.formFields';

@@ -1,19 +1,29 @@
 import React from 'react';
 import { Form, Col, Row, Button } from 'antd';
-import { formItem } from 'hocs/formItem.hoc';
 
-import { mainFormFields, addressFormFields } from '@app/common/formsFields/address.formFields';
+import { createAddress } from '@app/common/api/shipper';
+
+import { formItem } from 'hocs/formItem.hoc';
+import {
+  mainAddressFormFields,
+  addressFormFields
+} from '@app/common/formsFields/address.formFields';
+import { handleSubmitHOC } from 'hocs/form';
 
 export const AddressForm = ({ onCancel }) => {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
+
+  const handleSubmit = handleSubmitHOC({
+    api: createAddress,
+    failure: 'Error in adding address',
+    success: 'Successfully added new address',
+    onCancel
+  });
 
   return (
     <Form onFinish={handleSubmit} layout='horizontal' hideRequiredMark>
       <Row>
         <Col span={12}>
-          {mainFormFields.slice(0, 2).map((item) => (
+          {mainAddressFormFields.slice(0, 2).map((item) => (
             <div className='p-2'>
               {formItem(
                 item.key,
@@ -27,7 +37,7 @@ export const AddressForm = ({ onCancel }) => {
           ))}
         </Col>
         <Col span={12}>
-          {mainFormFields.slice(2, 4).map((item) => (
+          {mainAddressFormFields.slice(2, 4).map((item) => (
             <div className='p-2'>
               {formItem(
                 item.key,
@@ -94,11 +104,10 @@ export const AddressForm = ({ onCancel }) => {
           Save
         </Button>
         <div className='p-2' />
-        <Button type='primary' onClick={onCancel}>
+        <Button type='primary' htmlType='submit' onClick={onCancel}>
           Cancel
         </Button>
       </Row>
     </Form>
   );
 };
-export default AddressForm;

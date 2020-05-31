@@ -11,7 +11,7 @@ import { FORM_ELEMENT_TYPES } from 'constants/formFields.constant';
 
 import { VerifyUserModal } from 'components/VerifyUserModal';
 
-import { getJWTTokens, isUserVerified } from '@app/common/api';
+import { getJWTTokens, isUserVerified } from '@app/common/api/auth';
 
 export const SignInCard = () => {
   const [verify, setVerify] = useState({ open: false, username: '', password: '' });

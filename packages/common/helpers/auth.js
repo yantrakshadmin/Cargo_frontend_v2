@@ -3,7 +3,7 @@ import { ACCESS_TOKEN, REFRESH_TOKEN } from '../constants/storage';
 
 import { getStorage } from './shared';
 
-import { getUserMeta as getUserMetaAPO } from '../api';
+import { getUserMeta as getUserMetaAPO } from '../api/auth';
 
 export const getUserMeta = async (dispatch) => {
   const storage = getStorage();

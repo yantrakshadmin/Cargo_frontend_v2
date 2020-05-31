@@ -3,7 +3,7 @@ import { Input, Modal, notification, Typography } from 'antd';
 
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { Icon } from '@ant-design/compatible';
-import { verifyUser } from '@app/common/api';
+import { verifyUser } from '@app/common/api/auth';
 
 const { Title } = Typography;
 
