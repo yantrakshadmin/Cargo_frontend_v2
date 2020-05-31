@@ -5,7 +5,7 @@ import { FORM_ELEMENT_TYPES } from 'constants/formFields.constant';
 
 export const shipperSignUpFormFields = [
   {
-    key: 'fname',
+    key: 'first_name',
     rules: [{ required: true, message: 'Please input your first name!' }],
     kwargs: {
       prefix: <Icon type='mail' style={{ color: 'rgba(0,0,0,.25)' }} />,
@@ -16,7 +16,7 @@ export const shipperSignUpFormFields = [
     label: 'First Name',
   },
   {
-    key: 'lname',
+    key: 'last_name',
     rules: [{ required: true, message: 'Please input your last name!' }],
     kwargs: {
       prefix: <Icon type='mail' style={{ color: 'rgba(0,0,0,.25)' }} />,

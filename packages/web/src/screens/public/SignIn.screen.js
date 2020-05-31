@@ -22,14 +22,14 @@ export const SignInScreen = () => {
           <br />
           <br />
 
-          <Link to='/sign-up-shipper/'>
+          <Link to='/sign-up/shipper/'>
             <Button type='default' htmlType='submit' icon={<ApartmentOutlined />}>
               Sign-Up as Shipper
             </Button>
           </Link>
 
           <br />
-          <Link to='/sign-up-supplier/'>
+          <Link to='/sign-up/supplier/'>
             <Button type='default' htmlType='submit' icon={<ApartmentOutlined />}>
               Sign-Up as Supplier
             </Button>

@@ -12,7 +12,7 @@ import { RootRouter } from 'components/RootRouter';
 function App() {
   return (
     <Provider store={store}>
-      <Suspense fallback={Loading}>
+      <Suspense fallback={<Loading />}>
         <RootRouter />
       </Suspense>
     </Provider>

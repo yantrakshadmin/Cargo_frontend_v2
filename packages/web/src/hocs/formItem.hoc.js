@@ -6,12 +6,14 @@ import { FORM_ELEMENT_TYPES } from 'constants/formFields.constant';
 const { Option } = Select;
 
 export const formItem = (key, rules, kwargs, type, others, customLabel, noLabel) => {
-  const onChange = () => {};
+  const onChange = () => {
+  };
 
   switch (type) {
     case FORM_ELEMENT_TYPES.INPUT:
       return (
         <Form.Item
+          key={key}
           label={noLabel ? null : customLabel || key.charAt(0).toUpperCase() + key.slice(1)}
           name={key}
           rules={rules}>
@@ -22,6 +24,7 @@ export const formItem = (key, rules, kwargs, type, others, customLabel, noLabel)
     case FORM_ELEMENT_TYPES.FILE_DRAG_DROP:
       return (
         <Form.Item
+          key={key}
           label={noLabel ? null : customLabel || key.charAt(0).toUpperCase() + key.slice(1)}
           name={key}
           rules={rules}>
@@ -38,6 +41,7 @@ export const formItem = (key, rules, kwargs, type, others, customLabel, noLabel)
     case FORM_ELEMENT_TYPES.SELECT:
       return (
         <Form.Item
+          key={key}
           label={noLabel ? null : customLabel || key.charAt(0).toUpperCase() + key.slice(1)}
           name={key}
           rules={rules}>
@@ -54,6 +58,7 @@ export const formItem = (key, rules, kwargs, type, others, customLabel, noLabel)
     case FORM_ELEMENT_TYPES.RADIO:
       return (
         <Form.Item
+          key={key}
           label={noLabel ? null : customLabel || key.charAt(0).toUpperCase() + key.slice(1)}
           name={key}
           rules={rules}>
@@ -68,6 +73,7 @@ export const formItem = (key, rules, kwargs, type, others, customLabel, noLabel)
     case FORM_ELEMENT_TYPES.DATE:
       return (
         <Form.Item
+          key={key}
           label={noLabel ? null : customLabel || key.charAt(0).toUpperCase() + key.slice(1)}
           name={key}
           rules={rules}>

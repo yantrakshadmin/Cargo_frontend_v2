@@ -7,7 +7,7 @@ import { useUser } from '@app/common/hooks/user';
 import { getUserMeta } from '@app/common/helpers/auth';
 import { $User$SHIPPER, $User$Supplier$FTL } from '@app/common/constants/userTypes';
 
-import { publicRoutes, shipperRoutes, supplierFTLRoutes } from 'helpers/routes';
+import { publicRoutes, shipperRoutes, supplierFTLRoutes } from 'constants/routes';
 
 import { PrivateRoutes } from 'components/PrivateRoutes';
 

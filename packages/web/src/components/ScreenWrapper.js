@@ -37,7 +37,13 @@ export const ScreenWrapper = ({ routes, navigate, children }) => {
             dispatch(logout());
             navigate('');
           }}>
-          <p className='m-2'>{user.name}</p>
+          <p className='m-2'>
+            {user.name}
+            {' '}
+            (
+            {user.username}
+            )
+          </p>
           <Avatar size='large' icon={<UserOutlined />} />
         </div>
 
@@ -86,7 +92,7 @@ export const ScreenWrapper = ({ routes, navigate, children }) => {
           </Menu>
         </Sider>
         <Layout style={{ padding: '24px' }}>
-          <Suspense fallback={Loading}>
+          <Suspense fallback={<Loading />}>
             <Content
               className='site-layout-background content-style'
               style={{ minHeight: `calc( 100vh - 184px )` }}>

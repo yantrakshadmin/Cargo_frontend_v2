@@ -6,13 +6,15 @@ import { getStorage } from './shared';
 import { getUserMeta as getUserMetaAPO } from '../api';
 
 export const getUserMeta = async (dispatch) => {
-  try {
-    const storage = getStorage();
+  const storage = getStorage();
+  if (!await storage.get(ACCESS_TOKEN)) return;
 
+  try {
     const { data: meta } = await getUserMetaAPO();
+
     if (meta) {
-      const { category: type, name, email } = meta;
-      dispatch(userAuthenticated({ name, type, email }));
+      const { category: type, name, email, username } = meta;
+      dispatch(userAuthenticated({ name, type, email, username }));
     } else {
       await storage.delete(ACCESS_TOKEN);
       await storage.delete(REFRESH_TOKEN);
