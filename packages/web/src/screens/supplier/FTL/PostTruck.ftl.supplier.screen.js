@@ -4,15 +4,18 @@ import { MasterHOC } from 'hocs/Master.hoc';
 import { PostTruckForm } from 'forms/PostTruck.form';
 
 import { shipperItemColumn } from '@app/common/columns/shipperItem.column';
+import { useAPI } from '@app/common/hooks/api';
 
 export const PostTruckFtlSupplierScreen = () => {
-  const dataSource = [];
+  const { data, loading, reload } = useAPI(`/posted-trucks/`);
 
   return (
     <MasterHOC
       title='Post Truck'
       columns={shipperItemColumn}
-      data={dataSource}
+      data={data}
+      loading={loading}
+      refresh={reload}
       modalBody={PostTruckForm}
       customRightButtonLabel='Post Truck'
     />

@@ -6,11 +6,12 @@ import { postTruckFormFields } from '@app/common/formsFields/postTruck.formField
 import { postTruck } from '@app/common/api/supplier';
 import { handleSubmitHOC } from 'hocs/form';
 
-export const PostTruckForm = ({ onCancel }) => {
+export const PostTruckForm = ({ onCancel, onDone }) => {
   const handleSubmit = handleSubmitHOC({
     api: postTruck,
     failure: 'Error in posting truck',
     success: 'Successfully posted new truck',
+    onDone,
     onCancel,
   });
 

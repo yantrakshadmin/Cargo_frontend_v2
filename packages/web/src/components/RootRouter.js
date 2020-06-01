@@ -23,7 +23,8 @@ export const RootRouter = () => {
 
   useEffect(() => {
     const init = async () => {
-      await getUserMeta(dispatch)
+      const toHome = await getUserMeta(dispatch);
+      if (toHome) window.location = '/';
     };
 
     init().then(() => setLoading(false)).catch((e) => console.log(e));

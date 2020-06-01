@@ -4,11 +4,20 @@ import { Typography, Button, Divider, Row, Col, Table, Modal, Tabs } from 'antd'
 const { Title } = Typography;
 const { TabPane } = Tabs;
 
-export const TableWithTabHOC = ({ title, tabs, modalBody }) => {
+export const TableWithTabHOC = ({ title, tabs, modalBody: ModalBody=() => null, loading=false, refresh }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [activeTab, setActiveTab] = useState(tabs[0].key);
   const callback = (key) => {
     setActiveTab(key);
+  };
+  
+  const onCancel = () => {
+    setModalVisible(false);
+  };
+
+  const onDone = () => {
+    refresh();
+    onCancel();
   };
 
   const getIndex = () => {
@@ -32,13 +41,7 @@ export const TableWithTabHOC = ({ title, tabs, modalBody }) => {
         style={{ minWidth: '80vw' }}
         title={`Add ${title}`}
         footer={null}>
-        {modalBody
-          ? modalBody({
-            onCancel: () => {
-              setModalVisible(false);
-            },
-          })
-          : null}
+        <ModalBody onCancel={onCancel} onDone={onDone} />
       </Modal>
       <Row justify='space-between'>
         <Col>
@@ -84,7 +87,7 @@ export const TableWithTabHOC = ({ title, tabs, modalBody }) => {
             <Tabs defaultActiveKey={tabs[0].key} onChange={callback}>
               {tabs.map((tab) => (
                 <TabPane tab={tab.name} key={tab.key}>
-                  <Table bordered dataSource={tab.data} columns={tab.columns} />
+                  <Table bordered dataSource={tab.data} loading={tab.loading} columns={tab.columns} />
                 </TabPane>
               ))}
             </Tabs>

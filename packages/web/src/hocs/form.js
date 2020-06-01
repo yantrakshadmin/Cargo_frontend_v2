@@ -1,6 +1,6 @@
 import { notification } from 'antd';
 
-export const handleSubmitHOC = ({ api, onCancel, success, failure }) => async (form) => {
+export const handleSubmitHOC = ({ api, success, failure, onDone }) => async (form) => {
   try {
     const { error } = await api(form);
     if (error) {
@@ -12,7 +12,7 @@ export const handleSubmitHOC = ({ api, onCancel, success, failure }) => async (f
       notification.success({
         message: success,
       });
-      onCancel();
+      onDone();
     }
   } catch (e) {
     notification.error({

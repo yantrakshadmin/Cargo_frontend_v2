@@ -10,12 +10,13 @@ import {
 } from '@app/common/formsFields/address.formFields';
 import { handleSubmitHOC } from 'hocs/form';
 
-export const AddressForm = ({ onCancel }) => {
+export const AddressForm = ({ onCancel, onDone }) => {
 
   const handleSubmit = handleSubmitHOC({
     api: createAddress,
     failure: 'Error in adding address',
     success: 'Successfully added new address',
+    onDone,
     onCancel
   });
 

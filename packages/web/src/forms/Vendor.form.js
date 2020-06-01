@@ -7,11 +7,12 @@ import { vendorFormField } from '@app/common/formsFields/vendor.formFields';
 import { createVendor } from '@app/common/api/shipper';
 import { handleSubmitHOC } from 'hocs/form';
 
-export const VendorForm = ({ onCancel }) => {
+export const VendorForm = ({ onCancel, onDone }) => {
   const handleSubmit = handleSubmitHOC({
     api: createVendor,
     failure: 'Error in creating vendor.',
     success: 'Error in creating vendor.',
+    onDone,
     onCancel,
   });
 

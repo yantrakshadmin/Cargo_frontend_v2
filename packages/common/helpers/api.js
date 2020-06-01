@@ -11,20 +11,18 @@ axios.defaults.baseURL = DEFAULT_BASE_URL;
 const getAccessToken = async () => {
   const storage = getStorage();
 
-  const accessToken = await storage.get(ACCESS_TOKEN);
-  const refreshToken = await storage.get(REFRESH_TOKEN);
+  const accessToken = await storage.get(ACCESS_TOKEN, null);
+  const refreshToken = await storage.get(REFRESH_TOKEN, null);
   if (!(accessToken && refreshToken)) throw Error('No user found');
 
   const accessPayload = jwtDecode(accessToken);
   if (new Date(parseInt(accessPayload.exp, 10) * 1000) > new Date()) return accessToken;
 
-  const res = await axios.post('/api/token/refresh/', {
+  const { access: newAccessToken } = await axios.post('/api/token/refresh/', {
     refresh: refreshToken,
   });
 
-  const newAccessToken = res.access;
   await storage.set(ACCESS_TOKEN, newAccessToken);
-  await storage.set(REFRESH_TOKEN, res.refresh);
 
   return newAccessToken;
 };

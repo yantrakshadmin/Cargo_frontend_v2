@@ -6,9 +6,11 @@ import { SalesOrderForm } from 'forms/SalesOrder.form';
 
 import { shipperItemColumn } from '@app/common/columns/shipperItem.column';
 import { yantraColors } from 'helpers/yantraColors';
+import { useAPI } from '@app/common/hooks/api';
 
 export const SalesOrderShipperScreen = () => {
-  const data = [];
+  const { data, loading, reload } = useAPI(`/orders/`);
+
   const columns = [
     ...shipperItemColumn,
     {
@@ -29,30 +31,36 @@ export const SalesOrderShipperScreen = () => {
       key: 'allSalesOrder',
       data,
       columns,
+      loading,
     },
     {
       name: 'On Hold',
       key: 'onHold',
       data,
       columns,
+      loading,
     },
     {
       name: 'Ready To Dispatch',
       key: 'readyToDispatch',
       data,
+      loading,
       menu: [
         {
           title: 'dispatch',
-          onClick: () => {},
+          onClick: () => {
+          },
           type: 'danger',
         },
         {
           title: 'dispatch',
-          onClick: () => {},
+          onClick: () => {
+          },
         },
         {
           title: 'dispatch',
-          onClick: () => {},
+          onClick: () => {
+          },
           type: 'default',
         },
       ],
@@ -62,11 +70,18 @@ export const SalesOrderShipperScreen = () => {
       name: 'Dispatched',
       key: 'dispatched',
       data,
+      loading,
       columns,
     },
   ];
 
-  return <TableWithTabHOC tabs={tabs} title='Sales Orders' modalBody={SalesOrderForm} />;
+  return (
+    <TableWithTabHOC
+      refresh={reload}
+      tabs={tabs}
+      title='Sales Orders'
+      modalBody={SalesOrderForm} />
+  );
 };
 
 export default SalesOrderShipperScreen;

@@ -6,9 +6,10 @@ import { AddressForm } from 'forms/Address.form';
 import { shipperItemColumn } from '@app/common/columns/shipperItem.column';
 import { CloseSquareOutlined, EditOutlined } from '@ant-design/icons';
 import { yantraColors } from 'helpers/yantraColors';
+import { useAPI } from '@app/common/hooks/api';
 
 export const AddressShipperScreen = () => {
-  const data = [];
+  const { data, loading, reload } = useAPI(`/address/`);
 
   const columns = [
     ...shipperItemColumn,
@@ -24,7 +25,15 @@ export const AddressShipperScreen = () => {
     },
   ];
 
-  return <MasterHOC title='Address' columns={columns} data={data} modalBody={AddressForm} />;
+  return (
+    <MasterHOC
+      title='Address'
+      refresh={reload}
+      columns={columns}
+      data={data}
+      loading={loading}
+      modalBody={AddressForm} />
+  );
 };
 
 export default AddressShipperScreen;

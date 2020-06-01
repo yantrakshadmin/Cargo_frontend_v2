@@ -7,11 +7,20 @@ export const MasterHOC = ({
   title,
   data,
   columns,
-  modalBody,
+  modalBody: ModalBody,
   hideRightButton,
+  refresh = () => {
+  },
   customRightButtonLabel,
+  loading=false
 }) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const onCancel = () => setModalVisible(false);
+  const onDone = () => {
+    refresh();
+    onCancel();
+  };
+
   return (
     <div>
       {hideRightButton ? null : (
@@ -23,11 +32,7 @@ export const MasterHOC = ({
           style={{ minWidth: '80vw' }}
           title={customRightButtonLabel || `Add ${title}`}
           footer={null}>
-          {modalBody({
-            onCancel: () => {
-              setModalVisible(false);
-            },
-          })}
+          <ModalBody onCancel={onCancel} onDone={onDone} />
         </Modal>
       )}
       <Row justify='space-between'>
@@ -41,7 +46,7 @@ export const MasterHOC = ({
               onClick={() => {
                 setModalVisible(true);
               }}>
-              Add 
+              Add
               {' '}
               {title}
             </Button>
@@ -51,7 +56,7 @@ export const MasterHOC = ({
       <Divider style={{ margin: 0, padding: 0 }} />
       <Row>
         <Col span={24}>
-          <Table bordered dataSource={data} columns={columns} />
+          <Table bordered dataSource={data} columns={columns} loading={loading} />
         </Col>
       </Row>
     </div>
