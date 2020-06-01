@@ -1,7 +1,8 @@
-import { Router } from '@reach/router';
 import React from 'react';
+import { Router } from '@reach/router';
 
 import { ScreenWrapper } from 'components/ScreenWrapper';
+import { NotFound404Screen } from 'screens/404.screen';
 
 export const PrivateRoutes = ({ routes }) => {
   return (
@@ -18,6 +19,7 @@ export const PrivateRoutes = ({ routes }) => {
               ))
               : null;
           })}
+          <NotFound404Screen default />
         </>
       </ScreenWrapper>
     </Router>

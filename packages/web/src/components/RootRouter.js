@@ -10,9 +10,10 @@ import { $User$SHIPPER, $User$Supplier$FTL } from '@app/common/constants/userTyp
 import { publicRoutes, shipperRoutes, supplierFTLRoutes } from 'constants/routes';
 
 import { PrivateRoutes } from 'components/PrivateRoutes';
+import { NotFound404Screen } from 'screens/404.screen';
 
 /**
- * @return {null}
+ * @return {*[]}
  */
 export const RootRouter = () => {
   const [loading, setLoading] = useState(true);
@@ -22,10 +23,10 @@ export const RootRouter = () => {
 
   useEffect(() => {
     const init = async () => {
-      await getUserMeta(dispatch);
+      await getUserMeta(dispatch)
     };
 
-    init().then(() => setLoading(false));
+    init().then(() => setLoading(false)).catch((e) => console.log(e));
   }, [dispatch]);
 
   if (loading)
@@ -49,6 +50,7 @@ export const RootRouter = () => {
           {publicRoutes.map((Route, index) => {
             return <Route.Component path={Route.path} key={index.toString()} />;
           })}
+          <NotFound404Screen default />
         </Router>
       );
 

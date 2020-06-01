@@ -1,7 +1,6 @@
 import { notification } from 'antd';
 
 export const handleSubmitHOC = ({ api, onCancel, success, failure }) => async (form) => {
-  console.log('Heeeeeeeeeeeee');
   try {
     const { error } = await api(form);
     if (error) {

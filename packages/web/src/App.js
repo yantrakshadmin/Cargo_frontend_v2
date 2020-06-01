@@ -2,9 +2,10 @@ import './App.css';
 
 import React, { Suspense } from 'react';
 import { Provider } from 'react-redux';
-import { store } from '@app/common/reducers';
 
 import 'helpers/shared';
+
+import { store } from '@app/common/reducers';
 
 import { Loading } from 'components/Loding';
 import { RootRouter } from 'components/RootRouter';
