@@ -15,10 +15,13 @@ import { getJWTTokens, isUserVerified } from '@app/common/api/auth';
 
 export const SignInCard = () => {
   const [verify, setVerify] = useState({ open: false, username: '', password: '' });
+  const [loading, setLoading] = useState(false);
+
   const dispatch = useDispatch();
 
   const handelSignIn = async ({ username, password }) => {
     try {
+      setLoading(true);
       const { data: tokens } = await getJWTTokens({ username, password });
 
       const { access, refresh } = tokens;
@@ -29,6 +32,8 @@ export const SignInCard = () => {
     } catch (e) {
       notification.error({ message: `Can't SignIn user: ${username}`, description: e.toString() });
     }
+
+    setLoading(false);
   };
 
   // eslint-disable-next-line consistent-return
@@ -76,7 +81,7 @@ export const SignInCard = () => {
           FORM_ELEMENT_TYPES.INPUT,
         )}
         <Form.Item>
-          <Button type='primary' htmlType='submit' className='login-form-button'>
+          <Button type='primary' htmlType='submit' className='login-form-button' loading={loading}>
             Sign in
           </Button>
         </Form.Item>

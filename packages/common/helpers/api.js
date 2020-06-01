@@ -18,7 +18,7 @@ const getAccessToken = async () => {
   const accessPayload = jwtDecode(accessToken);
   if (new Date(parseInt(accessPayload.exp, 10) * 1000) > new Date()) return accessToken;
 
-  const { access: newAccessToken } = await axios.post('/api/token/refresh/', {
+  const { data: { access: newAccessToken } } = await axios.post('/api/token/refresh/', {
     refresh: refreshToken,
   });
 

@@ -27,7 +27,7 @@ export const RootRouter = () => {
       if (toHome) window.location = '/';
     };
 
-    init().then(() => setLoading(false)).catch((e) => console.log(e));
+    init().then(() => setLoading(false));
   }, [dispatch]);
 
   if (loading)

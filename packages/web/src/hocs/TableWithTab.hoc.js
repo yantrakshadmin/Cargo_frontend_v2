@@ -4,13 +4,13 @@ import { Typography, Button, Divider, Row, Col, Table, Modal, Tabs } from 'antd'
 const { Title } = Typography;
 const { TabPane } = Tabs;
 
-export const TableWithTabHOC = ({ title, tabs, modalBody: ModalBody=() => null, loading=false, refresh }) => {
+export const TableWithTabHOC = ({ title, tabs, modalBody: ModalBody = () => null, refresh }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [activeTab, setActiveTab] = useState(tabs[0].key);
   const callback = (key) => {
     setActiveTab(key);
   };
-  
+
   const onCancel = () => {
     setModalVisible(false);
   };
@@ -53,7 +53,7 @@ export const TableWithTabHOC = ({ title, tabs, modalBody: ModalBody=() => null, 
             onClick={() => {
               setModalVisible(true);
             }}>
-            Add 
+            Add
             {' '}
             {title}
           </Button>
@@ -87,7 +87,11 @@ export const TableWithTabHOC = ({ title, tabs, modalBody: ModalBody=() => null, 
             <Tabs defaultActiveKey={tabs[0].key} onChange={callback}>
               {tabs.map((tab) => (
                 <TabPane tab={tab.name} key={tab.key}>
-                  <Table bordered dataSource={tab.data} loading={tab.loading} columns={tab.columns} />
+                  <Table
+                    bordered
+                    dataSource={tab.data}
+                    loading={tab.loading}
+                    columns={tab.columns} />
                 </TabPane>
               ))}
             </Tabs>
