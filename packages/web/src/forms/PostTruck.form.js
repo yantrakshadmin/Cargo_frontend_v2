@@ -80,12 +80,11 @@ export const PostTruckForm = ({ onCancel }) => {
       <Row>
         <Button
           type='primary'
-          onClick={() => {
-            onCancel();
-          }}>
+          htmlType='submit'
+        >
           Save
         </Button>
-        <div className='p-2'/>
+        <div className='p-2' />
         <Button type='primary' onClick={onCancel}>
           Cancel
         </Button>

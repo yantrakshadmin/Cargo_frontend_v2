@@ -98,13 +98,12 @@ export const AddressForm = ({ onCancel }) => {
       <Row>
         <Button
           type='primary'
-          onClick={() => {
-            onCancel();
-          }}>
+          htmlType='submit'
+        >
           Save
         </Button>
         <div className='p-2' />
-        <Button type='primary' htmlType='submit' onClick={onCancel}>
+        <Button type='primary' onClick={onCancel}>
           Cancel
         </Button>
       </Row>

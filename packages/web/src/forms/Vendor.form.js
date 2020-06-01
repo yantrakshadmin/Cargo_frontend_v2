@@ -15,7 +15,6 @@ export const VendorForm = ({ onCancel }) => {
     onCancel,
   });
 
-
   return (
     <div className=''>
       <Form onFinish={handleSubmit} layout='horizontal' hideRequiredMark>
@@ -141,12 +140,11 @@ export const VendorForm = ({ onCancel }) => {
         <Row>
           <Button
             type='primary'
-            onClick={() => {
-              onCancel();
-            }}>
+            htmlType='submit'
+          >
             Save
           </Button>
-          <div className='p-2'/>
+          <div className='p-2' />
           <Button type='primary' onClick={onCancel}>
             Cancel
           </Button>

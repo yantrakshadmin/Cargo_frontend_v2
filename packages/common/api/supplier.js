@@ -1,4 +1,4 @@
-import { loadAPI } from 'packages/common/helpers/api';
+import { loadAPI } from '../helpers/api';
 
 export const postTruck =
   // eslint-disable-next-line camelcase
