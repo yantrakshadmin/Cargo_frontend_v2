@@ -1,0 +1,199 @@
+import React, { useState } from 'react';
+import { Form, Col, Row, Button, Divider } from 'antd';
+import { formItem } from 'hocs/formItem.hoc';
+
+import {
+  salesOrderFormFields,
+  salesOrderItemFormField,
+} from '@app/common/formsFields/salesOrder.formFields';
+
+export const SalesOrderForm = () => {
+  const [items, setItems] = useState([]);
+  const [form] = Form.useForm();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
+  const itemRemove = (i) => {
+    setItems(
+      items.filter((item, index) => {
+        return i !== index;
+      }),
+    );
+  };
+
+  const addItem = () => {
+    const newItem = form.getFieldsValue(['name', 'quantity', 'length', 'breadth', 'height']);
+    setItems([...items, newItem]);
+  };
+
+  return (
+    <div>
+      <Divider orientation='left'>Order Details</Divider>
+      <Form onFinish={handleSubmit} form={form} layout='vertical' hideRequiredMark>
+        <Row>
+          <Col span={8}>
+            {salesOrderFormFields.slice(0, 2).map((item) => (
+              <div className='p-2'>
+                {formItem(
+                  item.key,
+                  item.rules,
+                  item.kwargs,
+                  item.type,
+                  item.others,
+                  item.label,
+                )}
+              </div>
+            ))}
+          </Col>
+          <Col span={8}>
+            {salesOrderFormFields.slice(2, 4).map((item) => (
+              <div className='p-2'>
+                {formItem(
+                  item.key,
+                  item.rules,
+                  item.kwargs,
+                  item.type,
+                  item.others,
+                  item.label,
+                )}
+              </div>
+            ))}
+          </Col>
+          <Col span={8}>
+            {salesOrderFormFields.slice(4, 5).map((item) => (
+              <div className='p-2'>
+                {formItem(
+                  item.key,
+                  item.rules,
+                  item.kwargs,
+                  item.type,
+                  item.others,
+                  item.label,
+                )}
+              </div>
+            ))}
+          </Col>
+        </Row>
+        <Divider orientation='left'>Items Details</Divider>
+        {items.map((i, index) => (
+          <Row key={i.name}>
+            <Col span={9}>
+              <div className='p-h-4 p-v-2'>{i.name}</div>
+            </Col>
+            <Col span={3}>
+              <div className='p-h-4 p-v-2'>{i.quantity}</div>
+            </Col>
+            <Col span={3}>
+              <div className='p-h-4 p-v-2'>{i.length}</div>
+            </Col>
+            <Col span={3}>
+              <div className='p-h-4 p-v-2'>{i.breadth}</div>
+            </Col>
+            <Col span={3}>
+              <div className='p-h-4 p-v-2'>{i.height}</div>
+            </Col>
+            <Col span={3}>
+              <div className='p-2'>
+                <Button
+                  type='danger'
+                  onClick={() => {
+                    itemRemove(index);
+                  }}>
+                  Remove
+                </Button>
+              </div>
+            </Col>
+          </Row>
+        ))}
+        <Row>
+          <Col span={9}>
+            {salesOrderItemFormField.slice(0, 1).map((item) => (
+              <div className='p-2'>
+                {formItem(
+                  item.key,
+                  item.rules,
+                  item.kwargs,
+                  item.type,
+                  item.others,
+                  item.label,
+                )}
+              </div>
+            ))}
+          </Col>
+          <Col span={3}>
+            {salesOrderItemFormField.slice(1, 2).map((item) => (
+              <div className='p-2'>
+                {formItem(
+                  item.key,
+                  item.rules,
+                  item.kwargs,
+                  item.type,
+                  item.others,
+                  item.label,
+                )}
+              </div>
+            ))}
+          </Col>
+          <Col span={3}>
+            {salesOrderItemFormField.slice(2, 3).map((item) => (
+              <div className='p-2'>
+                {formItem(
+                  item.key,
+                  item.rules,
+                  item.kwargs,
+                  item.type,
+                  item.others,
+                  item.label,
+                )}
+              </div>
+            ))}
+          </Col>
+          <Col span={3}>
+            {salesOrderItemFormField.slice(3, 4).map((item) => (
+              <div className='p-2'>
+                {formItem(
+                  item.key,
+                  item.rules,
+                  item.kwargs,
+                  item.type,
+                  item.others,
+                  item.label,
+                )}
+              </div>
+            ))}
+          </Col>
+          <Col span={3}>
+            {salesOrderItemFormField.slice(4, 5).map((item) => (
+              <div className='p-2'>
+                {formItem(
+                  item.key,
+                  item.rules,
+                  item.kwargs,
+                  item.type,
+                  item.others,
+                  item.label,
+                )}
+              </div>
+            ))}
+          </Col>
+          <Col span={3}>
+            <div className='p-2'>
+              <Button type='primary' onClick={addItem}>
+                Add More
+              </Button>
+            </div>
+          </Col>
+        </Row>
+        <Row>
+          <Button type='primary' htmlType='submit'>
+            Save
+          </Button>
+          <div className='p-2' />
+          <Button type='primary'>Cancel</Button>
+        </Row>
+      </Form>
+    </div>
+  );
+};

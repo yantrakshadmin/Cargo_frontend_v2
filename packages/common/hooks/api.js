@@ -9,9 +9,12 @@ const defaultAPIResponse = {
   status: 0,
 };
 
-export const useAPI = (url, opts) => {
+export const useAPI = (url, opts={}) => {
   const { defaultData, ...options } = opts;
   const [response, setResponse] = useState(defaultAPIResponse);
+  const [refresh, setRefresh] = useState(0);
+  const reload = () => setRefresh(refresh + 1);
+  
   const ox = JSON.stringify(options);
 
   useEffect(() => {
@@ -27,7 +30,7 @@ export const useAPI = (url, opts) => {
     load().then();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [url, ox]);
+  }, [url, ox, refresh]);
 
-  return response;
+  return { ...response, reload };
 };
