@@ -39,6 +39,15 @@ export const SalesOrderShipperScreen = () => {
       data,
       columns,
       loading,
+      menu: [
+        {
+          title: 'Ready To Dispatch',
+          onClick: () => {
+          },
+          type: 'primary',
+        },
+
+      ],
     },
     {
       name: 'Ready To Dispatch',
@@ -47,21 +56,16 @@ export const SalesOrderShipperScreen = () => {
       loading,
       menu: [
         {
-          title: 'dispatch',
+          title: 'Auto Dispatch',
           onClick: () => {
           },
-          type: 'danger',
+          type: 'primary',
         },
         {
-          title: 'dispatch',
+          title: 'Manual Dispatch',
+          type: 'primary',
           onClick: () => {
           },
-        },
-        {
-          title: 'dispatch',
-          onClick: () => {
-          },
-          type: 'default',
         },
       ],
       columns,

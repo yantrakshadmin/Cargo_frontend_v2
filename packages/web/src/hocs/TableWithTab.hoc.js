@@ -43,9 +43,31 @@ export const TableWithTabHOC = ({ title, tabs, modalBody: ModalBody = () => null
         footer={null}>
         <ModalBody onCancel={onCancel} onDone={onDone} />
       </Modal>
-      <Row justify='space-between'>
+      <Row justify='space-between' align='middle'>
         <Col>
           <Title level={3}>{title}</Title>
+        </Col>
+        <Col>
+          {
+            // eslint-disable-next-line no-nested-ternary
+            tabs[getIndex()] ? (
+              tabs[getIndex()].menu ? (
+                <Row>
+                  <Col span={24}>
+                    {tabs[getIndex()].menu.map((i) => (
+                      <Button
+                        className='m-2 '
+                        type={i.type || 'primary'}
+                        key={i.title}
+                        onClick={i.onClick}>
+                        {i.title}
+                      </Button>
+                    ))}
+                  </Col>
+                </Row>
+              ) : null
+            ) : null
+          }
         </Col>
         <Col>
           <Button
@@ -61,26 +83,7 @@ export const TableWithTabHOC = ({ title, tabs, modalBody: ModalBody = () => null
       </Row>
       <Divider style={{ margin: 0, padding: 0 }} />
       <Row />
-      {
-        // eslint-disable-next-line no-nested-ternary
-        tabs[getIndex()] ? (
-          tabs[getIndex()].menu ? (
-            <Row>
-              <Col span={24}>
-                {tabs[getIndex()].menu.map((i) => (
-                  <Button
-                    className='m-2 '
-                    type={i.type || 'primary'}
-                    key={i.title}
-                    onClick={i.onClick}>
-                    {i.title}
-                  </Button>
-                ))}
-              </Col>
-            </Row>
-          ) : null
-        ) : null
-      }
+
       <Row>
         <Col span={24}>
           {tabs ? (

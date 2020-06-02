@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Form, Col, Row, Button, Divider } from 'antd';
+import React, { useState,useEffect } from 'react';
+import { Form, Col, Row, Button, Divider ,Typography } from 'antd';
 import { formItem } from 'hocs/formItem.hoc';
 
 import {
@@ -7,15 +7,22 @@ import {
   salesOrderItemFormField,
 } from '@app/common/formsFields/salesOrder.formFields';
 
+const { Text } = Typography
 export const SalesOrderForm = () => {
   const [items, setItems] = useState([]);
+  const [error, setError] = useState(null);
   const [form] = Form.useForm();
+
+  useEffect(()=>{
+    setTimeout(()=>{setError(null)},5000)
+  },[error])
 
   const handleSubmit = (e) => {
     e.preventDefault();
   };
 
   const itemRemove = (i) => {
+    setError(null)
     setItems(
       items.filter((item, index) => {
         return i !== index;
@@ -25,13 +32,29 @@ export const SalesOrderForm = () => {
 
   const addItem = () => {
     const newItem = form.getFieldsValue(['name', 'quantity', 'length', 'breadth', 'height']);
-    setItems([...items, newItem]);
+    setError(null)
+    if(newItem.name !==undefined
+      && newItem.quantity !==undefined
+      && newItem.length !==undefined
+      && newItem.breadth !==undefined
+      && newItem.height !==undefined ){
+      if(items.every(i => {return i.name !== newItem.name })){
+        setItems([...items, newItem]);
+      }
+      else{
+        setError('Item name already exist!')
+      }
+
+    }
+    else{
+      setError('Please fill item details!')
+    }
   };
 
   return (
     <div>
       <Divider orientation='left'>Order Details</Divider>
-      <Form onFinish={handleSubmit} form={form} layout='vertical' hideRequiredMark>
+      <Form onFinish={handleSubmit} form={form} layout='vertical' hideRequiredMark >
         <Row>
           <Col span={8}>
             {salesOrderFormFields.slice(0, 2).map((item) => (
@@ -107,7 +130,18 @@ export const SalesOrderForm = () => {
             </Col>
           </Row>
         ))}
-        <Row>
+        {error?(
+          <Row >
+            <Col>
+              <div className='p-2'>
+                <Text type='danger'>
+                  {error}
+                </Text>
+              </div>
+            </Col>
+          </Row>
+        ):null}
+        <Row align='middle'>
           <Col span={9}>
             {salesOrderItemFormField.slice(0, 1).map((item) => (
               <div className='p-2'>

@@ -1,7 +1,4 @@
-import { LayoutOutlined } from '@ant-design/icons';
-import React, { lazy } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { yantraColors } from '../helpers/yantraColors';
+import { lazy } from 'react';
 
 export const publicRoutes = [
   { Component: lazy(() => import('screens/public/SignIn.screen')), path: '/' },
@@ -15,17 +12,28 @@ export const publicRoutes = [
   },
 ];
 
+export const extraRoutesShipper = [
+  {
+    path: '/edit-profile/',
+    Component: lazy(() => import('screens/shipper/EditProfile')),
+  },
+]
+export const extraRoutesSupplierFTL = [
+  {
+    path: '/edit-profile/',
+    Component: lazy(() => import('screens/supplier/FTL/EditProfile')),
+  },
+]
 export const shipperRoutes = [
   {
     name: 'Dashboard',
-    icon: null
-    ,
+    icon:['fas', 'home'],
     path: '/dashboard/',
     Component: lazy(() => import('screens/shipper/Dashboard.shipper.screen')),
   },
   {
     name: 'Masters',
-    icon:<FontAwesomeIcon icon={['fas', 'layer-group']} />,
+    icon:['fas', 'layer-group'],
     path: '/masters/',
     isSubMenu: true,
     subMenu: [
@@ -48,25 +56,25 @@ export const shipperRoutes = [
   },
   {
     name: 'Sales Order',
-    icon: null,
+    icon: ['fas', 'layer-group'],
     path: '/sales-orders/',
     Component: lazy(() => import('screens/shipper/SalesOrder.shipper.screen')),
   },
   {
     name: 'Carrier Selection',
-    icon: <LayoutOutlined />,
+    icon:['fas', 'layer-group'],
     path: '/carrier/',
     Component: lazy(() => import('screens/shipper/Dashboard.shipper.screen')),
   },
   {
     name: 'Shipping',
-    icon: <LayoutOutlined />,
+    icon: ['fas', 'compass'],
     path: '/shipping/',
     Component: lazy(() => import('screens/shipper/Dashboard.shipper.screen')),
   },
   {
     name: 'Transporter Director',
-    icon: <LayoutOutlined />,
+    icon: ['fas', 'layer-group'],
     path: '/transporter/',
     Component: lazy(() => import('screens/shipper/Dashboard.shipper.screen')),
   },
@@ -75,25 +83,25 @@ export const shipperRoutes = [
 export const supplierFTLRoutes = [
   {
     name: 'Available loads',
-    icon: <LayoutOutlined />,
+    icon: ['fas', 'layout'],
     path: '/available-loads/',
     Component: lazy(() => import('screens/supplier/FTL/AvailableLoads.ftl.supplier.screen')),
   },
   {
     name: 'Post Truck',
-    icon: <LayoutOutlined />,
+    icon:['fas', 'layout'],
     path: '/post-truck/',
     Component: lazy(() => import('screens/supplier/FTL/PostTruck.ftl.supplier.screen')),
   },
   {
     name: 'My Bids',
-    icon: <LayoutOutlined />,
+    icon: ['fas', 'layout'],
     path: '/my-bids/',
     Component: lazy(() => import('screens/supplier/FTL/MyBids.ftl.supplier.screen')),
   },
   {
     name: 'Trips Management',
-    icon: <LayoutOutlined />,
+    icon:['fas', 'layout'],
     path: '/trips-management/',
     Component: lazy(() => import('screens/supplier/FTL/TripManagement.ftl.supplier.screen')),
   },

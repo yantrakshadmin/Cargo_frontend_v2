@@ -7,7 +7,13 @@ import { useUser } from '@app/common/hooks/user';
 import { getUserMeta } from '@app/common/helpers/auth';
 import { $User$SHIPPER, $User$Supplier$FTL } from '@app/common/constants/userTypes';
 
-import { publicRoutes, shipperRoutes, supplierFTLRoutes } from 'constants/routes';
+import {
+  extraRoutesShipper,
+  extraRoutesSupplierFTL,
+  publicRoutes,
+  shipperRoutes,
+  supplierFTLRoutes,
+} from 'constants/routes';
 
 import { PrivateRoutes } from 'components/PrivateRoutes';
 import { NotFound404Screen } from 'screens/404.screen';
@@ -56,10 +62,10 @@ export const RootRouter = () => {
       );
 
     case $User$SHIPPER:
-      return <PrivateRoutes routes={shipperRoutes} />;
+      return <PrivateRoutes routes={shipperRoutes} extraRoutes={extraRoutesShipper} />;
 
     case $User$Supplier$FTL:
-      return <PrivateRoutes routes={supplierFTLRoutes} />;
+      return <PrivateRoutes routes={supplierFTLRoutes} extraRoutes={extraRoutesSupplierFTL} />;
 
     default:
       return null;

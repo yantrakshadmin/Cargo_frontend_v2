@@ -17,6 +17,7 @@ export const MasterHOC = ({
 }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const onCancel = () =>{ setModalVisible(false);
+
     if(modalParams){
       modalParams.setModalParams({
         showModal:false,
@@ -36,8 +37,9 @@ export const MasterHOC = ({
   };
   useEffect(()=>
   {
-    setModalVisible(modalParams.showModal)
-  }
+    if(modalParams){
+      setModalVisible(modalParams.showModal)
+    }}
   ,[modalParams]  )
   return (
     <div>
