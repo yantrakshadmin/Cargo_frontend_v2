@@ -12,11 +12,7 @@ import { deleteHOC } from 'hocs/form';
 
 export const AddressShipperScreen = () => {
   const { data, loading, reload } = useAPI(`/address/`);
-  const [selectedRow, setSelectedRow] = useState({
-    id: 0,
-    isEditable: true,
-    showModal: false,
-  });
+  const [selectedRow, setSelectedRow] = useState(undefined);
 
   const columns = [
     ...shipperItemColumn,

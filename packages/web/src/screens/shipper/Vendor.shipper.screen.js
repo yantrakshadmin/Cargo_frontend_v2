@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MasterHOC } from 'hocs/Master.hoc';
 import { VendorForm } from 'forms/Vendor.form';
 
@@ -11,6 +11,7 @@ import { deleteVendor } from '@app/common/api/shipper';
 
 export const VendorShipperScreen = () => {
   const { data, loading, reload } = useAPI(`/vendors/`);
+  const [selectedRow, setSelectedRow] = useState(undefined);
 
   const columns = [
     ...shipperItemColumn,
@@ -19,7 +20,12 @@ export const VendorShipperScreen = () => {
       key: 'operation',
       render: (row) => (
         <div className='row align-center justify-between'>
-          <EditOutlined style={{ color: yantraColors.primary, fontSize: 30 }} />
+          <EditOutlined
+            style={{ color: yantraColors.primary, fontSize: 30 }}
+            onClick={() => {
+              setSelectedRow({ id: row.id, isEditable: false, showModal: true });
+            }}
+          />
           <CloseSquareOutlined
             style={{ color: '#ff0000', fontSize: 30 }}
             onClick={deleteHOC({
@@ -43,6 +49,7 @@ export const VendorShipperScreen = () => {
       loading={loading}
       refresh={reload}
       modalBody={VendorForm}
+      modalParams={{ ...selectedRow, setModalParams: setSelectedRow }}
     />
   );
 };

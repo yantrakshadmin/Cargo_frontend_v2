@@ -84,36 +84,6 @@ export const SalesOrderForm = () => {
           </Col>
         </Row>
         <Divider orientation='left'>Items Details</Divider>
-        {items.map((i, index) => (
-          <Row key={i.name}>
-            <Col span={9}>
-              <div className='p-h-4 p-v-2'>{i.name}</div>
-            </Col>
-            <Col span={3}>
-              <div className='p-h-4 p-v-2'>{i.quantity}</div>
-            </Col>
-            <Col span={3}>
-              <div className='p-h-4 p-v-2'>{i.length}</div>
-            </Col>
-            <Col span={3}>
-              <div className='p-h-4 p-v-2'>{i.breadth}</div>
-            </Col>
-            <Col span={3}>
-              <div className='p-h-4 p-v-2'>{i.height}</div>
-            </Col>
-            <Col span={3}>
-              <div className='p-2'>
-                <Button
-                  type='danger'
-                  onClick={() => {
-                    itemRemove(index);
-                  }}>
-                  Remove
-                </Button>
-              </div>
-            </Col>
-          </Row>
-        ))}
         {error ? (
           <Row>
             <Col>
@@ -167,6 +137,36 @@ export const SalesOrderForm = () => {
             </div>
           </Col>
         </Row>
+        {items.map((i, index) => (
+          <Row key={i.name}>
+            <Col span={9}>
+              <div className='p-h-4 p-v-2'>{i.name}</div>
+            </Col>
+            <Col span={3}>
+              <div className='p-h-4 p-v-2'>{i.quantity}</div>
+            </Col>
+            <Col span={3}>
+              <div className='p-h-4 p-v-2'>{i.length}</div>
+            </Col>
+            <Col span={3}>
+              <div className='p-h-4 p-v-2'>{i.breadth}</div>
+            </Col>
+            <Col span={3}>
+              <div className='p-h-4 p-v-2'>{i.height}</div>
+            </Col>
+            <Col span={3}>
+              <div className='p-2'>
+                <Button
+                  type='danger'
+                  onClick={() => {
+                    itemRemove(index);
+                  }}>
+                  Remove
+                </Button>
+              </div>
+            </Col>
+          </Row>
+        ))}
         <Row>
           <Button type='primary' htmlType='submit'>
             Save

@@ -10,49 +10,40 @@ export const MasterHOC = ({
   modalParams,
   modalBody: ModalBody,
   hideRightButton,
-  refresh = () => {
-  },
+  refresh = () => {},
   customRightButtonLabel,
-  loading=false
+  loading = false,
 }) => {
   const [modalVisible, setModalVisible] = useState(false);
-  const onCancel = () =>{ setModalVisible(false);
 
-    if(modalParams){
-      modalParams.setModalParams({
-        showModal:false,
-        id:0,
-        isEditable:false,
-      });
-    }};
+  const onCancel = () => {
+    setModalVisible(false);
+    if (modalParams) modalParams.setModalParams(undefined);
+  };
+
   const onDone = () => {
     refresh();
-    if(modalParams){
-      modalParams.setModalParams({
-        showModal:false,
-        id:0,
-        isEditable:false,
-      });}
     onCancel();
   };
-  useEffect(()=>
-  {
-    if(modalParams){
-      setModalVisible(modalParams.showModal)
-    }}
-  ,[modalParams]  )
+
+  useEffect(() => {
+    if (modalParams) setModalVisible(modalParams.showModal);
+  }, [modalParams]);
+
   return (
     <div>
       {hideRightButton ? null : (
         <Modal
           visible={modalVisible}
-          onCancel={() => {
-            setModalVisible(false);
-          }}
+          onCancel={onCancel}
           style={{ minWidth: '80vw' }}
           title={customRightButtonLabel || `Add ${title}`}
           footer={null}>
-          <ModalBody onCancel={onCancel} onDone={onDone} />
+          <ModalBody
+            id={modalParams ? modalParams.id : undefined}
+            onCancel={onCancel}
+            onDone={onDone}
+          />
         </Modal>
       )}
       <Row justify='space-between'>
@@ -66,7 +57,7 @@ export const MasterHOC = ({
               onClick={() => {
                 setModalVisible(true);
               }}>
-              Add
+              Add 
               {' '}
               {title}
             </Button>

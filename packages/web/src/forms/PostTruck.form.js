@@ -4,60 +4,39 @@ import { formItem } from 'hocs/formItem.hoc';
 
 import { postTruckFormFields } from '@app/common/formsFields/postTruck.formFields';
 import { postTruck } from '@app/common/api/supplier';
-import { handleSubmitHOC } from 'hocs/form';
+import { useHandelForm } from 'hooks/form';
 
 export const PostTruckForm = ({ onCancel, onDone }) => {
-  const handleSubmit = handleSubmitHOC({
-    api: postTruck,
-    failure: 'Error in posting truck',
+  const { submit } = useHandelForm({
+    create: postTruck,
     success: 'Successfully posted new truck',
-    onDone,
-    onCancel,
+    failure: 'Error in posting truck',
+    done: onDone,
+    close: onCancel,
+    id: undefined,
   });
 
-
   return (
-    <Form onFinish={handleSubmit} layout='horizontal' hideRequiredMark>
+    <Form onFinish={submit} layout='horizontal' hideRequiredMark>
       <Row>
         <Col span={8}>
           {postTruckFormFields.slice(0, 2).map((item) => (
             <div className='p-2'>
-              {formItem(
-                item.key,
-                item.rules,
-                item.kwargs,
-                item.type,
-                item.others,
-                item.label,
-              )}
+              {formItem(item.key, item.rules, item.kwargs, item.type, item.others, item.label)}
             </div>
           ))}
         </Col>
         <Col span={8}>
           {postTruckFormFields.slice(3, 5).map((item) => (
             <div className='p-2'>
-              {formItem(
-                item.key,
-                item.rules,
-                item.kwargs,
-                item.type,
-                item.others,
-                item.label,
-              )}
+              {formItem(item.key, item.rules, item.kwargs, item.type, item.others, item.label)}
             </div>
           ))}
         </Col>
         <Col span={8}>
           {postTruckFormFields.slice(5, 7).map((item) => (
             <div className='p-2'>
-              {formItem(
-                item.key,
-                item.rules,
-                item.kwargs,
-                item.type,
-                item.others,
-                item.label,
-              )}
+              {formItem(item.key, item.rules, item.kwargs, item.type, item.others, item.label)}
             </div>
           ))}
         </Col>
@@ -66,23 +45,13 @@ export const PostTruckForm = ({ onCancel, onDone }) => {
         <Col span={12}>
           {postTruckFormFields.slice(2, 3).map((item) => (
             <div className='p-2'>
-              {formItem(
-                item.key,
-                item.rules,
-                item.kwargs,
-                item.type,
-                item.others,
-                item.label,
-              )}
+              {formItem(item.key, item.rules, item.kwargs, item.type, item.others, item.label)}
             </div>
           ))}
         </Col>
       </Row>
       <Row>
-        <Button
-          type='primary'
-          htmlType='submit'
-        >
+        <Button type='primary' htmlType='submit'>
           Save
         </Button>
         <div className='p-2' />

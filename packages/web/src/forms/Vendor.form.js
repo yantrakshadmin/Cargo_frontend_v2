@@ -1,24 +1,27 @@
 import React from 'react';
-import { Form, Col, Row, Button } from 'antd';
+import { Form, Col, Row, Button, Spin } from 'antd';
 import { formItem } from 'hocs/formItem.hoc';
 
 import { addressFormFields } from '@app/common/formsFields/address.formFields';
 import { vendorFormField } from '@app/common/formsFields/vendor.formFields';
-import { createVendor } from '@app/common/api/shipper';
-import { handleSubmitHOC } from 'hocs/form';
+import { createVendor, editVendor, retrieveVendor } from '@app/common/api/shipper';
+import { useHandelForm } from 'hooks/form';
 
-export const VendorForm = ({ onCancel, onDone }) => {
-  const handleSubmit = handleSubmitHOC({
-    api: createVendor,
-    failure: 'Error in creating vendor.',
-    success: 'Vendor created successfully.',
-    onDone,
-    onCancel,
+export const VendorForm = ({ onCancel, onDone, id }) => {
+  const { form, loading, submit } = useHandelForm({
+    create: createVendor,
+    edit: editVendor,
+    retrieve: retrieveVendor,
+    success: 'Successfully added/edited vendor',
+    failure: 'Error in adding/editing vendor',
+    done: onDone,
+    close: onCancel,
+    id,
   });
 
   return (
-    <div className=''>
-      <Form onFinish={handleSubmit} layout='horizontal' hideRequiredMark>
+    <Spin spinning={loading} className=''>
+      <Form form={form} onFinish={submit} layout='horizontal' hideRequiredMark>
         <Row>
           <Col span={8}>
             {vendorFormField.slice(0, 2).map((item) => (
@@ -92,6 +95,6 @@ export const VendorForm = ({ onCancel, onDone }) => {
           </Button>
         </Row>
       </Form>
-    </div>
+    </Spin>
   );
 };
