@@ -17,7 +17,7 @@ export const PostTruckForm = ({ onCancel, onDone }) => {
 
 
   return (
-    <Form onFinish={handleSubmit} layout='horizontal' hideRequiredMark>
+    <Form onFinish={handleSubmit} layout='vertical' hideRequiredMark>
       <Row>
         <Col span={8}>
           {postTruckFormFields.slice(0, 2).map((item) => (

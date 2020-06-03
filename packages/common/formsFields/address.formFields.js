@@ -1,9 +1,10 @@
 import { FORM_ELEMENT_TYPES } from 'constants/formFields.constant';
+import Countries from '@app/common/constants/countryAndState'
 
 export const mainAddressFormFields = [
   {
     key: 'name',
-    rules: [{ required: true, message: 'Please input vendor name!' }],
+    rules: [{ required: true, message: 'Please input name!' }],
     kwargs: {
       placeholder: 'Name',
     },
@@ -53,6 +54,15 @@ export const addressFormFields = [
     others: null,
   },
   {
+    key: 'pin',
+    rules: [{ required: true, message: 'Please input pin!' }],
+    kwargs: {
+      placeholder: 'Pin',
+      type: 'number',
+    },
+    type: FORM_ELEMENT_TYPES.INPUT,
+    others: null,
+  }, {
     key: 'city',
     rules: [{ required: true, message: 'Please enter city!' }],
     kwargs: {
@@ -62,32 +72,26 @@ export const addressFormFields = [
     others: null,
   },
   {
+    key: 'country',
+    rules: [{ required: true, message: 'Please enter country!' }],
+    kwargs: {
+      placeholder: 'Country',
+      defaultValue:81,
+    },
+    type: FORM_ELEMENT_TYPES.SELECT,
+    others: {
+      selectOptions:Countries.countries,
+      key:'country',
+      valueIndex:true,
+    },
+  }, {
     key: 'state',
     rules: [{ required: true, message: 'Please enter state!' }],
     kwargs: {
       placeholder: 'State',
     },
-    type: FORM_ELEMENT_TYPES.INPUT,
+    type: FORM_ELEMENT_TYPES.SELECT,
     others: null,
   },
-  {
-    key: 'pin',
-    rules: [{ required: true, message: 'Please input pin!' }],
-    kwargs: {
-      placeholder: 'Pin',
-      type: 'number',
-    },
-    type: FORM_ELEMENT_TYPES.INPUT,
-    others: null,
-  },
-  {
-    key: 'country',
-    rules: [{ required: true, message: 'Please enter country!' }],
-    kwargs: {
-      placeholder: 'Country',
-      type: 'number',
-    },
-    type: FORM_ELEMENT_TYPES.INPUT,
-    others: null,
-  },
+
 ];

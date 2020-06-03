@@ -6,8 +6,10 @@ import {
   salesOrderFormFields,
   salesOrderItemFormField,
 } from '@app/common/formsFields/salesOrder.formFields';
+import { useAPI } from '@app/common/hooks/api';
 
 const { Text } = Typography
+
 export const SalesOrderForm = () => {
   const [items, setItems] = useState([]);
   const [error, setError] = useState(null);
@@ -50,11 +52,17 @@ export const SalesOrderForm = () => {
       setError('Please fill item details!')
     }
   };
-
+  const { data } = useAPI(`/address/`);
+  const otherConfigsDropdown = {
+    selectOptions: data||[],
+    key:'id',
+    customTitle:'company',
+    dataKeys:['name','city','pin','street','state','phone']
+  }
   return (
     <div>
       <Divider orientation='left'>Order Details</Divider>
-      <Form onFinish={handleSubmit} form={form} layout='vertical' hideRequiredMark >
+      <Form onFinish={handleSubmit} form={form} layout='vertical' hideRequiredMark>
         <Row>
           <Col span={8}>
             {salesOrderFormFields.slice(0, 2).map((item) => (
@@ -78,7 +86,7 @@ export const SalesOrderForm = () => {
                   item.rules,
                   item.kwargs,
                   item.type,
-                  item.others,
+                  otherConfigsDropdown,
                   item.label,
                 )}
               </div>
@@ -100,47 +108,6 @@ export const SalesOrderForm = () => {
           </Col>
         </Row>
         <Divider orientation='left'>Items Details</Divider>
-        {items.map((i, index) => (
-          <Row key={i.name}>
-            <Col span={9}>
-              <div className='p-h-4 p-v-2'>{i.name}</div>
-            </Col>
-            <Col span={3}>
-              <div className='p-h-4 p-v-2'>{i.quantity}</div>
-            </Col>
-            <Col span={3}>
-              <div className='p-h-4 p-v-2'>{i.length}</div>
-            </Col>
-            <Col span={3}>
-              <div className='p-h-4 p-v-2'>{i.breadth}</div>
-            </Col>
-            <Col span={3}>
-              <div className='p-h-4 p-v-2'>{i.height}</div>
-            </Col>
-            <Col span={3}>
-              <div className='p-2'>
-                <Button
-                  type='danger'
-                  onClick={() => {
-                    itemRemove(index);
-                  }}>
-                  Remove
-                </Button>
-              </div>
-            </Col>
-          </Row>
-        ))}
-        {error?(
-          <Row >
-            <Col>
-              <div className='p-2'>
-                <Text type='danger'>
-                  {error}
-                </Text>
-              </div>
-            </Col>
-          </Row>
-        ):null}
         <Row align='middle'>
           <Col span={9}>
             {salesOrderItemFormField.slice(0, 1).map((item) => (
@@ -220,6 +187,47 @@ export const SalesOrderForm = () => {
             </div>
           </Col>
         </Row>
+        {error?(
+          <Row align={'top'}>
+            <Col>
+              <div className='p-2'>
+                <Text type='danger'>
+                  {error}
+                </Text>
+              </div>
+            </Col>
+          </Row>
+        ):null}
+        {items.map((i, index) => (
+          <Row key={i.name}>
+            <Col span={9}>
+              <div className='p-h-4 p-v-2'>{i.name}</div>
+            </Col>
+            <Col span={3}>
+              <div className='p-h-4 p-v-2'>{i.quantity}</div>
+            </Col>
+            <Col span={3}>
+              <div className='p-h-4 p-v-2'>{i.length}</div>
+            </Col>
+            <Col span={3}>
+              <div className='p-h-4 p-v-2'>{i.breadth}</div>
+            </Col>
+            <Col span={3}>
+              <div className='p-h-4 p-v-2'>{i.height}</div>
+            </Col>
+            <Col span={3}>
+              <div className='p-2'>
+                <Button
+                  type='danger'
+                  onClick={() => {
+                    itemRemove(index);
+                  }}>
+                  Remove
+                </Button>
+              </div>
+            </Col>
+          </Row>
+        ))}
         <Row>
           <Button type='primary' htmlType='submit'>
             Save

@@ -30,12 +30,6 @@ export const salesOrderFormFields = [
     kwargs: {
       placeholder: 'Select',
     },
-    others: {
-      selectOptions: [
-        { value: 'ftl', label: 'Consignor 1' },
-        { value: 'ptl', label: 'Consignor 2' },
-      ],
-    },
   },
   {
     key: 'consignee',
@@ -43,12 +37,6 @@ export const salesOrderFormFields = [
     type: FORM_ELEMENT_TYPES.SELECT,
     kwargs: {
       placeholder: 'Select',
-    },
-    others: {
-      selectOptions: [
-        { value: 'ftl', label: 'Consignee 1' },
-        { value: 'ptl', label: 'Consignee 2' },
-      ],
     },
   },
   {

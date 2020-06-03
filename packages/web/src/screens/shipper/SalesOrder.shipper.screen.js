@@ -54,25 +54,11 @@ export const SalesOrderShipperScreen = () => {
       key: 'readyToDispatch',
       data,
       loading,
-      menu: [
-        {
-          title: 'Auto Dispatch',
-          onClick: () => {
-          },
-          type: 'primary',
-        },
-        {
-          title: 'Manual Dispatch',
-          type: 'primary',
-          onClick: () => {
-          },
-        },
-      ],
       columns,
     },
     {
-      name: 'Dispatched',
-      key: 'dispatched',
+      name: 'Assigned',
+      key: 'Assigned',
       data,
       loading,
       columns,

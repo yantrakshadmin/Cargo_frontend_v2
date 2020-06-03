@@ -4,18 +4,31 @@ import { Form, Col, Row, Button, Divider } from 'antd';
 import { createAddress } from '@app/common/api/shipper';
 
 import { formItem } from 'hocs/formItem.hoc';
-import {
-  mainAddressFormFields,
-  addressFormFields
-} from '@app/common/formsFields/address.formFields';
+import { mainTripManagementFormFields } from '@app/common/formsFields/tripManagement.formFields';
 import { handleSubmitHOC } from 'hocs/form';
-import Countries from '@app/common/constants/countryAndState'
+import { FORM_ELEMENT_TYPES } from '../constants/formFields.constant';
 
 
-export const AddressForm = ({ onCancel, onDone }) => {
+
+export const TripManagementForm = ({ onCancel, onDone }) => {
+  const [ shouldGetBrokerName, setShouldGetBrokerName] = useState(false)
   const [form] = Form.useForm();
-  const [countryIndex,setCountryIndex] = useState(81)
-
+  const checkVehicleSource = () =>{
+    const newItem = form.getFieldsValue(['vehicle_source']);
+    setShouldGetBrokerName(newItem.vehicle_source === 'broker');
+  }
+  const mainFormFields = [
+    {
+      key: 'order_id',
+      rules: [{ required: true, message: 'Please input order id!' }],
+      kwargs: {
+        placeholder: 'Order ID',
+      },
+      type: FORM_ELEMENT_TYPES.SELECT,
+      others: { selectOptions:[{ value:'1',label :'1 | Mumbai | Delhi | 20-12-19 ' }] },
+      label: 'Order ID',
+    },...mainTripManagementFormFields
+  ]
   const handleSubmit = handleSubmitHOC({
     api: createAddress,
     failure: 'Error in adding address',
@@ -24,50 +37,16 @@ export const AddressForm = ({ onCancel, onDone }) => {
     onCancel
   });
 
-  const fieldChange = () =>{
-    const index = form.getFieldValue('country')
-    setCountryIndex(index);
-  }
   return (
     <Form
       onFinish={handleSubmit}
-      onFieldsChange={fieldChange}
+      form={form}
+      onFieldsChange={checkVehicleSource}
       layout='vertical'
       hideRequiredMark>
       <Row>
-        <Col span={12}>
-          {mainAddressFormFields.slice(0, 2).map((item) => (
-            <div className='p-2'>
-              {formItem(
-                item.key,
-                item.rules,
-                item.kwargs,
-                item.type,
-                item.others,
-                item.label,
-              )}
-            </div>
-          ))}
-        </Col>
-        <Col span={12}>
-          {mainAddressFormFields.slice(2, 4).map((item) => (
-            <div className='p-2'>
-              {formItem(
-                item.key,
-                item.rules,
-                item.kwargs,
-                item.type,
-                item.others,
-                item.label,
-              )}
-            </div>
-          ))}
-        </Col>
-      </Row>
-      <Divider orientation='left'>Address Details</Divider>
-      <Row>
         <Col span={8}>
-          {addressFormFields.slice(0, 1).map((item) => (
+          {mainFormFields.slice(0, 3).map((item) => (
             <div className='p-2'>
               {formItem(
                 item.key,
@@ -81,7 +60,7 @@ export const AddressForm = ({ onCancel, onDone }) => {
           ))}
         </Col>
         <Col span={8}>
-          {addressFormFields.slice(2, 3).map((item) => (
+          {mainFormFields.slice(3, 6).map((item) => (
             <div className='p-2'>
               {formItem(
                 item.key,
@@ -95,7 +74,7 @@ export const AddressForm = ({ onCancel, onDone }) => {
           ))}
         </Col>
         <Col span={8}>
-          {addressFormFields.slice(1,2).map((item) => (
+          {mainFormFields.slice(6, 9).map((item) => (
             <div className='p-2'>
               {formItem(
                 item.key,
@@ -111,21 +90,83 @@ export const AddressForm = ({ onCancel, onDone }) => {
       </Row>
       <Row>
         <Col span={8}>
-          {addressFormFields.slice(4, 5).map((item) => (
+          {mainFormFields.slice(9, 10).map((item) => (
             <div className='p-2'>
               {formItem(
                 item.key,
                 item.rules,
                 item.kwargs,
                 item.type,
-                { selectOptions:Countries.countries[countryIndex].states, },
+                item.others,
                 item.label,
               )}
             </div>
           ))}
         </Col>
-        <Col span={8}>
-          {addressFormFields.slice(3, 4).map((item) => (
+        {console.log(shouldGetBrokerName)}
+        {shouldGetBrokerName?(
+          <Col span={8}>
+            {mainFormFields.slice(10, 11).map((item) => (
+              <div className='p-2'>
+                {formItem(
+                  item.key,
+                  item.rules,
+                  item.kwargs,
+                  item.type,
+                  item.others,
+                  item.label,
+                )}
+              </div>
+            ))}
+          </Col>
+        ):null}
+      </Row>
+      <Divider type='horizontal'>Billing Details</Divider>
+      <Row>
+        <Col span={6}>
+          {mainFormFields.slice(11, 12).map((item) => (
+            <div className='p-2'>
+              {formItem(
+                item.key,
+                item.rules,
+                item.kwargs,
+                item.type,
+                item.others,
+                item.label,
+              )}
+            </div>
+          ))}
+        </Col>
+        <Col span={6}>
+          {mainFormFields.slice(12, 13).map((item) => (
+            <div className='p-2'>
+              {formItem(
+                item.key,
+                item.rules,
+                item.kwargs,
+                item.type,
+                item.others,
+                item.label,
+              )}
+            </div>
+          ))}
+        </Col>
+        <Col span={6}>
+          {mainFormFields.slice(13, 14).map((item) => (
+            <div className='p-2'>
+              {formItem(
+                item.key,
+                item.rules,
+                item.kwargs,
+                item.type,
+                item.others,
+                item.label,
+              )}
+            </div>
+          ))}
+        </Col>
+        <Col span={6}>
+          {mainFormFields.slice(14, 15).map((item) => (
             <div className='p-2'>
               {formItem(
                 item.key,

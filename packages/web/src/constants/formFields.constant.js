@@ -1,5 +1,6 @@
 export const FORM_ELEMENT_TYPES = {
   INPUT: 'input',
+  MULTIPLE_CHECKBOX:'MULTIPLE_CHECKBOX',
   INPUT_NUMBER: 'input-number',
   PASSWORD: 'password',
   TEXTAREA: 'textarea',

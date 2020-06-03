@@ -70,13 +70,13 @@ export const shipperRoutes = [
     name: 'Shipping',
     icon: ['fas', 'compass'],
     path: '/shipping/',
-    Component: lazy(() => import('screens/shipper/Dashboard.shipper.screen')),
+    Component: lazy(() => import('screens/shipper/Shipping.shipper.screen')),
   },
   {
-    name: 'Transporter Director',
+    name: 'Transport Directory',
     icon: ['fas', 'layer-group'],
-    path: '/transporter/',
-    Component: lazy(() => import('screens/shipper/Dashboard.shipper.screen')),
+    path: '/transport-directory/',
+    Component: lazy(() => import('screens/shipper/TransportDirectory.shipper.screen')),
   },
 ];
 

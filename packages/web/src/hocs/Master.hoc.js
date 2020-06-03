@@ -10,6 +10,7 @@ export const MasterHOC = ({
   modalParams,
   modalBody: ModalBody,
   hideRightButton,
+  customModalTitle,
   refresh = () => {
   },
   customRightButtonLabel,
@@ -50,7 +51,7 @@ export const MasterHOC = ({
             setModalVisible(false);
           }}
           style={{ minWidth: '80vw' }}
-          title={customRightButtonLabel || `Add ${title}`}
+          title={customModalTitle || customRightButtonLabel || `Add ${title}`}
           footer={null}>
           <ModalBody onCancel={onCancel} onDone={onDone} />
         </Modal>
@@ -62,13 +63,12 @@ export const MasterHOC = ({
         <Col>
           {hideRightButton ? null : (
             <Button
+              className='m-2'
               type='primary'
               onClick={() => {
                 setModalVisible(true);
               }}>
-              Add
-              {' '}
-              {title}
+              {customRightButtonLabel || `Add ${title}`}
             </Button>
           )}
         </Col>
