@@ -5,7 +5,7 @@ import { createAddress } from '@app/common/api/shipper';
 
 import { formItem } from 'hocs/formItem.hoc';
 import { mainTripManagementFormFields } from '@app/common/formsFields/tripManagement.formFields';
-import { handleSubmitHOC } from 'hocs/form';
+// import { handleSubmitHOC } from 'hocs/form';
 import { FORM_ELEMENT_TYPES } from '../constants/formFields.constant';
 
 
@@ -29,17 +29,18 @@ export const TripManagementForm = ({ onCancel, onDone }) => {
       label: 'Order ID',
     },...mainTripManagementFormFields
   ]
-  const handleSubmit = handleSubmitHOC({
-    api: createAddress,
-    failure: 'Error in adding address',
-    success: 'Successfully added new address',
-    onDone,
-    onCancel
-  });
+  //
+  // const handleSubmit = handleSubmitHOC({
+  //   api: createAddress,
+  //   failure: 'Error in adding address',
+  //   success: 'Successfully added new address',
+  //   onDone,
+  //   onCancel
+  // });
 
   return (
     <Form
-      onFinish={handleSubmit}
+      onFinish={()=>{console.log('Ggg')}}
       form={form}
       onFieldsChange={checkVehicleSource}
       layout='vertical'

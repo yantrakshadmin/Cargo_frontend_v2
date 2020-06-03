@@ -33,7 +33,8 @@
     "no-async-promise-executor": "warn",
     "import/no-extraneous-dependencies": "warn",
     "import/no-unresolved": "off",
-    "object-curly-spacing": ["warn", "always"]
+    "object-curly-spacing": ["warn", "always"],
+    "camelcase": ["off"]
   },
   "settings": {
     "import/resolver": {

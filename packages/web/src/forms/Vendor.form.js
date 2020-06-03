@@ -1,22 +1,23 @@
 import React, { useState } from 'react';
-import { Form, Col, Row, Button, Divider } from 'antd';
+import { Form, Col, Row, Button, Divider,Spin } from 'antd';
 import { formItem } from 'hocs/formItem.hoc';
 import { addressFormFields } from '@app/common/formsFields/address.formFields';
 import { vendorFormField } from '@app/common/formsFields/vendor.formFields';
-import { createVendor } from '@app/common/api/shipper';
-import { handleSubmitHOC } from 'hocs/form';
 import Countries from '@app/common/constants/countryAndState'
+import { createVendor, editVendor, retrieveVendor } from '@app/common/api/shipper';
+import { useHandelForm } from 'hooks/form';
 
-
-export const VendorForm = ({ onCancel, onDone }) => {
-  const [form] = Form.useForm();
+export const VendorForm = ({ onCancel, onDone, id }) => {
   const [countryIndex,setCountryIndex] = useState(81)
-  const handleSubmit = handleSubmitHOC({
-    api: createVendor,
-    failure: 'Error in creating vendor.',
-    success: 'Error in creating vendor.',
-    onDone,
-    onCancel,
+  const { form, loading, submit } = useHandelForm({
+    create: createVendor,
+    edit: editVendor,
+    retrieve: retrieveVendor,
+    success: 'Successfully added/edited vendor',
+    failure: 'Error in adding/editing vendor',
+    done: onDone,
+    close: onCancel,
+    id,
   });
 
   const [checkBoxConfig , setCheckBoxConfig] = useState({
@@ -51,10 +52,10 @@ export const VendorForm = ({ onCancel, onDone }) => {
     setCountryIndex(index !== undefined?index:81);
   }
   return (
-    <div className=''>
+    <Spin spinning={loading} className=''>
       <Form
         form={form}
-        onFinish={handleSubmit}
+        onFinish={submit}
         onFieldsChange={fieldChange}
         layout='vertical'
         hideRequiredMark>
@@ -62,14 +63,7 @@ export const VendorForm = ({ onCancel, onDone }) => {
           <Col span={8}>
             {vendorFormField.slice(0, 2).map((item) => (
               <div className='p-2'>
-                {formItem(
-                  item.key,
-                  item.rules,
-                  item.kwargs,
-                  item.type,
-                  item.others,
-                  item.label,
-                )}
+                {formItem(item.key, item.rules, item.kwargs, item.type, item.others, item.label)}
               </div>
             ))}
             {vendorFormField.slice(6, 7).map((item) => (
@@ -88,28 +82,14 @@ export const VendorForm = ({ onCancel, onDone }) => {
           <Col span={8}>
             {vendorFormField.slice(2, 4).map((item) => (
               <div className='p-2'>
-                {formItem(
-                  item.key,
-                  item.rules,
-                  item.kwargs,
-                  item.type,
-                  item.others,
-                  item.label,
-                )}
+                {formItem(item.key, item.rules, item.kwargs, item.type, item.others, item.label)}
               </div>
             ))}
           </Col>
           <Col span={8}>
             {vendorFormField.slice(4, 6).map((item) => (
               <div className='p-2'>
-                {formItem(
-                  item.key,
-                  item.rules,
-                  item.kwargs,
-                  item.type,
-                  item.others,
-                  item.label,
-                )}
+                {formItem(item.key, item.rules, item.kwargs, item.type, item.others, item.label)}
               </div>
             ))}
           </Col>
@@ -119,28 +99,14 @@ export const VendorForm = ({ onCancel, onDone }) => {
           <Col span={12}>
             {addressFormFields.slice(0, 1).map((item) => (
               <div className='p-2'>
-                {formItem(
-                  item.key,
-                  item.rules,
-                  item.kwargs,
-                  item.type,
-                  item.others,
-                  item.label,
-                )}
+                {formItem(item.key, item.rules, item.kwargs, item.type, item.others, item.label)}
               </div>
             ))}
           </Col>
           <Col span={12}>
             {addressFormFields.slice(1, 2).map((item) => (
               <div className='p-2'>
-                {formItem(
-                  item.key,
-                  item.rules,
-                  item.kwargs,
-                  item.type,
-                  item.others,
-                  item.label,
-                )}
+                {formItem(item.key, item.rules, item.kwargs, item.type, item.others, item.label)}
               </div>
             ))}
           </Col>
@@ -149,14 +115,7 @@ export const VendorForm = ({ onCancel, onDone }) => {
           <Col span={8}>
             {addressFormFields.slice(2, 3).map((item) => (
               <div className='p-2'>
-                {formItem(
-                  item.key,
-                  item.rules,
-                  item.kwargs,
-                  item.type,
-                  item.others,
-                  item.label,
-                )}
+                {formItem(item.key, item.rules, item.kwargs, item.type, item.others, item.label)}
               </div>
             ))}
           </Col>
@@ -178,24 +137,14 @@ export const VendorForm = ({ onCancel, onDone }) => {
           <Col span={8}>
             {addressFormFields.slice(3, 4).map((item) => (
               <div className='p-2'>
-                {formItem(
-                  item.key,
-                  item.rules,
-                  item.kwargs,
-                  item.type,
-                  item.others,
-                  item.label,
-                )}
+                {formItem(item.key, item.rules, item.kwargs, item.type, item.others, item.label)}
               </div>
             ))}
           </Col>
         </Row>
         <Row />
         <Row>
-          <Button
-            type='primary'
-            htmlType='submit'
-          >
+          <Button type='primary' htmlType='submit'>
             Save
           </Button>
           <div className='p-2' />
@@ -203,7 +152,8 @@ export const VendorForm = ({ onCancel, onDone }) => {
             Cancel
           </Button>
         </Row>
+
       </Form>
-    </div>
+    </Spin>
   );
 };

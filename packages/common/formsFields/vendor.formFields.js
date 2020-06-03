@@ -33,7 +33,7 @@ export const vendorFormField = [
     others: null,
   },
   {
-    key: 'primaryPhone',
+    key: 'primary_phone',
     rules: [{ required: true, message: 'Please input your primary phone number!' }],
     kwargs: {
       placeholder: 'Primary Phone',
@@ -44,7 +44,7 @@ export const vendorFormField = [
     label: 'Primary Phone',
   },
   {
-    key: 'secondaryPhone',
+    key: 'secondary_phone',
     rules: [{ required: true, message: 'Please input your secondary phone number!' }],
     kwargs: {
       placeholder: 'Secondary Phone',
