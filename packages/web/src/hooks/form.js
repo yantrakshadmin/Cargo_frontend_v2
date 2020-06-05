@@ -6,9 +6,10 @@ export const useHandelForm = ({ create, edit, retrieve, id, success, failure, do
   const isEdit = !!id;
   const [form] = useForm();
   const [loading, setLoading] = useState(isEdit);
+  const [apiData, setApiData] = useState(undefined);
 
-  const successMessage = (isEdit ? success.edit : success.create) || success;
-  const failureMessage = (isEdit ? failure.edit : failure.create) || failure;
+  const successMessage = (isEdit ? success.edit : success.create) || success || 'Done';
+  const failureMessage = (isEdit ? failure.edit : failure.create) || failure || 'Error';
 
   const submit = async (data) => {
     try {
@@ -35,6 +36,7 @@ export const useHandelForm = ({ create, edit, retrieve, id, success, failure, do
       if (isEdit) {
         const { data } = await retrieve(id);
         form.setFieldsValue(data);
+        setApiData(data);
       }
     } catch (e) {
       notification.error({ message: 'Error in getting data', description: e.toString() });
@@ -46,7 +48,9 @@ export const useHandelForm = ({ create, edit, retrieve, id, success, failure, do
 
   useEffect(() => {
     loader().then();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
-  return { form, loading, submit };
+  return { form, loading, submit, data: apiData };
 };

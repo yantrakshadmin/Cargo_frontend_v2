@@ -2,7 +2,7 @@ import { FORM_ELEMENT_TYPES } from 'constants/formFields.constant';
 
 export const salesOrderFormFields = [
   {
-    key: 'orderId',
+    key: 'order_id',
     rules: [{ required: true, message: 'Please order id!' }],
     kwargs: {
       placeholder: 'Order ID',
@@ -12,54 +12,57 @@ export const salesOrderFormFields = [
     label: 'Order ID',
   },
   {
-    key: 'shipmentType',
+    key: 'shipment_type',
     rules: [{ required: true, message: 'Please select shipment type!' }],
     type: FORM_ELEMENT_TYPES.RADIO,
     others: {
       radioOptions: [
-        { value: 'ftl', label: 'FTL' },
-        { value: 'ptl', label: 'PTL & Parcel' },
+        { value: 'FTL', label: 'FTL' },
+        { value: 'PTL', label: 'PTL & Parcel' },
       ],
     },
     label: 'Shipment Type',
   },
   {
-    key: 'consignor',
+    key: 'sender_address',
     rules: [{ required: true, message: 'Please select consignor!' }],
     type: FORM_ELEMENT_TYPES.SELECT,
     kwargs: {
       placeholder: 'Select',
     },
+    label: 'Consignor',
   },
   {
-    key: 'consignee',
+    key: 'receiver_address',
     rules: [{ required: true, message: 'Please select consignee!' }],
     type: FORM_ELEMENT_TYPES.SELECT,
     kwargs: {
       placeholder: 'Select',
     },
+    label: 'Consignee',
   },
-  {
-    key: 'date',
-    rules: [{ required: true, message: 'Please select date!' }],
-    kwargs: {
-      placeholder: 'E.g: 10/07/2019',
-    },
-    type: FORM_ELEMENT_TYPES.DATE,
-    others: null,
-    label: 'Date',
-  },
+  // {
+  //   key: 'date',
+  //   rules: [{ required: true, message: 'Please select date!' }],
+  //   kwargs: {
+  //     placeholder: 'E.g: 10/07/2019',
+  //   },
+  //   type: FORM_ELEMENT_TYPES.DATE,
+  //   others: null,
+  //   label: 'Date',
+  // },
 ];
 
 export const salesOrderItemFormField = [
   {
-    key: 'name',
+    key: 'prod_name',
     rules: [{ required: true, message: 'Please enter item name!' }],
     kwargs: {
       placeholder: 'Name',
     },
     type: FORM_ELEMENT_TYPES.INPUT,
     others: null,
+    label: 'Product Name',
   },
   {
     key: 'quantity',
@@ -70,6 +73,17 @@ export const salesOrderItemFormField = [
       type: 'number',
     },
     others: null,
+  },
+  {
+    key: 'unit_price',
+    rules: [{ required: true, message: 'Please enter price per unit!' }],
+    kwargs: {
+      placeholder: 'Per unit price',
+      type: 'number',
+    },
+    type: FORM_ELEMENT_TYPES.INPUT,
+    others: null,
+    label: 'Per unit price',
   },
   {
     key: 'length',
@@ -96,6 +110,16 @@ export const salesOrderItemFormField = [
     rules: [{ required: true, message: 'Please enter height!' }],
     kwargs: {
       placeholder: 'Height',
+      type: 'number',
+    },
+    type: FORM_ELEMENT_TYPES.INPUT,
+    others: null,
+  },
+  {
+    key: 'weight',
+    rules: [{ required: true, message: 'Please enter weight!' }],
+    kwargs: {
+      placeholder: 'Weight',
       type: 'number',
     },
     type: FORM_ELEMENT_TYPES.INPUT,

@@ -1,20 +1,10 @@
 import React from 'react';
-import { Form, Input, Upload, Select, Radio, DatePicker,Checkbox,List } from 'antd';
+import { Form, Input, Upload, Select, Radio, DatePicker, Checkbox } from 'antd';
 import { Icon } from '@ant-design/compatible';
 import { FORM_ELEMENT_TYPES } from 'constants/formFields.constant';
 
 const { Option } = Select;
 const CheckboxGroup = Checkbox.Group;
-const list =[{
-  href: 'https://ant.design',
-  title: `ant design part `,
-  avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-  description:
-    'Ant Design, a design language for background applications, is refined by Ant UED Team.',
-  content:
-    'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
-}]
-
 
 export const formItem = (key, rules, kwargs, type, others, customLabel, noLabel) => {
   switch (type) {
@@ -57,19 +47,19 @@ export const formItem = (key, rules, kwargs, type, others, customLabel, noLabel)
             {others.selectOptions.map((item, index) => (
               <Option
                 key={index.toString()}
-                value={others.valueIndex?index:item.value || item[others.key]}>
-                {others.customTitle? (
-                  <text style={{ fontSize:13,fontWeight:'bold' }}>
-                    {item[others.customTitle]}
-                  </text>
-                ) : (item.label || item[others.key] || item)}
-                {others.dataKeys? (
-                  <div className='row' style={{ flexWrap:'wrap', }}>
-                    {others.dataKeys.map(i=>(
-                      <text style={{ fontSize:11,marginLeft:5,marginRight:5, }}>{item[i]}</text>
+                value={others.valueIndex ? index : item.value || item[others.key]}>
+                {others.customTitle ? (
+                  <text style={{ fontSize: 13, fontWeight: 'bold' }}>{item[others.customTitle]}</text>
+                ) : (
+                  item.label || item[others.key] || item
+                )}
+                {others.dataKeys ? (
+                  <div className='row' style={{ flexWrap: 'wrap' }}>
+                    {others.dataKeys.map((i) => (
+                      <text style={{ fontSize: 11, marginLeft: 5, marginRight: 5 }}>{item[i]}</text>
                     ))}
                   </div>
-                ):null}
+                ) : null}
               </Option>
             ))}
           </Select>
@@ -85,7 +75,9 @@ export const formItem = (key, rules, kwargs, type, others, customLabel, noLabel)
           rules={rules}>
           <Radio.Group value='Ggg'>
             {others.radioOptions.map((item) => (
-              <Radio key={item.value} value={item.value}>{item.label}</Radio>
+              <Radio key={item.value} value={item.value}>
+                {item.label}
+              </Radio>
             ))}
           </Radio.Group>
         </Form.Item>
@@ -101,30 +93,29 @@ export const formItem = (key, rules, kwargs, type, others, customLabel, noLabel)
           <DatePicker />
         </Form.Item>
       );
-    case FORM_ELEMENT_TYPES.MULTIPLE_CHECKBOX: return(
-      <Form.Item
-        key={key}
-        label={noLabel ? null : customLabel || key.charAt(0).toUpperCase() + key.slice(1)}
-        name={key}
-        rules={rules}>
-        <div className=''>
-          <Checkbox
-            indeterminate={others.indeterminate}
-            onChange={others.onCheckAllChange}
-            checked={others.checkAll}
-          >
-            Check all
-          </Checkbox>
-        </div>
-        <br />
-        <CheckboxGroup
-          options={others.checkOptions}
-          value={others.checkedList}
-          onChange={others.onChange}
-        />
-
-      </Form.Item>
-    )
+    case FORM_ELEMENT_TYPES.MULTIPLE_CHECKBOX:
+      return (
+        <Form.Item
+          key={key}
+          label={noLabel ? null : customLabel || key.charAt(0).toUpperCase() + key.slice(1)}
+          name={key}
+          rules={rules}>
+          <div className=''>
+            <Checkbox
+              indeterminate={others.indeterminate}
+              onChange={others.onCheckAllChange}
+              checked={others.checkAll}>
+              Check all
+            </Checkbox>
+          </div>
+          <br />
+          <CheckboxGroup
+            options={others.checkOptions}
+            value={others.checkedList}
+            onChange={others.onChange}
+          />
+        </Form.Item>
+      );
     default:
       return null;
   }
