@@ -49,7 +49,10 @@ export const formItem = (key, rules, kwargs, type, others, customLabel, noLabel)
                 key={index.toString()}
                 value={others.valueIndex ? index : item.value || item[others.key]}>
                 {others.customTitle ? (
-                  <text style={{ fontSize: 13, fontWeight: 'bold' }}>{item[others.customTitle]}</text>
+                  <text style={{ fontSize: 13,
+                    fontWeight: 'bold' }}>
+                    {item[others.customTitle]}
+                  </text>
                 ) : (
                   item.label || item[others.key] || item
                 )}
@@ -100,20 +103,11 @@ export const formItem = (key, rules, kwargs, type, others, customLabel, noLabel)
           label={noLabel ? null : customLabel || key.charAt(0).toUpperCase() + key.slice(1)}
           name={key}
           rules={rules}>
-          <div className=''>
-            <Checkbox
-              indeterminate={others.indeterminate}
-              onChange={others.onCheckAllChange}
-              checked={others.checkAll}>
-              Check all
-            </Checkbox>
-          </div>
-          <br />
           <CheckboxGroup
-            options={others.checkOptions}
-            value={others.checkedList}
             onChange={others.onChange}
-          />
+          >
+            {others.checkOptions.map(i=>(<Checkbox value={i.value}>{i.label}</Checkbox>))}
+          </CheckboxGroup>
         </Form.Item>
       );
     default:

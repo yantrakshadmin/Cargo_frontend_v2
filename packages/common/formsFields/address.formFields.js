@@ -76,13 +76,12 @@ export const addressFormFields = [
     rules: [{ required: true, message: 'Please enter country!' }],
     kwargs: {
       placeholder: 'Country',
-      defaultValue:81,
+      defaultValue:'India',
     },
     type: FORM_ELEMENT_TYPES.SELECT,
     others: {
       selectOptions:Countries.countries,
       key:'country',
-      valueIndex:true,
     },
   }, {
     key: 'state',
@@ -91,7 +90,5 @@ export const addressFormFields = [
       placeholder: 'State',
     },
     type: FORM_ELEMENT_TYPES.SELECT,
-    others: null,
   },
-
 ];

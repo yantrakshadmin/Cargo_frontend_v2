@@ -6,9 +6,9 @@ import { vendorFormField } from '@app/common/formsFields/vendor.formFields';
 import Countries from '@app/common/constants/countryAndState'
 import { createVendor, editVendor, retrieveVendor } from '@app/common/api/shipper';
 import { useHandelForm } from 'hooks/form';
+import { getStates } from '@app/common/constants/getStates';
 
 export const VendorForm = ({ onCancel, onDone, id }) => {
-  const [countryIndex,setCountryIndex] = useState(81)
   const { form, loading, submit } = useHandelForm({
     create: createVendor,
     edit: editVendor,
@@ -19,38 +19,30 @@ export const VendorForm = ({ onCancel, onDone, id }) => {
     close: onCancel,
     id,
   });
-
+  const [states,setStates ] =
+    useState(Countries.countries.filter(i => (i.country === 'India'))[0].states)
   const [checkBoxConfig , setCheckBoxConfig] = useState({
-    checkList:[],
-    checkOptions:['Fleet Owner', 'Transporter', 'Broker'],
-    indeterminate:true,
-    checkAll: false,
+    checkedList:[],
+    checkOptions:[
+      { label:'Transporter',value:1 },
+      { label:'Broker',value:2 },
+      { label:'Fleet Owner',value:3 },
+    ],
+    allOptions:[1,2,3],
   })
 
   const onChange = (checkedList) =>{
     setCheckBoxConfig({
       ...checkBoxConfig,
-      checkedList,
-      indeterminate: !!checkedList.length &&
-        checkedList.length < checkBoxConfig.checkOptions.length,
-      checkAll: checkedList.length === checkBoxConfig.checkOptions.length,
+      checkedlist: checkedList,
     });
   }
 
-  const onCheckAllChange = (e) => {
-    setCheckBoxConfig({
-      ...checkBoxConfig,
-      checkedList: e.target.checked ? checkBoxConfig.checkOptions : [],
-      indeterminate: false,
-      checkAll: e.target.checked,
-    })
-  }
 
   const fieldChange = () =>{
-    const index = form.getFieldValue('country')
-    console.log('index',countryIndex,index)
-    setCountryIndex(index !== undefined?index:81);
+    setStates(getStates(form.getFieldValue('country')))
   }
+
   return (
     <Spin spinning={loading} className=''>
       <Form
@@ -73,7 +65,7 @@ export const VendorForm = ({ onCancel, onDone, id }) => {
                   item.rules,
                   item.kwargs,
                   item.type,
-                  { ...checkBoxConfig, onChange,onCheckAllChange },
+                  { ...checkBoxConfig, onChange },
                   item.label,
                 )}
               </div>
@@ -128,7 +120,7 @@ export const VendorForm = ({ onCancel, onDone, id }) => {
                   item.rules,
                   item.kwargs,
                   item.type,
-                  { selectOptions:Countries.countries[countryIndex].states, },
+                  { selectOptions:states, },
                   item.label,
                 )}
               </div>

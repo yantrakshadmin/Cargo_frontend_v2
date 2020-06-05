@@ -9,9 +9,12 @@ import {
 } from '@app/common/formsFields/address.formFields';
 import Countries from '@app/common/constants/countryAndState'
 import { useHandelForm } from 'hooks/form';
+import { getStates } from '@app/common/constants/getStates';
 
 export const AddressForm = ({ onCancel, onDone, id }) => {
-  const [countryIndex,setCountryIndex] = useState(81)
+  const [states,setStates ] =
+    useState(Countries.countries.filter(i => (i.country === 'India'))[0].states)
+
   const { form, loading, submit } = useHandelForm({
     create: createAddress,
     edit: editAddress,
@@ -24,9 +27,9 @@ export const AddressForm = ({ onCancel, onDone, id }) => {
   });
 
   const fieldChange = () =>{
-    const index = form.getFieldValue('country')
-    setCountryIndex(index);
+    setStates(getStates(form.getFieldValue('country')))
   }
+
   return (
     <Spin spinning={loading}>
       <Form
@@ -118,7 +121,7 @@ export const AddressForm = ({ onCancel, onDone, id }) => {
                   item.rules,
                   item.kwargs,
                   item.type,
-                  { selectOptions:Countries.countries[countryIndex].states, },
+                  { selectOptions:states, },
                   item.label,
                 )}
               </div>
