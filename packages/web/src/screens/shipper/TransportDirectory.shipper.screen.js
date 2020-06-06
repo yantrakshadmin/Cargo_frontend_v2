@@ -11,28 +11,13 @@ import { FORM_ELEMENT_TYPES } from '../../constants/formFields.constant';
 export const TransportDirectory = () => {
   const [form] = Form.useForm();
   const [cities, setCites]  = useState(States.Andamans)
-  const { loading, reload } = useAPI(`/vendors/`);
+  const [requestData,setRequestData] = useState({ city:'Andamans',state:'Andamans' })
+  const { data, loading, reload } = useAPI(`/directory/`,{ method:'get',params:requestData });
 
-  const data = [
-    {
-      company_name:'Airtel',
-      contact_person_name:'+919557807977',
-      state:'uttarpradesh'
-    }, {
-      company_name:'Ggg',
-      contact_person_name:'+919557807977',
-      state:'maharashtra'
-    },{
-      company_name:'More',
-      contact_person_name:'+919557807977',
-      state:'delhi'
-    },
-  ]
   const onChange = () =>{
     const newState = form.getFieldValue('state')
-    console.log(newState,States[newState]);
     setCites(States[newState])
-
+    setRequestData({ city:form.getFieldValue('city'),state:form.getFieldValue('state') })
   }
   return(
     <Form
@@ -66,7 +51,7 @@ export const TransportDirectory = () => {
                 placeholder: 'Select City',
               },
               FORM_ELEMENT_TYPES.SELECT,
-              { selectOptions:cities, },
+              { selectOptions:cities, formOptions: { initialValue:'Andamans' } },
               'City',
             )}
           </div>
@@ -75,7 +60,7 @@ export const TransportDirectory = () => {
       <MasterHOC
         title='Transport Directory'
         columns={shipperTransportDirectoryColumn}
-        data={data}
+        data={[]}
         loading={loading}
         refresh={reload}
         hideRightButton />
