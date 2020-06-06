@@ -82,6 +82,9 @@ export const addressFormFields = [
     others: {
       selectOptions:Countries.countries,
       key:'country',
+      formOptions:{
+        initialValue:'India'
+      }
     },
   }, {
     key: 'state',

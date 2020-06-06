@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { Form, Col, Row, Button, Divider,Spin } from 'antd';
 import { createAddress, editAddress, retrieveAddress } from '@app/common/api/shipper';
 
@@ -27,12 +27,17 @@ export const AddressForm = ({ onCancel, onDone, id }) => {
   });
 
   const fieldChange = () =>{
-    setStates(getStates(form.getFieldValue('country')))
+    if(form.getFieldValue('country')) {
+      setStates(getStates(form.getFieldValue('country')))
+    }
+
   }
+
 
   return (
     <Spin spinning={loading}>
       <Form
+        form={form}
         onFinish={submit}
         onFieldsChange={fieldChange}
         layout='vertical'

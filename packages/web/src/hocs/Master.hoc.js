@@ -10,6 +10,7 @@ export const MasterHOC = ({
   modalParams,
   modalBody: ModalBody,
   hideRightButton,
+  tableOptions,
   customModalTitle,
   refresh = () => {},
   customRightButtonLabel,
@@ -67,7 +68,7 @@ export const MasterHOC = ({
       <Divider style={{ margin: 0, padding: 0 }} />
       <Row>
         <Col span={24}>
-          <Table bordered dataSource={data} columns={columns} loading={loading} />
+          <Table bordered dataSource={data} columns={columns} loading={loading} {...tableOptions} />
         </Col>
       </Row>
     </div>

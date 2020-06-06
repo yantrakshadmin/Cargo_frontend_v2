@@ -55,7 +55,7 @@ export const vendorFormField = [
     label: 'Secondary Phone',
   },
   {
-    key:'states_dealt_in',
+    key:'states_dealtin',
     rules:[{ required: true,message: 'Please select states !' }],
     kwargs: {
       mode:"multiple",
@@ -63,7 +63,7 @@ export const vendorFormField = [
     },
     type: FORM_ELEMENT_TYPES.SELECT,
     others: {
-      selectOptions:Countries.countries[81].states,
+      selectOptions:[ 'All States',...Countries.countries[81].states],
     },
     label: "States Dealt In"
   },

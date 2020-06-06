@@ -7,6 +7,13 @@ const { Option } = Select;
 const CheckboxGroup = Checkbox.Group;
 
 export const formItem = (key, rules, kwargs, type, others, customLabel, noLabel) => {
+  let formOptions = {}
+  if(others){
+    if(others.formOptions)
+    {
+      formOptions = others.formOptions
+    }
+  }
   switch (type) {
     case FORM_ELEMENT_TYPES.INPUT:
       return (
@@ -14,7 +21,8 @@ export const formItem = (key, rules, kwargs, type, others, customLabel, noLabel)
           key={key}
           label={noLabel ? null : customLabel || key.charAt(0).toUpperCase() + key.slice(1)}
           name={key}
-          rules={rules}>
+          rules={rules}
+          {...formOptions}>
           <Input {...kwargs} />
         </Form.Item>
       );
@@ -25,7 +33,9 @@ export const formItem = (key, rules, kwargs, type, others, customLabel, noLabel)
           key={key}
           label={noLabel ? null : customLabel || key.charAt(0).toUpperCase() + key.slice(1)}
           name={key}
-          rules={rules}>
+          rules={rules}
+          {...formOptions}
+        >
           <Upload.Dragger {...kwargs}>
             <p className='ant-upload-drag-icon'>
               <Icon type='inbox' />
@@ -42,12 +52,13 @@ export const formItem = (key, rules, kwargs, type, others, customLabel, noLabel)
           key={key}
           label={noLabel ? null : customLabel || key.charAt(0).toUpperCase() + key.slice(1)}
           name={key}
-          rules={rules}>
+          rules={rules}
+          {...formOptions}>
           <Select {...kwargs}>
             {others.selectOptions.map((item, index) => (
               <Option
                 key={index.toString()}
-                value={others.valueIndex ? index : item.value || item[others.key]}>
+                value={others.valueIndex ? index : item.value || item[others.key] || item}>
                 {others.customTitle ? (
                   <text style={{ fontSize: 13,
                     fontWeight: 'bold' }}>
@@ -75,7 +86,9 @@ export const formItem = (key, rules, kwargs, type, others, customLabel, noLabel)
           key={key}
           label={noLabel ? null : customLabel || key.charAt(0).toUpperCase() + key.slice(1)}
           name={key}
-          rules={rules}>
+          rules={rules}
+          {...formOptions}
+        >
           <Radio.Group value='Ggg'>
             {others.radioOptions.map((item) => (
               <Radio key={item.value} value={item.value}>
@@ -90,6 +103,7 @@ export const formItem = (key, rules, kwargs, type, others, customLabel, noLabel)
       return (
         <Form.Item
           key={key}
+          {...formOptions}
           label={noLabel ? null : customLabel || key.charAt(0).toUpperCase() + key.slice(1)}
           name={key}
           rules={rules}>
@@ -102,7 +116,9 @@ export const formItem = (key, rules, kwargs, type, others, customLabel, noLabel)
           key={key}
           label={noLabel ? null : customLabel || key.charAt(0).toUpperCase() + key.slice(1)}
           name={key}
-          rules={rules}>
+          rules={rules}
+          {...formOptions}
+          >
           <CheckboxGroup
             onChange={others.onChange}
           >

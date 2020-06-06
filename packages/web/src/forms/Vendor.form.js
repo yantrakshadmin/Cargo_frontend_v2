@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { Form, Col, Row, Button, Divider,Spin } from 'antd';
 import { formItem } from 'hocs/formItem.hoc';
 import { addressFormFields } from '@app/common/formsFields/address.formFields';
@@ -19,6 +19,7 @@ export const VendorForm = ({ onCancel, onDone, id }) => {
     close: onCancel,
     id,
   });
+
   const [states,setStates ] =
     useState(Countries.countries.filter(i => (i.country === 'India'))[0].states)
   const [checkBoxConfig , setCheckBoxConfig] = useState({
@@ -40,7 +41,11 @@ export const VendorForm = ({ onCancel, onDone, id }) => {
 
 
   const fieldChange = () =>{
-    setStates(getStates(form.getFieldValue('country')))
+    console.log('values',form.getFieldValue('country'))
+    if(form.getFieldValue('country')) {
+      setStates(getStates(form.getFieldValue('country')))
+    }
+
   }
 
   return (
