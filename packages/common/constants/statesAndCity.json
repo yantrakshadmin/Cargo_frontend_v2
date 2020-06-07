@@ -1,7 +1,5 @@
 {
-  "Andamans": [
-    "Andamans"
-  ],
+  "Andamans": ["Andamans"],
   "Andhra pradesh": [
     "Visakhapatnam",
     "Vijayawada",
@@ -17,29 +15,11 @@
     "Rajahmundry",
     "Kadapa"
   ],
-  "Assam": [
-    "Guwhati",
-    "Guwahati",
-    "Beltola"
-  ],
-  "Bangla": [
-    "Hyderabad"
-  ],
-  "Bangladesh": [
-    "Agrabad"
-  ],
-  "Bihar": [
-    "Patna",
-    "HajipurVaishali",
-    "Muzaffarpur",
-    "Aurangabad",
-    "Kaimur",
-    "Saharsa"
-  ],
-  "Chandigarh": [
-    "Chandigarh",
-    "Panchkula"
-  ],
+  "Assam": ["Guwhati", "Guwahati", "Beltola"],
+  "Bangla": ["Hyderabad"],
+  "Bangladesh": ["Agrabad"],
+  "Bihar": ["Patna", "HajipurVaishali", "Muzaffarpur", "Aurangabad", "Kaimur", "Saharsa"],
+  "Chandigarh": ["Chandigarh", "Panchkula"],
   "Chhattisgarh": [
     "Durg",
     "Raipur",
@@ -50,13 +30,8 @@
     "Dantewada",
     "Bhilai"
   ],
-  "Delhi": [
-    "Delhi"
-  ],
-  "Goa": [
-    "Ponda",
-    "Goa"
-  ],
+  "Delhi": ["Delhi"],
+  "Goa": ["Ponda", "Goa"],
   "Gujarat": [
     "Ahmedabad",
     "Vapi",
@@ -116,22 +91,9 @@
     "Kalanwali",
     "Narnaul"
   ],
-  "Himachal Pradesh": [
-    "Rajgarh",
-    "Shimla",
-    "BaddiSolan",
-    "Parwanoo"
-  ],
-  "Hyderabad": [
-    "Hyderabad"
-  ],
-  "Jammu & Kashmir": [
-    "Jammu",
-    "Srinagar",
-    "Shopian",
-    "Bari",
-    "Samba"
-  ],
+  "Himachal Pradesh": ["Rajgarh", "Shimla", "BaddiSolan", "Parwanoo"],
+  "Hyderabad": ["Hyderabad"],
+  "Jammu & Kashmir": ["Jammu", "Srinagar", "Shopian", "Bari", "Samba"],
   "Jharkhand": [
     "Jamshedpur",
     "Bokaro",
@@ -363,9 +325,7 @@
     "KAMAREDDY",
     "Reddy"
   ],
-  "Tripura": [
-    "Agartala"
-  ],
+  "Tripura": ["Agartala"],
   "Uttar Pradesh": [
     "Hapur",
     "Muzaffarnagar",
@@ -406,17 +366,8 @@
     "Jhansi",
     "Mathura"
   ],
-  "Uttarakhand": [
-    "Haridwar",
-    "Rudrapur",
-    "Roorkee",
-    "Dehradun",
-    "Nainital",
-    "Saharanpur"
-  ],
-  "Vapi": [
-    "Vapi"
-  ],
+  "Uttarakhand": ["Haridwar", "Rudrapur", "Roorkee", "Dehradun", "Nainital", "Saharanpur"],
+  "Vapi": ["Vapi"],
   "West Bengal": [
     "Kolkata",
     "Howrah",
