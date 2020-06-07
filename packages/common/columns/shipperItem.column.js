@@ -1,43 +1,43 @@
 export const shipperItemColumn = [
   {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
+    title: 'Order Id',
+    dataIndex: 'order_id',
+    key: 'order_id',
   },
   {
-    title: 'Company',
-    dataIndex: 'company',
-    key: 'company',
+    title: 'Shipment type',
+    dataIndex: 'shipment_type',
+    key: 'shipment_type',
   },
+  // {
+  //   title: 'Sender address',
+  //   dataIndex: 'sender_address',
+  //   key: 'sender_address',
+  // },
   {
-    title: 'Email',
-    dataIndex: 'email',
-    key: 'email',
+    title: 'Receiver address',
+    dataIndex: 'receiver_address',
+    key: 'receiver_address',
   },
-  {
-    title: 'City',
-    dataIndex: 'city',
-    key: 'city',
-  },
-  {
-    title: 'State',
-    dataIndex: 'state',
-    key: 'state',
-  },
-
-  {
-    title: 'Primary Phone',
-    dataIndex: 'primaryPhone',
-    key: 'primaryPhone',
-  },
-  {
-    title: 'Secondary Phone',
-    dataIndex: 'secondaryPhone',
-    key: 'secondaryPhone',
-  },
-  {
-    title: 'Truck Type',
-    dataIndex: 'truckType',
-    key: 'truckType',
-  },
+  // {
+  //   title: 'State',
+  //   dataIndex: 'state',
+  //   key: 'state',
+  // },
+  //
+  // {
+  //   title: 'Primary Phone',
+  //   dataIndex: 'primaryPhone',
+  //   key: 'primaryPhone',
+  // },
+  // {
+  //   title: 'Secondary Phone',
+  //   dataIndex: 'secondaryPhone',
+  //   key: 'secondaryPhone',
+  // },
+  // {
+  //   title: 'Truck Type',
+  //   dataIndex: 'truckType',
+  //   key: 'truckType',
+  // },
 ];

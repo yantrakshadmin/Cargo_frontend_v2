@@ -7,12 +7,41 @@ import { SalesOrderForm } from 'forms/SalesOrder.form';
 import { shipperItemColumn } from '@app/common/columns/shipperItem.column';
 import { yantraColors } from 'helpers/yantraColors';
 import { useAPI } from '@app/common/hooks/api';
+import { LoadAPI } from 'hocs/LoadAPI';
+
+const Address = ({ id }) => (
+  <LoadAPI
+    url={`/edit-address/${id}/`}
+    error={() => 'Error'}
+    success={({ data: address }) => (
+      <>
+        {address.name}
+        {' - '}
+        {address.company}
+        <br />
+        {address.email}
+      </>
+    )}
+  />
+);
 
 export const SalesOrderShipperScreen = () => {
   const { data, loading, reload } = useAPI(`/orders/`);
 
   const columns = [
     ...shipperItemColumn,
+    {
+      title: 'Sender address',
+      // dataIndex: 'sender_address',
+      key: 'sender_address',
+      render: ({ sender_address }) => <Address id={sender_address} />,
+    },
+    {
+      title: 'Receiver address',
+      // dataIndex: 'receiver_address',
+      key: 'receiver_address',
+      render: ({ receiver_address }) => <Address id={receiver_address} />,
+    },
     {
       title: 'Action',
       key: 'operation',
@@ -42,11 +71,9 @@ export const SalesOrderShipperScreen = () => {
       menu: [
         {
           title: 'Ready To Dispatch',
-          onClick: () => {
-          },
+          onClick: () => {},
           type: 'primary',
         },
-
       ],
     },
     {
@@ -66,11 +93,7 @@ export const SalesOrderShipperScreen = () => {
   ];
 
   return (
-    <TableWithTabHOC
-      refresh={reload}
-      tabs={tabs}
-      title='Sales Orders'
-      modalBody={SalesOrderForm} />
+    <TableWithTabHOC refresh={reload} tabs={tabs} title='Sales Orders' modalBody={SalesOrderForm} />
   );
 };
 
