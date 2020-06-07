@@ -56,7 +56,6 @@ export const salesOrderFormFields = [
 export const salesOrderItemFormField = [
   {
     key: 'prod_name',
-    rules: [{ required: true, message: 'Please enter item name!' }],
     kwargs: {
       placeholder: 'Name',
     },
@@ -66,7 +65,6 @@ export const salesOrderItemFormField = [
   },
   {
     key: 'quantity',
-    rules: [{ required: true, message: 'Please enter item quantity!' }],
     type: FORM_ELEMENT_TYPES.INPUT,
     kwargs: {
       placeholder: 'Quantity',
@@ -76,7 +74,6 @@ export const salesOrderItemFormField = [
   },
   {
     key: 'unit_price',
-    rules: [{ required: true, message: 'Please enter price per unit!' }],
     kwargs: {
       placeholder: 'Per unit price',
       type: 'number',
@@ -87,7 +84,6 @@ export const salesOrderItemFormField = [
   },
   {
     key: 'length',
-    rules: [{ required: true, message: 'Please enter length!' }],
     kwargs: {
       placeholder: 'Length',
       type: 'number',
@@ -97,7 +93,6 @@ export const salesOrderItemFormField = [
   },
   {
     key: 'breadth',
-    rules: [{ required: true, message: 'Please enter breadth!' }],
     kwargs: {
       placeholder: 'Breadth',
       type: 'number',
@@ -107,7 +102,6 @@ export const salesOrderItemFormField = [
   },
   {
     key: 'height',
-    rules: [{ required: true, message: 'Please enter height!' }],
     kwargs: {
       placeholder: 'Height',
       type: 'number',
@@ -117,7 +111,6 @@ export const salesOrderItemFormField = [
   },
   {
     key: 'weight',
-    rules: [{ required: true, message: 'Please enter weight!' }],
     kwargs: {
       placeholder: 'Weight',
       type: 'number',

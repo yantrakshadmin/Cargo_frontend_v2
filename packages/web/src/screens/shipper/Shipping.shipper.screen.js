@@ -6,7 +6,6 @@ import {assignTruck, locationDetails} from '@app/common/columns/shipperShipping.
 
 export const ShippingShipperScreen = () => {
   const { data, loading, reload } = useAPI(`/vendors/`);
-
   const assignTruckColumns = [
     ...assignTruck,
     {
@@ -37,6 +36,7 @@ export const ShippingShipperScreen = () => {
       <Row>
         <Col span={12}>
           <br />
+          {console.log(data)}
           <MasterHOC
             title='Location Details'
             columns={locationDetails}

@@ -106,3 +106,13 @@ export const supplierFTLRoutes = [
     Component: lazy(() => import('screens/supplier/FTL/TripManagement.ftl.supplier.screen')),
   },
 ];
+
+export const supplierPTLRoutes = [
+  {
+    name: 'View Pickup requests',
+    icon: ['fas', 'layout'],
+    path: '/view-pickup-requests/',
+    Component: lazy(() => import('screens/supplier/PTL/ViewPickupRequest.supplier.screen')),
+  },
+
+];

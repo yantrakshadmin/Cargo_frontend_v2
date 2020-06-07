@@ -8,6 +8,7 @@ import { shipperItemColumn } from '@app/common/columns/shipperItem.column';
 import { yantraColors } from 'helpers/yantraColors';
 import { useAPI } from '@app/common/hooks/api';
 import { LoadAPI } from 'hocs/LoadAPI';
+import { Input, Modal } from 'antd';
 
 const Address = ({ id }) => (
   <LoadAPI
@@ -29,6 +30,7 @@ export const SalesOrderShipperScreen = () => {
   const { data, loading, reload } = useAPI(`/orders/`, {});
   const [selected, setSelected] = useState([]);
   const [editingId, setEditingId] = useState(undefined);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const columns = [
     ...shipperItemColumn,
@@ -89,8 +91,9 @@ export const SalesOrderShipperScreen = () => {
       loading,
       menu: [
         {
-          title: 'Bids',
-          onClick: () => {},
+          title: 'Check Rates',
+          onClick: () => {            setModalVisible(true);
+          },
           type: 'primary',
         },
       ],
@@ -122,17 +125,32 @@ export const SalesOrderShipperScreen = () => {
   const cancelEditing = () => setEditingId(undefined);
 
   return (
-    <TableWithTabHOC
-      reset={reset}
-      rowKey={(record) => record.id}
-      rowSelection={{ type: 'checkbox', selectedRowKeys: selected, onChange }}
-      refresh={reload}
-      tabs={tabs}
-      title='Sales Orders'
-      editingId={editingId}
-      cancelEditing={cancelEditing}
-      modalBody={SalesOrderForm}
+    <div>
+      <Modal
+        visible={modalVisible}
+        onCancel={() => {
+          setModalVisible(false);
+        }}
+        title='Bid Now'
+        onOk={() => {}}>
+        <div>
+          Content here
+          <br />
+          Ggg
+        </div>
+      </Modal>
+      <TableWithTabHOC
+        reset={reset}
+        rowKey={(record) => record.id}
+        rowSelection={{ type: 'checkbox', selectedRowKeys: selected, onChange }}
+        refresh={reload}
+        tabs={tabs}
+        title='Sales Orders'
+        editingId={editingId}
+        cancelEditing={cancelEditing}
+        modalBody={SalesOrderForm}
     />
+    </div>
   );
 };
 

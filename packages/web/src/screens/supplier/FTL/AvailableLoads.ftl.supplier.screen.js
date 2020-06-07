@@ -31,6 +31,7 @@ function AvailableLoadsFtlSupplierScreen() {
   ];
   return (
     <div>
+
       <MasterHOC
         title='View Available Loads'
         columns={columns}
@@ -38,7 +39,6 @@ function AvailableLoadsFtlSupplierScreen() {
         modalBody={() => {}}
         hideRightButton
       />
-
       <Modal
         visible={modalVisible}
         onCancel={() => {
