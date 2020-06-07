@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Col, Row, Button, Divider, Spin } from 'antd';
 import { createAddress, editAddress, retrieveAddress } from '@app/common/api/shipper';
 
@@ -6,9 +6,13 @@ import { formItem } from 'hocs/formItem.hoc';
 import { mainAddressFormFields, addressFormFields } from '@app/common/formsFields/address.formFields';
 import Countries from '@app/common/constants/countryAndState';
 import { useHandelForm } from 'hooks/form';
+import { getStates } from '@app/common/constants/getStates';
 
 export const AddressForm = ({ onCancel, onDone, id }) => {
-  const [countryIndex, setCountryIndex] = useState(81);
+  const [states, setStates] = useState(
+    Countries.countries.filter((i) => i.country === 'India')[0].states,
+  );
+
   const { form, loading, submit } = useHandelForm({
     create: createAddress,
     edit: editAddress,
@@ -21,13 +25,19 @@ export const AddressForm = ({ onCancel, onDone, id }) => {
   });
 
   const fieldChange = () => {
-    const index = form.getFieldValue('country');
-    setCountryIndex(index !== undefined ? index : 81);
+    if (form.getFieldValue('country')) {
+      setStates(getStates(form.getFieldValue('country')));
+    }
   };
 
   return (
     <Spin spinning={loading}>
-      <Form onFinish={submit} onFieldsChange={fieldChange} layout='vertical' hideRequiredMark>
+      <Form
+        form={form}
+        onFinish={submit}
+        onFieldsChange={fieldChange}
+        layout='vertical'
+        hideRequiredMark>
         <Row>
           <Col span={12}>
             {mainAddressFormFields.slice(0, 2).map((item) => (
@@ -77,7 +87,7 @@ export const AddressForm = ({ onCancel, onDone, id }) => {
                   item.rules,
                   item.kwargs,
                   item.type,
-                  { selectOptions: Countries.countries[countryIndex].states },
+                  { selectOptions: states },
                   item.label,
                 )}
               </div>

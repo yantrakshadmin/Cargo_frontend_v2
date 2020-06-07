@@ -1,4 +1,4 @@
-export const shipperItemColumn = [
+export const shipperAddressColumn = [
   {
     title: 'Name',
     dataIndex: 'name',
@@ -15,6 +15,16 @@ export const shipperItemColumn = [
     key: 'email',
   },
   {
+    title: 'Phone',
+    dataIndex: 'phone',
+    key: 'phone',
+  },
+  {
+    title: 'Street',
+    dataIndex: 'street',
+    key: 'street',
+  },
+  {
     title: 'City',
     dataIndex: 'city',
     key: 'city',
@@ -24,20 +34,14 @@ export const shipperItemColumn = [
     dataIndex: 'state',
     key: 'state',
   },
-
   {
-    title: 'Primary Phone',
-    dataIndex: 'primaryPhone',
-    key: 'primaryPhone',
+    title: 'Country',
+    dataIndex: 'country',
+    key: 'country',
   },
   {
-    title: 'Secondary Phone',
-    dataIndex: 'secondaryPhone',
-    key: 'secondaryPhone',
-  },
-  {
-    title: 'Truck Type',
-    dataIndex: 'truckType',
-    key: 'truckType',
+    title: 'Pin',
+    dataIndex: 'pin',
+    key: 'pin',
   },
 ];

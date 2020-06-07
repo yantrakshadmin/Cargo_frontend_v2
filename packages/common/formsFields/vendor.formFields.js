@@ -1,6 +1,5 @@
 import { FORM_ELEMENT_TYPES } from 'constants/formFields.constant';
-import Countries from '@app/common/constants/countryAndState'
-
+import Countries from '@app/common/constants/countryAndState';
 
 export const vendorFormField = [
   {
@@ -55,17 +54,17 @@ export const vendorFormField = [
     label: 'Secondary Phone',
   },
   {
-    key:'states_dealt_in',
-    rules:[{ required: true,message: 'Please select states !' }],
+    key: 'states_dealtin',
+    rules: [{ required: true, message: 'Please select states !' }],
     kwargs: {
-      mode:"multiple",
-      placeholder: "States Dealt In"
+      mode: 'multiple',
+      placeholder: 'States Dealt In',
     },
     type: FORM_ELEMENT_TYPES.SELECT,
     others: {
-      selectOptions:Countries.countries[81].states,
+      selectOptions: ['All States', ...Countries.countries[81].states],
     },
-    label: "States Dealt In"
+    label: 'States Dealt In',
   },
   {
     key: 'truck_type',

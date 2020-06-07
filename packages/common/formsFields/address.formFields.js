@@ -1,5 +1,5 @@
 import { FORM_ELEMENT_TYPES } from 'constants/formFields.constant';
-import Countries from '@app/common/constants/countryAndState'
+import Countries from '@app/common/constants/countryAndState';
 
 export const mainAddressFormFields = [
   {
@@ -62,7 +62,8 @@ export const addressFormFields = [
     },
     type: FORM_ELEMENT_TYPES.INPUT,
     others: null,
-  }, {
+  },
+  {
     key: 'city',
     rules: [{ required: true, message: 'Please enter city!' }],
     kwargs: {
@@ -76,22 +77,23 @@ export const addressFormFields = [
     rules: [{ required: true, message: 'Please enter country!' }],
     kwargs: {
       placeholder: 'Country',
-      defaultValue:81,
+      defaultValue: 'India',
     },
     type: FORM_ELEMENT_TYPES.SELECT,
     others: {
-      selectOptions:Countries.countries,
-      key:'country',
-      valueIndex:true,
+      selectOptions: Countries.countries,
+      key: 'country',
+      formOptions: {
+        initialValue: 'India',
+      },
     },
-  }, {
+  },
+  {
     key: 'state',
     rules: [{ required: true, message: 'Please enter state!' }],
     kwargs: {
       placeholder: 'State',
     },
     type: FORM_ELEMENT_TYPES.SELECT,
-    others: null,
   },
-
 ];

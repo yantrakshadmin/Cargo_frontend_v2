@@ -2,20 +2,19 @@ import React, { useState } from 'react';
 
 import { MasterHOC } from 'hocs/Master.hoc';
 import { AddressForm } from 'forms/Address.form';
-
-import { shipperItemColumn } from '@app/common/columns/shipperItem.column';
 import { CloseSquareOutlined, EditOutlined } from '@ant-design/icons';
 import { yantraColors } from 'helpers/yantraColors';
 import { useAPI } from '@app/common/hooks/api';
 import { deleteAddress } from '@app/common/api/shipper';
 import { deleteHOC } from 'hocs/form';
+import { shipperAddressColumn } from '@app/common/columns/shipperAddress.column';
 
 export const AddressShipperScreen = () => {
   const { data, loading, reload } = useAPI(`/address/`);
   const [selectedRow, setSelectedRow] = useState(undefined);
 
   const columns = [
-    ...shipperItemColumn,
+    ...shipperAddressColumn,
     {
       title: 'Action',
       key: 'operation',
