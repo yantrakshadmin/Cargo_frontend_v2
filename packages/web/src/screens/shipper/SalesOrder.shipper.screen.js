@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CloseSquareOutlined, EditOutlined } from '@ant-design/icons';
 
 import { TableWithTabHOC } from 'hocs/TableWithTab.hoc';
@@ -26,7 +26,9 @@ const Address = ({ id }) => (
 );
 
 export const SalesOrderShipperScreen = () => {
-  const { data, loading, reload } = useAPI(`/orders/`);
+  const { data, loading, reload } = useAPI(`/orders/`, {});
+  const [selected, setSelected] = useState([]);
+  const [editingId, setEditingId] = useState(undefined);
 
   const columns = [
     ...shipperItemColumn,
@@ -45,9 +47,12 @@ export const SalesOrderShipperScreen = () => {
     {
       title: 'Action',
       key: 'operation',
-      render: () => (
+      render: ({ id }) => (
         <div className='row align-center justify-between'>
-          <EditOutlined style={{ color: yantraColors.primary, fontSize: 30 }} />
+          <EditOutlined
+            style={{ color: yantraColors.primary, fontSize: 30 }}
+            onClick={() => setEditingId(id)}
+          />
           <CloseSquareOutlined style={{ color: '#ff0000', fontSize: 30 }} />
         </div>
       ),
@@ -63,14 +68,28 @@ export const SalesOrderShipperScreen = () => {
       loading,
     },
     {
-      name: 'On Hold',
-      key: 'onHold',
-      data,
+      name: 'On Hold FTL',
+      key: 'onHoldFTL',
+      data: (data || []).filter((row) => row.status === 'Hold' && row.shipment_type === 'FTL'),
       columns,
       loading,
       menu: [
         {
           title: 'Ready To Dispatch',
+          onClick: () => {},
+          type: 'primary',
+        },
+      ],
+    },
+    {
+      name: 'On Hold PTL',
+      key: 'onHoldPTL',
+      data: (data || []).filter((row) => row.status === 'Hold' && row.shipment_type === 'PTL'),
+      columns,
+      loading,
+      menu: [
+        {
+          title: 'Bids',
           onClick: () => {},
           type: 'primary',
         },
@@ -86,14 +105,34 @@ export const SalesOrderShipperScreen = () => {
     {
       name: 'Assigned',
       key: 'Assigned',
-      data,
+      data: (data || []).filter((row) => row.status === 'Assigned'),
       loading,
       columns,
     },
   ];
 
+  const onChange = (selectedRowKeys) => {
+    setSelected(selectedRowKeys);
+  };
+
+  const reset = () => {
+    setSelected([]);
+  };
+
+  const cancelEditing = () => setEditingId(undefined);
+
   return (
-    <TableWithTabHOC refresh={reload} tabs={tabs} title='Sales Orders' modalBody={SalesOrderForm} />
+    <TableWithTabHOC
+      reset={reset}
+      rowKey={(record) => record.id}
+      rowSelection={{ type: 'checkbox', selectedRowKeys: selected, onChange }}
+      refresh={reload}
+      tabs={tabs}
+      title='Sales Orders'
+      editingId={editingId}
+      cancelEditing={cancelEditing}
+      modalBody={SalesOrderForm}
+    />
   );
 };
 

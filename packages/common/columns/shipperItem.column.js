@@ -14,11 +14,11 @@ export const shipperItemColumn = [
   //   dataIndex: 'sender_address',
   //   key: 'sender_address',
   // },
-  {
-    title: 'Receiver address',
-    dataIndex: 'receiver_address',
-    key: 'receiver_address',
-  },
+  // {
+  //   title: 'Receiver address',
+  //   dataIndex: 'receiver_address',
+  //   key: 'receiver_address',
+  // },
   // {
   //   title: 'State',
   //   dataIndex: 'state',

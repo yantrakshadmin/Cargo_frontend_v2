@@ -19,7 +19,7 @@ export const editOrders = (
     method: 'POST',
     data: { order_id, shipment_type, sender_address, receiver_address, package: packages },
   });
-export const retrieveOrders = (id) => loadAPI(`edit-address/${id}/`);
+export const retrieveOrders = (id) => loadAPI(`edit-order/${id}/`);
 
 export const createAddress = ({ name, company, email, phone, street, city, state, pin, country }) =>
   loadAPI(`create-address/`, {

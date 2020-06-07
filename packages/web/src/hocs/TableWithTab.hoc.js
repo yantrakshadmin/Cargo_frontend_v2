@@ -4,15 +4,27 @@ import { Typography, Button, Divider, Row, Col, Table, Modal, Tabs } from 'antd'
 const { Title } = Typography;
 const { TabPane } = Tabs;
 
-export const TableWithTabHOC = ({ title, tabs, modalBody: ModalBody = () => null, refresh }) => {
-  const [modalVisible, setModalVisible] = useState(false);
+export const TableWithTabHOC = ({
+  title,
+  tabs,
+  modalBody: ModalBody = () => null,
+  refresh,
+  rowSelection,
+  rowKey,
+  reset,
+  editingId,
+  cancelEditing,
+}) => {
+  const [modalVisible, setModalVisible] = useState(!!editingId);
   const [activeTab, setActiveTab] = useState(tabs[0].key);
   const callback = (key) => {
+    reset();
     setActiveTab(key);
   };
 
   const onCancel = () => {
     setModalVisible(false);
+    cancelEditing();
   };
 
   const onDone = () => {
@@ -34,14 +46,13 @@ export const TableWithTabHOC = ({ title, tabs, modalBody: ModalBody = () => null
   return (
     <div>
       <Modal
-        visible={modalVisible}
-        onCancel={() => {
-          setModalVisible(false);
-        }}
+        visible={modalVisible || !!editingId}
+        destroyOnClose
         style={{ minWidth: '80vw' }}
         title={`Add ${title}`}
+        onCancel={onCancel}
         footer={null}>
-        <ModalBody onCancel={onCancel} onDone={onDone} />
+        <ModalBody onCancel={onCancel} onDone={onDone} id={editingId} />
       </Modal>
       <Row justify='space-between' align='middle'>
         <Col>
@@ -75,7 +86,7 @@ export const TableWithTabHOC = ({ title, tabs, modalBody: ModalBody = () => null
             onClick={() => {
               setModalVisible(true);
             }}>
-            Add
+            Add 
             {' '}
             {title}
           </Button>
@@ -92,9 +103,12 @@ export const TableWithTabHOC = ({ title, tabs, modalBody: ModalBody = () => null
                 <TabPane tab={tab.name} key={tab.key}>
                   <Table
                     bordered
+                    rowKey={rowKey}
+                    rowSelection={rowSelection}
                     dataSource={tab.data}
                     loading={tab.loading}
-                    columns={tab.columns} />
+                    columns={tab.columns}
+                  />
                 </TabPane>
               ))}
             </Tabs>

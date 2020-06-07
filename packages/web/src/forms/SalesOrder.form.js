@@ -15,7 +15,8 @@ export const SalesOrderForm = ({ id, onCancel, onDone }) => {
   const [items, setItems] = useState([]);
   const [error, setError] = useState(null);
 
-  const { form, data, submit } = useHandelForm({
+  const { data: addresses, loading: addressLoading } = useAPI(`/address/`);
+  const { form, data, submit, loading } = useHandelForm({
     create: async ({ order_id, shipment_type, sender_address, receiver_address }) =>
       // eslint-disable-next-line no-return-await
       await createOrders({
@@ -43,8 +44,9 @@ export const SalesOrderForm = ({ id, onCancel, onDone }) => {
   });
 
   useEffect(() => {
-    if (data) {
-      const { order_id, shipment_type, sender_address, receiver_address, packages } = data;
+    if (id && data) {
+      console.log({ data });
+      const { order_id, shipment_type, sender_address, receiver_address, package: packages } = data;
       form.setFieldsValue({ order_id, shipment_type, sender_address, receiver_address });
       setItems(packages);
     }
@@ -103,7 +105,6 @@ export const SalesOrderForm = ({ id, onCancel, onDone }) => {
     }
   };
 
-  const { data: addresses, loading: addressLoading } = useAPI(`/address/`);
   const otherConfigsDropdown = {
     selectOptions: addresses || [],
     key: 'id',
@@ -112,7 +113,7 @@ export const SalesOrderForm = ({ id, onCancel, onDone }) => {
   };
 
   return (
-    <Spin spinning={addressLoading}>
+    <Spin spinning={addressLoading || loading}>
       <Divider orientation='left'>Order Details</Divider>
 
       <Form onFinish={submit} form={form} layout='vertical' hideRequiredMark>
@@ -215,7 +216,7 @@ export const SalesOrderForm = ({ id, onCancel, onDone }) => {
             </Col>
           </Row>
         ) : null}
-        {items.map((i, index) => (
+        {(items || []).map((i, index) => (
           <Row key={i.name}>
             <Col span={7}>
               <div className='p-h-4 p-v-2'>{i.prod_name}</div>
@@ -256,7 +257,9 @@ export const SalesOrderForm = ({ id, onCancel, onDone }) => {
             Save
           </Button>
           <div className='p-2' />
-          <Button type='primary'>Cancel</Button>
+          <Button type='primary' onClick={onCancel}>
+            Cancel
+          </Button>
         </Row>
       </Form>
     </Spin>
