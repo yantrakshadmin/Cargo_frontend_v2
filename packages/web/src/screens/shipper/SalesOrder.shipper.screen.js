@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { CloseSquareOutlined, EditOutlined } from '@ant-design/icons';
 import { TableWithTabHOC } from 'hocs/TableWithTab.hoc';
 import { SalesOrderForm } from 'forms/SalesOrder.form';
-import { deleteAddress, deleteOrder } from '@app/common/api/shipper';
 import { shipperItemColumn } from '@app/common/columns/shipperItem.column';
 import { yantraColors } from 'helpers/yantraColors';
 import { useAPI } from '@app/common/hooks/api';
 import { LoadAPI } from 'hocs/LoadAPI';
 import { Popconfirm, Modal } from 'antd';
+import { loadAPI } from '@app/common/helpers/api';
+import { deleteOrders } from '@app/common/api/shipper';
 import { deleteHOC } from '../../hocs/form';
-
 
 const Address = ({ id }) => (
   <LoadAPI
@@ -61,7 +61,7 @@ export const SalesOrderShipperScreen = () => {
             onConfirm={deleteHOC({
               row,
               reload,
-              api: deleteOrder,
+              api: deleteOrders,
               success: 'Deleted address successfully',
               failure: 'Error in deleting address',
             })}
@@ -90,7 +90,25 @@ export const SalesOrderShipperScreen = () => {
       menu: [
         {
           title: 'Ready To Dispatch',
-          onClick: () => {},
+          onClick: async () => {
+            // eslint-disable-next-line no-restricted-syntax
+            for (const id of selected)
+              try {
+                const raw = data.find((row) => row.id === id);
+                // eslint-disable-next-line no-await-in-loop
+                await loadAPI(`/edit-order/${id}/`, {
+                  method: 'PATCH',
+                  data: {
+                    ...raw,
+                    status: 'Active',
+                  },
+                });
+              } catch (e) {
+                // ignore
+              }
+
+            reload();
+          },
           type: 'primary',
         },
       ],
@@ -104,19 +122,20 @@ export const SalesOrderShipperScreen = () => {
       menu: [
         {
           title: 'Check Rates',
-          onClick: () => {            setModalVisible(true);
+          onClick: () => {
+            setModalVisible(true);
           },
           type: 'primary',
         },
       ],
     },
-    // {
-    //   name: 'Ready To Dispatch',
-    //   key: 'readyToDispatch',
-    //   data,
-    //   loading,
-    //   columns,
-    // },
+    {
+      name: 'Ready To Dispatch',
+      key: 'readyToDispatch',
+      data: (data || []).filter((row) => row.status === 'Active'),
+      loading,
+      columns,
+    },
     {
       name: 'Assigned',
       key: 'Assigned',
@@ -157,12 +176,13 @@ export const SalesOrderShipperScreen = () => {
         rowSelection={{ type:'checkbox', selectedRowKeys: selected, onChange }}
         refresh={reload}
         tabs={tabs}
-        customRowSelectionType={{ allSalesOrder:'checkbox',onHoldFTL:'checkbox',onHoldPTL:'radio',Assigned:'checkbox' }}
+        customRowSelectionType={{ allSalesOrder:'checkbox',
+          onHoldFTL:'checkbox',onHoldPTL:'radio',Assigned:'checkbox' }}
         title='Sales Orders'
         editingId={editingId}
         cancelEditing={cancelEditing}
         modalBody={SalesOrderForm}
-    />
+      />
     </div>
   );
 };

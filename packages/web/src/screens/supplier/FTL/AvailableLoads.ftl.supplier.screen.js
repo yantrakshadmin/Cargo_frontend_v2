@@ -3,14 +3,14 @@ import { Button, Input, Modal } from 'antd';
 
 import { MasterHOC } from 'hocs/Master.hoc';
 import { shipperItemColumn } from '@app/common/columns/shipperItem.column';
+import { useAPI } from '@app/common/hooks/api';
 
 function AvailableLoadsFtlSupplierScreen() {
   const [modalVisible, setModalVisible] = useState(false);
+  const { data, loading } = useAPI(`/available-orders/`);
 
   const [, setBiddingLoad] = useState({});
   const [, setBidPrice] = useState(0);
-
-  const data = [];
 
   const columns = [
     ...shipperItemColumn,
@@ -31,13 +31,13 @@ function AvailableLoadsFtlSupplierScreen() {
   ];
   return (
     <div>
-
       <MasterHOC
         title='View Available Loads'
         columns={columns}
         data={data}
         modalBody={() => {}}
         hideRightButton
+        loading={loading}
       />
       <Modal
         visible={modalVisible}
@@ -52,7 +52,7 @@ function AvailableLoadsFtlSupplierScreen() {
           <Input
             placeholder='Price in Rupees'
             onChange={(e) => {
-              setBidPrice(e.target.value)
+              setBidPrice(e.target.value);
             }}
             type='number'
             onPressEnter={() => {}}

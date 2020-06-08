@@ -20,7 +20,7 @@ export const editOrders = (
     data: { order_id, shipment_type, sender_address, receiver_address, package: packages },
   });
 
-export const deleteOrder = (id) => loadAPI(`edit-order/${id}/`, { method: 'DELETE' });
+export const deleteOrders = (id) => loadAPI(`edit-order/${id}/`, { method: 'DELETE' });
 
 export const retrieveOrders = (id) => loadAPI(`edit-order/${id}/`);
 

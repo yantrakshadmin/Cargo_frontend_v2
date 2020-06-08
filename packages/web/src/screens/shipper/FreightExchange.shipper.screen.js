@@ -9,7 +9,7 @@ import { yantraColors } from 'helpers/yantraColors';
 import { useAPI } from '@app/common/hooks/api';
 import { LoadAPI } from 'hocs/LoadAPI';
 import { Popconfirm } from 'antd';
-import { deleteOrder } from '@app/common/api/shipper';
+import { deleteOrders } from '@app/common/api/shipper';
 import { deleteHOC } from '../../hocs/form';
 
 const Address = ({ id }) => (
@@ -61,7 +61,7 @@ export const FreightExchange = () => {
             onConfirm={deleteHOC({
               row,
               reload,
-              api: deleteOrder,
+              api: deleteOrders,
               success: 'Deleted address successfully',
               failure: 'Error in deleting address',
             })}
