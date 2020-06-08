@@ -8,7 +8,9 @@ import { shipperItemColumn } from '@app/common/columns/shipperItem.column';
 import { yantraColors } from 'helpers/yantraColors';
 import { useAPI } from '@app/common/hooks/api';
 import { LoadAPI } from 'hocs/LoadAPI';
-import { Input, Modal } from 'antd';
+import { Modal } from 'antd';
+import { loadAPI } from '@app/common/helpers/api';
+import { deleteOrders } from '@app/common/api/shipper';
 
 const Address = ({ id }) => (
   <LoadAPI
@@ -55,7 +57,13 @@ export const SalesOrderShipperScreen = () => {
             style={{ color: yantraColors.primary, fontSize: 30 }}
             onClick={() => setEditingId(id)}
           />
-          <CloseSquareOutlined style={{ color: '#ff0000', fontSize: 30 }} />
+          <CloseSquareOutlined
+            style={{ color: '#ff0000', fontSize: 30 }}
+            onClick={async () => {
+              await deleteOrders(id);
+              reload();
+            }}
+          />
         </div>
       ),
     },
@@ -78,7 +86,25 @@ export const SalesOrderShipperScreen = () => {
       menu: [
         {
           title: 'Ready To Dispatch',
-          onClick: () => {},
+          onClick: async () => {
+            // eslint-disable-next-line no-restricted-syntax
+            for (const id of selected)
+              try {
+                const raw = data.find((row) => row.id === id);
+                // eslint-disable-next-line no-await-in-loop
+                await loadAPI(`/edit-order/${id}/`, {
+                  method: 'PATCH',
+                  data: {
+                    ...raw,
+                    status: 'Active',
+                  },
+                });
+              } catch (e) {
+                // ignore
+              }
+
+            reload();
+          },
           type: 'primary',
         },
       ],
@@ -92,7 +118,8 @@ export const SalesOrderShipperScreen = () => {
       menu: [
         {
           title: 'Check Rates',
-          onClick: () => {            setModalVisible(true);
+          onClick: () => {
+            setModalVisible(true);
           },
           type: 'primary',
         },
@@ -101,7 +128,7 @@ export const SalesOrderShipperScreen = () => {
     {
       name: 'Ready To Dispatch',
       key: 'readyToDispatch',
-      data,
+      data: (data || []).filter((row) => row.status === 'Active'),
       loading,
       columns,
     },
@@ -149,7 +176,7 @@ export const SalesOrderShipperScreen = () => {
         editingId={editingId}
         cancelEditing={cancelEditing}
         modalBody={SalesOrderForm}
-    />
+      />
     </div>
   );
 };
