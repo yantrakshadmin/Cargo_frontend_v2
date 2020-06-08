@@ -7,3 +7,5 @@ export const postTruck =
       method: 'POST',
       data: { name, truck_type, origin, destination, total_trucks, scheduled_date, offered_price },
     });
+
+export const availableOrder = () => loadAPI(`/available-orders/`);
