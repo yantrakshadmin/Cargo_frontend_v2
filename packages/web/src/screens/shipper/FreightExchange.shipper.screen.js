@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { CloseSquareOutlined, EditOutlined } from '@ant-design/icons';
+
 import { TableWithTabHOC } from 'hocs/TableWithTab.hoc';
 import { SalesOrderForm } from 'forms/SalesOrder.form';
-import { deleteAddress, deleteOrder } from '@app/common/api/shipper';
+
 import { shipperItemColumn } from '@app/common/columns/shipperItem.column';
 import { yantraColors } from 'helpers/yantraColors';
 import { useAPI } from '@app/common/hooks/api';
 import { LoadAPI } from 'hocs/LoadAPI';
-import { Popconfirm, Modal } from 'antd';
+import { Popconfirm } from 'antd';
+import { deleteOrder } from '@app/common/api/shipper';
 import { deleteHOC } from '../../hocs/form';
-
 
 const Address = ({ id }) => (
   <LoadAPI
@@ -27,11 +28,10 @@ const Address = ({ id }) => (
   />
 );
 
-export const SalesOrderShipperScreen = () => {
+export const FreightExchange = () => {
   const { data, loading, reload } = useAPI(`/orders/`, {});
   const [selected, setSelected] = useState([]);
   const [editingId, setEditingId] = useState(undefined);
-  const [modalVisible, setModalVisible] = useState(false);
 
   const columns = [
     ...shipperItemColumn,
@@ -66,7 +66,7 @@ export const SalesOrderShipperScreen = () => {
               failure: 'Error in deleting address',
             })}
           >
-            <CloseSquareOutlined style={{ color: '#ff0000', fontSize: 30,margin:5 }} />
+            <CloseSquareOutlined style={{ color: '#ff0000', fontSize: 30 }} />
           </Popconfirm>
         </div>
       ),
@@ -74,53 +74,11 @@ export const SalesOrderShipperScreen = () => {
   ];
 
   const tabs = [
+
     {
-      name: 'All Sales Orders',
-      key: 'allSalesOrder',
+      name: 'Freight Exchange',
+      key: 'freightExchange',
       data,
-      columns,
-      loading,
-    },
-    {
-      name: 'On Hold FTL',
-      key: 'onHoldFTL',
-      data: (data || []).filter((row) => row.status === 'Hold' && row.shipment_type === 'FTL'),
-      columns,
-      loading,
-      menu: [
-        {
-          title: 'Ready To Dispatch',
-          onClick: () => {},
-          type: 'primary',
-        },
-      ],
-    },
-    {
-      name: 'On Hold PTL',
-      key: 'onHoldPTL',
-      data: (data || []).filter((row) => row.status === 'Hold' && row.shipment_type === 'PTL'),
-      columns,
-      loading,
-      menu: [
-        {
-          title: 'Check Rates',
-          onClick: () => {            setModalVisible(true);
-          },
-          type: 'primary',
-        },
-      ],
-    },
-    // {
-    //   name: 'Ready To Dispatch',
-    //   key: 'readyToDispatch',
-    //   data,
-    //   loading,
-    //   columns,
-    // },
-    {
-      name: 'Assigned',
-      key: 'Assigned',
-      data: (data || []).filter((row) => row.status === 'Assigned'),
       loading,
       columns,
     },
@@ -137,34 +95,20 @@ export const SalesOrderShipperScreen = () => {
   const cancelEditing = () => setEditingId(undefined);
 
   return (
-    <div>
-      <Modal
-        visible={modalVisible}
-        onCancel={() => {
-          setModalVisible(false);
-        }}
-        title='Bid Now'
-        onOk={() => {}}>
-        <div>
-          Content here
-          <br />
-          Ggg
-        </div>
-      </Modal>
-      <TableWithTabHOC
-        reset={reset}
-        rowKey={(record) => record.id}
-        rowSelection={{ type:'checkbox', selectedRowKeys: selected, onChange }}
-        refresh={reload}
-        tabs={tabs}
-        customRowSelectionType={{ allSalesOrder:'checkbox',onHoldFTL:'checkbox',onHoldPTL:'radio',Assigned:'checkbox' }}
-        title='Sales Orders'
-        editingId={editingId}
-        cancelEditing={cancelEditing}
-        modalBody={SalesOrderForm}
-    />
-    </div>
+    <TableWithTabHOC
+      reset={reset}
+      rowKey={(record) => record.id}
+      rowSelection={{ type:  'checkbox', selectedRowKeys: selected, onChange }}
+      refresh={reload}
+      tabs={tabs}
+      title='Freight Exchange'
+      editingId={editingId}
+      hideRightButton
+      showModal
+      cancelEditing={cancelEditing}
+      modalBody={SalesOrderForm}
+      />
   );
 };
 
-export default SalesOrderShipperScreen;
+export default FreightExchange;

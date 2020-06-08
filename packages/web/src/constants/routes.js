@@ -1,4 +1,5 @@
-import { lazy } from 'react';
+import React, { lazy } from 'react';
+import { Redirect } from '@reach/router';
 
 export const publicRoutes = [
   { Component: lazy(() => import('screens/public/SignIn.screen')), path: '/' },
@@ -22,6 +23,16 @@ export const extraRoutesSupplierFTL = [
   {
     path: '/edit-profile/',
     Component: lazy(() => import('screens/supplier/FTL/EditProfile')),
+  },
+  {
+    path:'/',
+    Component: lazy(()=>import('screens/supplier/FTL/Dashboard.ftl.supplier.screen'))
+  },
+]
+export const extraRoutesSupplierPTL = [
+  {
+    path:'/',
+    Component: lazy(()=>import('screens/supplier/PTL/Dashboard.ptl.supplier.screen'))
   },
 ]
 export const shipperRoutes = [
@@ -61,10 +72,10 @@ export const shipperRoutes = [
     Component: lazy(() => import('screens/shipper/SalesOrder.shipper.screen')),
   },
   {
-    name: 'Carrier Selection',
+    name: 'Freight Exchange',
     icon:['fas', 'layer-group'],
-    path: '/carrier/',
-    Component: lazy(() => import('screens/shipper/Dashboard.shipper.screen')),
+    path: '/freight-exchange/',
+    Component: lazy(() => import('screens/shipper/FreightExchange.shipper.screen')),
   },
   {
     name: 'Shipping',

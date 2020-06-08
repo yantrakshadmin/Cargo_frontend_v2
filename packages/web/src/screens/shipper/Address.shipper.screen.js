@@ -8,6 +8,7 @@ import { useAPI } from '@app/common/hooks/api';
 import { deleteAddress } from '@app/common/api/shipper';
 import { deleteHOC } from 'hocs/form';
 import { shipperAddressColumn } from '@app/common/columns/shipperAddress.column';
+import { Popconfirm } from 'antd';
 
 export const AddressShipperScreen = () => {
   const { data, loading, reload } = useAPI(`/address/`);
@@ -26,16 +27,20 @@ export const AddressShipperScreen = () => {
               setSelectedRow({ id: row.id, isEditable: false, showModal: true });
             }}
           />
-          <CloseSquareOutlined
-            style={{ color: '#ff0000', fontSize: 30, margin: 5 }}
-            onClick={deleteHOC({
+          <Popconfirm
+            title='Confirm Delete'
+            onConfirm={deleteHOC({
               row,
               reload,
               api: deleteAddress,
               success: 'Deleted address successfully',
               failure: 'Error in deleting address',
             })}
+          >
+            <CloseSquareOutlined
+              style={{ color: '#ff0000', fontSize: 30, margin: 5 }}
           />
+          </Popconfirm>
         </div>
       ),
     },

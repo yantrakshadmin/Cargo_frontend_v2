@@ -16,9 +16,12 @@ export const editOrders = (
   { order_id, shipment_type, sender_address, receiver_address, packages },
 ) =>
   loadAPI(`edit-order/${id}/`, {
-    method: 'POST',
+    method: 'PATCH',
     data: { order_id, shipment_type, sender_address, receiver_address, package: packages },
   });
+
+export const deleteOrder = (id) => loadAPI(`edit-order/${id}/`, { method: 'DELETE' });
+
 export const retrieveOrders = (id) => loadAPI(`edit-order/${id}/`);
 
 export const createAddress = ({ name, company, email, phone, street, city, state, pin, country }) =>

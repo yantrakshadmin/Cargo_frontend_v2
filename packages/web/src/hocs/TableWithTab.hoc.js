@@ -14,6 +14,9 @@ export const TableWithTabHOC = ({
   reset,
   editingId,
   cancelEditing,
+  hideRightButton,
+  showModal,
+  customRowSelectionType,
 }) => {
   const [modalVisible, setModalVisible] = useState(!!editingId);
   const [activeTab, setActiveTab] = useState(tabs[0].key);
@@ -45,15 +48,17 @@ export const TableWithTabHOC = ({
 
   return (
     <div>
-      <Modal
-        visible={modalVisible || !!editingId}
-        destroyOnClose
-        style={{ minWidth: '80vw' }}
-        title={`Add ${title}`}
-        onCancel={onCancel}
-        footer={null}>
-        <ModalBody onCancel={onCancel} onDone={onDone} id={editingId} />
-      </Modal>
+      {!hideRightButton || showModal?(
+        <Modal
+          visible={modalVisible || !!editingId}
+          destroyOnClose
+          style={{ minWidth: '80vw' }}
+          title={`Add ${title}`}
+          onCancel={onCancel}
+          footer={null}>
+          <ModalBody onCancel={onCancel} onDone={onDone} id={editingId} />
+        </Modal>
+      ):null}
       <Row justify='space-between' align='middle'>
         <Col>
           <Title level={3}>{title}</Title>
@@ -81,15 +86,17 @@ export const TableWithTabHOC = ({
           }
         </Col>
         <Col>
-          <Button
-            type='primary'
-            onClick={() => {
-              setModalVisible(true);
-            }}>
-            Add 
-            {' '}
-            {title}
-          </Button>
+          { hideRightButton?null: (
+            <Button
+              type='primary'
+              onClick={() => {
+                setModalVisible(true);
+              }}>
+              Add
+              {' '}
+              {title}
+            </Button>
+          )}
         </Col>
       </Row>
       <Divider style={{ margin: 0, padding: 0 }} />
@@ -104,7 +111,11 @@ export const TableWithTabHOC = ({
                   <Table
                     bordered
                     rowKey={rowKey}
-                    rowSelection={rowSelection}
+                    rowSelection={
+                      customRowSelectionType?
+                        { ...rowSelection,type:customRowSelectionType[tab.key] }
+                        :rowSelection
+}
                     dataSource={tab.data}
                     loading={tab.loading}
                     columns={tab.columns}
