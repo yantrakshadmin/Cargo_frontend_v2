@@ -6,9 +6,9 @@ import { shipperItemColumn } from '@app/common/columns/shipperItem.column';
 import { yantraColors } from 'helpers/yantraColors';
 import { useAPI } from '@app/common/hooks/api';
 import { LoadAPI } from 'hocs/LoadAPI';
-import { Popconfirm, Modal } from 'antd';
+import { Popconfirm, Modal ,Button } from 'antd';
 import { loadAPI } from '@app/common/helpers/api';
-import { deleteOrders } from '@app/common/api/shipper';
+import {deleteOrders, viewBid} from '@app/common/api/shipper';
 import { deleteHOC } from '../../hocs/form';
 
 const Address = ({ id }) => (
@@ -68,6 +68,13 @@ export const SalesOrderShipperScreen = () => {
           >
             <CloseSquareOutlined style={{ color: '#ff0000', fontSize: 30,margin:5 }} />
           </Popconfirm>
+          <Button
+            type='primary'
+            onClick={async ()=>{
+              const bid = await viewBid(row.id)
+              console.log(bid)}}>
+            View Bid
+          </Button>
         </div>
       ),
     },
@@ -128,13 +135,6 @@ export const SalesOrderShipperScreen = () => {
           type: 'primary',
         },
       ],
-    },
-    {
-      name: 'Ready To Dispatch',
-      key: 'readyToDispatch',
-      data: (data || []).filter((row) => row.status === 'Active'),
-      loading,
-      columns,
     },
     {
       name: 'Assigned',

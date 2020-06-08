@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Form, Col, Row, Button, Divider, Spin } from 'antd';
 import { createAddress, editAddress, retrieveAddress } from '@app/common/api/shipper';
 
 import { formItem } from 'hocs/formItem.hoc';
-import { mainAddressFormFields, addressFormFields } from '@app/common/formsFields/address.formFields';
+import { mainAddressFormFields, addressFormFields }
+  from '@app/common/formsFields/address.formFields';
 import Countries from '@app/common/constants/countryAndState';
 import { useHandelForm } from 'hooks/form';
 import { getStates } from '@app/common/constants/getStates';

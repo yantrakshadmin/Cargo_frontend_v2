@@ -59,3 +59,10 @@ export const editVendor = (id, data) =>
     method: 'PATCH',
     data,
   });
+
+export const viewBid = (id) =>
+  loadAPI(`bids/${id}/`, {
+    method: 'GET',
+  });
+
+
