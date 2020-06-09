@@ -31,7 +31,7 @@ export const postTruckFormFields = [
     type: FORM_ELEMENT_TYPES.RADIO,
     others: {
       radioOptions: [
-        { value: 'Open', label: 'Container' },
+        { value: 'Open', label: 'Open' },
         { value: 'Container', label: 'Container' },
         { value: 'Trailer', label: 'Trailer' },
       ],

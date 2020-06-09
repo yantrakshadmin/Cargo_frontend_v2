@@ -9,6 +9,8 @@ export const shipperItemColumn = [
     dataIndex: 'shipment_type',
     key: 'shipment_type',
   },
+
+
   // {
   //   title: 'Sender address',
   //   dataIndex: 'sender_address',

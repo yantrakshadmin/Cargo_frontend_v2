@@ -1,22 +1,12 @@
 export const supplierMyBidsColumn = [
   {
-    title: 'Order ID',
-    dataIndex: 'order_id',
-    key: 'order_id',
+    title: 'Bid Amount',
+    dataIndex: 'bid_amount',
+    key: 'bid_amount',
   },
   {
-    title: 'Origin',
-    dataIndex: 'origin',
-    key: 'origin',
-  },
-  {
-    title: 'Destination',
-    dataIndex: 'destination',
-    key: 'destination',
-  },
-  {
-    title: 'Date',
-    dataIndex: 'date',
-    key: 'date',
+    title: 'Comment',
+    dataIndex: 'comments',
+    key: 'comment',
   },
 ];
