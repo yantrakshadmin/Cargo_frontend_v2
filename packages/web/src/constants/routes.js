@@ -1,5 +1,4 @@
-import React, { lazy } from 'react';
-import { Redirect } from '@reach/router';
+import { lazy } from 'react';
 
 export const publicRoutes = [
   { Component: lazy(() => import('screens/public/SignIn.screen')), path: '/' },

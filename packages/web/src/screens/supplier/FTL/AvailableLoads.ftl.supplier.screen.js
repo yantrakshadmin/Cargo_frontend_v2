@@ -31,7 +31,7 @@ function AvailableLoadsFtlSupplierScreen() {
       ),
     },
   ];
-  const { form, data:dataForm, submit, loading:loadingForm } = useHandelForm({
+  const { form, submit, loading:loadingForm } = useHandelForm({
     create: async ({ bid_amount, comments }) =>
       // eslint-disable-next-line no-return-await
       await createBid({ bid_amount,comments,id:bid.id } ),

@@ -68,13 +68,6 @@ export const SalesOrderShipperScreen = () => {
           >
             <CloseSquareOutlined style={{ color: '#ff0000', fontSize: 30,margin:5 }} />
           </Popconfirm>
-          <Button
-            type='primary'
-            onClick={async ()=>{
-              const bid = await viewBid(row.id)
-              console.log(bid)}}>
-            View Bid
-          </Button>
         </div>
       ),
     },

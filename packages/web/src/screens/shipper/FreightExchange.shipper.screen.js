@@ -8,9 +8,13 @@ import { shipperItemColumn } from '@app/common/columns/shipperItem.column';
 import { yantraColors } from 'helpers/yantraColors';
 import { useAPI } from '@app/common/hooks/api';
 import { LoadAPI } from 'hocs/LoadAPI';
-import { Popconfirm } from 'antd';
-import { deleteOrders } from '@app/common/api/shipper';
+import { Button, Col, Descriptions, Typography, Divider, Modal, Popconfirm, Row } from 'antd';
+import { deleteOrders, viewBid } from '@app/common/api/shipper';
+import { dateFormatter } from '@app/common/helpers/dateFomatter';
 import { deleteHOC } from '../../hocs/form';
+
+const { Text }  = Typography;
+const { Item }  = Descriptions;
 
 const Address = ({ id }) => (
   <LoadAPI
@@ -28,8 +32,39 @@ const Address = ({ id }) => (
   />
 );
 
+export const ViewBidBody= ({ bids }) =>{
+  return(
+    <Row>
+      <Col span={24}>
+        <Divider orientation='left'>Recent Bid</Divider>
+        <Row justify='space-between'>
+          <Col>
+            <Text>{dateFormatter(bids[0].bid_date)}</Text>
+          </Col>
+          <Col>
+            <Text>{bids[0].bid_amount}</Text>
+          </Col>
+        </Row>
+        <Divider orientation='left'>Previous Bids</Divider>
+        {bids.slice(1, bids.length).map((bid, index) => (
+          <Row justify='space-between' key={index.toString()}>
+            <Col>
+              <Text>{dateFormatter(bid.bid_date)}</Text>
+            </Col>
+            <Col>
+              <Text delete>{bid.bid_amount}</Text>
+            </Col>
+          </Row>
+        ))}
+      </Col>
+    </Row>
+  )
+}
+
 export const FreightExchange = () => {
   const { data, loading, reload } = useAPI(`/orders/`, {});
+  const [modalVisible, setModalVisible] = useState(false);
+  const [bids, setBids] = useState([{ bid_amount:0,bid_date:'' }]);
   const [selected, setSelected] = useState([]);
   const [editingId, setEditingId] = useState(undefined);
 
@@ -68,6 +103,16 @@ export const FreightExchange = () => {
           >
             <CloseSquareOutlined style={{ color: '#ff0000', fontSize: 30 }} />
           </Popconfirm>
+          <Button
+            type='primary'
+            onClick={async ()=>{
+              const bid = await viewBid(row.id)
+              setBids(bid.data)
+              console.log(bid.data)
+              setModalVisible(true);
+            }}>
+            View Bid
+          </Button>
         </div>
       ),
     },
@@ -95,19 +140,28 @@ export const FreightExchange = () => {
   const cancelEditing = () => setEditingId(undefined);
 
   return (
-    <TableWithTabHOC
-      reset={reset}
-      rowKey={(record) => record.id}
-      rowSelection={{ type:  'checkbox', selectedRowKeys: selected, onChange }}
-      refresh={reload}
-      tabs={tabs}
-      title='Freight Exchange'
-      editingId={editingId}
-      hideRightButton
-      showModal
-      cancelEditing={cancelEditing}
-      modalBody={SalesOrderForm}
+    <div>
+      <Modal
+        visible={modalVisible}
+        onCancel={() => setModalVisible(false)}
+        header={null}
+        onOk={() => {}}>
+        <ViewBidBody bids={bids} />
+      </Modal>
+      <TableWithTabHOC
+        reset={reset}
+        rowKey={(record) => record.id}
+        rowSelection={{ type:  'checkbox', selectedRowKeys: selected, onChange }}
+        refresh={reload}
+        tabs={tabs}
+        title='Freight Exchange'
+        editingId={editingId}
+        hideRightButton
+        showModal
+        cancelEditing={cancelEditing}
+        modalBody={SalesOrderForm}
       />
+    </div>
   );
 };
 
