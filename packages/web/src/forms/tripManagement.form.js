@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Col, Row, Button, Divider, Spin } from 'antd';
 
 import { formItem } from 'hocs/formItem.hoc';
@@ -26,6 +26,25 @@ export const TripManagementForm = ({ onCancel, onDone }) => {
   });
 
   const { data: orders, loading: orderLoading } = useAPI(`/assigned-orders/`);
+  const changeOnChange = () => {
+    const orderId = form.getFieldValue('order');
+    let order;
+
+    (orders || []).map((oo) => {
+      console.log({ oo });
+      if (oo.order.id === orderId) order = oo;
+
+      return null;
+    });
+
+    console.log({ orderId, order, orders });
+
+    if (order)
+      form.setFieldsValue({
+        loading_address: order.order.sender_address.name,
+        unloading_address: order.order.receiver_address.name,
+      });
+  };
 
   const checkVehicleSource = () => {
     const newItem = form.getFieldsValue(['vehicle_source']);
@@ -54,9 +73,10 @@ export const TripManagementForm = ({ onCancel, onDone }) => {
   return (
     <Spin spinning={orderLoading}>
       <Form
+        onFormChange={changeOnChange}
         onFinish={submit}
         form={form}
-        onFieldsChange={checkVehicleSource}
+        onFieldsChange={changeOnChange}
         layout='vertical'
         hideRequiredMark>
         <Row>
