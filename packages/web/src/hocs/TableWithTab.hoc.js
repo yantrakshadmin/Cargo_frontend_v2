@@ -125,6 +125,7 @@ export const TableWithTabHOC = ({
                         </p>
                       ),
                       rowExpandable: record => expandHandleKey?record[expandHandleKey]:null,
+                      expandRowByClick:true,
                     }:null}
 
                     dataSource={tab.data}

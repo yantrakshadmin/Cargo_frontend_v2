@@ -80,7 +80,7 @@ console.log(filtered)
             type='primary'
             onClick={async()=> {
               try{
-                await loadAPI(`confirmbid/${row.id}`,{method:'PATCH'})
+                await loadAPI(`confirmbid/${row.id}/`,{method:'PATCH'})
                 reload()
                 notification.success({ message: 'Bid Confirmed' });
               }
