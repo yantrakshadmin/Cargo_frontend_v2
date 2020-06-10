@@ -9,12 +9,12 @@ import { yantraColors } from 'helpers/yantraColors';
 import { useAPI } from '@app/common/hooks/api';
 import { LoadAPI } from 'hocs/LoadAPI';
 import { Button, Col, Typography, Divider, Modal, Popconfirm, Row } from 'antd';
-import { deleteOrders, viewBid } from '@app/common/api/shipper';
+import { deleteOrders } from '@app/common/api/shipper';
 import { dateFormatter } from '@app/common/helpers/dateFomatter';
-import { deleteHOC } from '../../hocs/form';
-import { ItemTable } from '../../components/ItemTable';
+import { deleteHOC } from 'hocs/form';
+import { ItemTable } from 'components/ItemTable';
 
-const { Text }  = Typography;
+const { Text } = Typography;
 
 const Address = ({ id }) => (
   <LoadAPI
@@ -32,8 +32,8 @@ const Address = ({ id }) => (
   />
 );
 
-export const ViewBidBody= ({ bids }) =>{
-  return(
+export const ViewBidBody = ({ bids }) => {
+  return (
     <Row>
       <Col span={24}>
         <Divider orientation='left'>Recent Bid</Divider>
@@ -58,13 +58,13 @@ export const ViewBidBody= ({ bids }) =>{
         ))}
       </Col>
     </Row>
-  )
-}
+  );
+};
 
 export const FreightExchange = () => {
   const { data, loading, reload } = useAPI(`/orders/`, {});
   const [modalVisible, setModalVisible] = useState(false);
-  const [bids, setBids] = useState([{ bid_amount:0,bid_date:'' }]);
+  const [bids] = useState([{ bid_amount: 0, bid_date: '' }]);
   const [selected, setSelected] = useState([]);
   const [editingId, setEditingId] = useState(undefined);
 
@@ -80,7 +80,9 @@ export const FreightExchange = () => {
       title: 'Receiver address',
       // dataIndex: 'receiver_address',
       key: 'receiver_address',
-      render: ({ receiver_address }) => {return <Address id={receiver_address.id} />},
+      render: ({ receiver_address }) => {
+        return <Address id={receiver_address.id} />;
+      },
     },
     {
       title: 'Action',
@@ -99,23 +101,22 @@ export const FreightExchange = () => {
               api: deleteOrders,
               success: 'Deleted address successfully',
               failure: 'Error in deleting address',
-            })}
-          >
+            })}>
             <CloseSquareOutlined style={{ color: '#ff0000', fontSize: 30 }} />
           </Popconfirm>
-          <Link to={`/freight-exchange/view-bid/${  row.id}`}>
+          <Link to={`/freight-exchange/view-bid/${row.id}`}>
             <Button
               type='primary'
-            //   onClick={
-            //   async ()=>{
-            //   // const bid = await viewBid(row.id)
-            //   // setBids(bid.data)
-            //   // console.log(bid.data)
-            //   // setModalVisible(true);
-            //
-            //   }
-            // }
-          >
+              //   onClick={
+              //   async ()=>{
+              //   // const bid = await viewBid(row.id)
+              //   // setBids(bid.data)
+              //   // console.log(bid.data)
+              //   // setModalVisible(true);
+              //
+              //   }
+              // }
+            >
               View Bid
             </Button>
           </Link>
@@ -125,7 +126,6 @@ export const FreightExchange = () => {
   ];
 
   const tabs = [
-
     {
       name: 'Freight Exchange',
       key: 'freightExchange',
@@ -157,7 +157,7 @@ export const FreightExchange = () => {
       <TableWithTabHOC
         reset={reset}
         rowKey={(record) => record.id}
-        rowSelection={{ type:  'checkbox', selectedRowKeys: selected, onChange }}
+        rowSelection={{ type: 'checkbox', selectedRowKeys: selected, onChange }}
         refresh={reload}
         tabs={tabs}
         title='Freight Exchange'
