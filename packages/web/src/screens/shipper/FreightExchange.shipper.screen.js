@@ -8,7 +8,7 @@ import { shipperSalesOrderColumn } from '@app/common/columns/shipperSalesOrder.c
 import { yantraColors } from 'helpers/yantraColors';
 import { useAPI } from '@app/common/hooks/api';
 import { LoadAPI } from 'hocs/LoadAPI';
-import { Button,  Popconfirm, } from 'antd';
+import { Button, Popconfirm,  } from 'antd';
 import { deleteOrders } from '@app/common/api/shipper';
 import { deleteHOC } from '../../hocs/form';
 import { ItemTable } from '../../components/ItemTable';
@@ -30,6 +30,7 @@ const Address = ({ id }) => (
   />
 );
 
+
 export const FreightExchange = () => {
   const { data, loading, reload } = useAPI(`/orders/`, {});
   const [selected, setSelected] = useState([]);
@@ -37,7 +38,6 @@ export const FreightExchange = () => {
   const [notAssigned, setNotAssigned] = useState([]);
   const [editingId, setEditingId] = useState(undefined);
 
-  console.log(data,"Ggg")
   useEffect(()=>{
     if(data){
       setAssigned(data.filter((i)=>(i.status ==='Active')))
@@ -48,7 +48,6 @@ export const FreightExchange = () => {
     ...shipperSalesOrderColumn,
     {
       title: 'Sender address',
-      // dataIndex: 'sender_address',
       key: 'sender_address',
       render: ({ sender_address }) => <Address id={sender_address.id} />,
     },
@@ -56,7 +55,9 @@ export const FreightExchange = () => {
       title: 'Receiver address',
       // dataIndex: 'receiver_address',
       key: 'receiver_address',
-      render: ({ receiver_address }) => {return <Address id={receiver_address.id} />},
+      render: ({ receiver_address }) => {
+        return <Address id={receiver_address.id} />;
+      },
     },
     {
       title: 'Action',
@@ -75,11 +76,10 @@ export const FreightExchange = () => {
               api: deleteOrders,
               success: 'Deleted address successfully',
               failure: 'Error in deleting address',
-            })}
-          >
+            })}>
             <CloseSquareOutlined style={{ color: '#ff0000', fontSize: 30 }} />
           </Popconfirm>
-          <Link to={`/freight-exchange/view-bid/${  row.id}`}>
+          <Link to={`/freight-exchange/view-bid/${row.id}`}>
             <Button
               type='primary'
           >
@@ -92,7 +92,6 @@ export const FreightExchange = () => {
   ];
 
   const tabs = [
-
     {
       name: 'Bid not assigned',
       key: 'not_assigned',
@@ -124,7 +123,7 @@ export const FreightExchange = () => {
       <TableWithTabHOC
         reset={reset}
         rowKey={(record) => record.id}
-        rowSelection={{ type:  'checkbox', selectedRowKeys: selected, onChange }}
+        rowSelection={{ type: 'checkbox', selectedRowKeys: selected, onChange }}
         refresh={reload}
         tabs={tabs}
         title='Freight Exchange'

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Form, Col, Row, Button, Divider, Spin } from 'antd';
 import { formItem } from 'hocs/formItem.hoc';
 import { addressFormFields } from '@app/common/formsFields/address.formFields';

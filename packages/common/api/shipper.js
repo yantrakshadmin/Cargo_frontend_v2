@@ -64,5 +64,3 @@ export const viewBid = (id) =>
   loadAPI(`bids/${id}/`, {
     method: 'GET',
   });
-
-
