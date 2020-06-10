@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CloseSquareOutlined, EditOutlined } from '@ant-design/icons';
-
+import { Link } from '@reach/router';
 import { TableWithTabHOC } from 'hocs/TableWithTab.hoc';
 import { SalesOrderForm } from 'forms/SalesOrder.form';
 
@@ -103,16 +103,22 @@ export const FreightExchange = () => {
           >
             <CloseSquareOutlined style={{ color: '#ff0000', fontSize: 30 }} />
           </Popconfirm>
-          <Button
-            type='primary'
-            onClick={async ()=>{
-              const bid = await viewBid(row.id)
-              setBids(bid.data)
-              console.log(bid.data)
-              setModalVisible(true);
-            }}>
-            View Bid
-          </Button>
+          <Link to={`/freight-exchange/view-bid/${  row.id}`}>
+            <Button
+              type='primary'
+            //   onClick={
+            //   async ()=>{
+            //   // const bid = await viewBid(row.id)
+            //   // setBids(bid.data)
+            //   // console.log(bid.data)
+            //   // setModalVisible(true);
+            //
+            //   }
+            // }
+          >
+              View Bid
+            </Button>
+          </Link>
         </div>
       ),
     },

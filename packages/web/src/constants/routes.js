@@ -17,16 +17,18 @@ export const extraRoutesShipper = [
     path: '/edit-profile/',
     Component: lazy(() => import('screens/shipper/EditProfile')),
   },
+  {
+    path:'/freight-exchange/view-bid/:id',
+    Component: lazy(()=>import('screens/shipper/ViewBids.shipper.screen'))
+  },
+
 ]
 export const extraRoutesSupplierFTL = [
   {
     path: '/edit-profile/',
     Component: lazy(() => import('screens/supplier/FTL/EditProfile')),
   },
-  {
-    path:'/',
-    Component: lazy(()=>import('screens/supplier/FTL/Dashboard.ftl.supplier.screen'))
-  },
+
 ]
 export const extraRoutesSupplierPTL = [
   {

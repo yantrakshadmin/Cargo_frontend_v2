@@ -10,7 +10,7 @@ const { Text } = Typography;
 
 export const MyBidsFTLSupplierScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
-  const [filteredData, setFilteredData] = useState(false);
+  const [filteredData, setFilteredData] = useState([]);
   const [bids, setBids] = useState([{ bid_amount:0,bid_date:'' }]);
   const { data, loading, reload } = useAPI(`/mybids/`);
 
