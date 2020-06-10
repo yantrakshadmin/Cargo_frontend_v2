@@ -18,7 +18,7 @@ const ViewBids = ({ id }) =>{
       filtered.push(i)
       return null
     })
-console.log(filtered)
+    console.log(filtered)
     return filtered
   }
 
@@ -77,10 +77,11 @@ console.log(filtered)
       render:
         (row)=>(
           <Button
+            disabled={row.is_confirmed}
             type='primary'
             onClick={async()=> {
               try{
-                await loadAPI(`confirmbid/${row.id}/`,{method:'PATCH'})
+                await loadAPI(`confirmbid/${row.id}/`,{ method:'PATCH' })
                 reload()
                 notification.success({ message: 'Bid Confirmed' });
               }

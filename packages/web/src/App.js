@@ -10,6 +10,7 @@ import { store } from '@app/common/reducers';
 import { Loading } from 'components/Loding';
 import { RootRouter } from 'components/RootRouter';
 
+
 function App() {
   return (
     <Provider store={store}>

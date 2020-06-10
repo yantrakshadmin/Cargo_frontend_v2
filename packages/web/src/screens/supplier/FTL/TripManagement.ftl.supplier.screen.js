@@ -8,18 +8,22 @@ import { useAPI } from '@app/common/hooks/api';
 import { TripManagementForm } from '../../../forms/tripManagement.form';
 
 export const TripManagementFtl = () => {
-  const data = [
+  const data1 = [
     {
       order_id: 1,
       date: '19/12/2020',
     },
   ];
-  const { loading, reload } = useAPI(`/address/`);
+  const { data,loading, reload } = useAPI(`/address/`);
   const [selectedRow, setSelectedRow] = useState({
     id: 0,
     isEditable: true,
     showModal: false,
   });
+  console.log(data,'GGG')
+  // path('trip-management/', TripManagementAPIView.as_view()),
+  //   path('edit-trip/<int:pk>/', TripManagementDetailAPIView.as_view()),
+  //   path('trip-list/', TripManagementListAPIView.as_view()),
   const columns = [
     ...supplierTripManagementColumn,
     {
@@ -49,7 +53,7 @@ export const TripManagementFtl = () => {
       title='Trip Management'
       refresh={reload}
       columns={columns}
-      data={data}
+      data={data1}
       customRightButtonLabel='Manage Trip'
       loading={loading}
       customModalTitle='Trip Details'
