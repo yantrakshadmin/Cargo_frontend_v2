@@ -1,13 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAPI } from '@app/common/hooks/api';
-import { Tag ,Button } from 'antd';
+import { Tag, Button, notification } from 'antd';
+import { loadAPI } from '@app/common/helpers/api';
 import { yantraColors } from '../../helpers/yantraColors';
 import { MasterHOC } from '../../hocs/Master.hoc';
 
 const ViewBids = ({ id }) =>{
   const { data, loading, reload } = useAPI(`/bids/${id}`, {});
   const [filteredData, setFilteredData] = useState([]);
-
+  console.log(id,'Ggg')
   const filterTableData=(array)=>{
     const filtered = []
     array.forEach((i)=>{
@@ -17,6 +18,7 @@ const ViewBids = ({ id }) =>{
       filtered.push(i)
       return null
     })
+console.log(filtered)
     return filtered
   }
 
@@ -72,10 +74,24 @@ const ViewBids = ({ id }) =>{
     {
       title: 'Action',
       key: 'action',
-      render:()=>(
-        <Button type={'primary'}>Confirm</Button>
-      )
-    },
+      render:
+        (row)=>(
+          <Button
+            type='primary'
+            onClick={async()=> {
+              try{
+                await loadAPI(`confirmbid/${row.id}`,{method:'PATCH'})
+                reload()
+                notification.success({ message: 'Bid Confirmed' });
+              }
+              catch (e) {
+                notification.error({ message: 'Error in confirming', description: e.toString() });
+              }}}>
+            Confirm
+          </Button>
+        )
+    }
+
   ]
 
   return(

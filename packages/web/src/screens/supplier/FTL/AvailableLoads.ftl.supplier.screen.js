@@ -54,6 +54,7 @@ function AvailableLoadsFtlSupplierScreen() {
       <Modal
         visible={modalVisible}
         title='Bid Now'
+        onCancel={()=>{setModalVisible(false)}}
         footer={null}>
         <Spin spinning={loadingForm}>
           <Form

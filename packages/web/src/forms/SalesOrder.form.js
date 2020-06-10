@@ -44,6 +44,9 @@ export const SalesOrderForm = ({ id, onCancel, onDone }) => {
   });
 
   useEffect(() => {
+    setTimeout(() => {
+      setError(null);
+    }, 5000);
     if (id && data) {
       console.log({ data });
       const { order_id, shipment_type, sender_address, receiver_address, package: packages } = data;
@@ -51,13 +54,7 @@ export const SalesOrderForm = ({ id, onCancel, onDone }) => {
       setItems(packages);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setError(null);
-    }, 5000);
-  }, [error]);
+  }, [data,error]);
 
   const itemRemove = (i) => {
     setError(null);

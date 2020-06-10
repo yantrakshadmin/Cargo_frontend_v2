@@ -4,7 +4,7 @@ import { Button, Row, Col, Typography, Modal, Divider } from 'antd';
 import { MasterHOC } from 'hocs/Master.hoc';
 import { supplierMyBidsColumn } from '@app/common/columns/supplierMyBids.column';
 import { useAPI } from '@app/common/hooks/api';
-import {dateFormatter} from '@app/common/helpers/dateFomatter';
+import { dateFormatter } from '@app/common/helpers/dateFomatter';
 
 const { Text } = Typography;
 
@@ -112,9 +112,10 @@ export const MyBidsFTLSupplierScreen = () => {
         hideRightButton />
       <Modal
         visible={modalVisible}
-        onCancel={() => setModalVisible(false)}
+        onCancel={()=>{setModalVisible(false)}}
+        footer={null}
         title='Bid Now'
-        onOk={() => {}}>
+        >
         <Row>
           <Col span={24}>
             <Divider orientation='left'>Recent Bid</Divider>

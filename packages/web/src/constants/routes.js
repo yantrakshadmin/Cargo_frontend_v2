@@ -77,6 +77,11 @@ export const shipperRoutes = [
     icon:['fas', 'layer-group'],
     path: '/freight-exchange/',
     Component: lazy(() => import('screens/shipper/FreightExchange.shipper.screen')),
+  },{
+    name: 'Live Trucks',
+    icon:['fas', 'layer-group'],
+    path: '/live-trucks/',
+    Component: lazy(() => import('screens/shipper/liveTrucks.shipper.screen')),
   },
   {
     name: 'Shipping',
