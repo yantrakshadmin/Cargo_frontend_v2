@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Form, Modal, Row, Spin } from 'antd';
 
 import { MasterHOC } from 'hocs/Master.hoc';
-import { shipperItemColumn } from '@app/common/columns/shipperItem.column';
+import { shipperSalesOrderColumn } from '@app/common/columns/shipperSalesOrder.column';
 import { useAPI } from '@app/common/hooks/api';
 import { createBid } from '@app/common/api/supplier';
 import { bidCreateFormFields } from '@app/common/formsFields/bidCreate.fromFields';
@@ -15,7 +15,7 @@ function AvailableLoadsFtlSupplierScreen() {
 
   const [bid, setBiddingLoad] = useState({});
   const columns = [
-    ...shipperItemColumn,
+    ...shipperSalesOrderColumn,
     {
       title: 'Action',
       key: 'operation',

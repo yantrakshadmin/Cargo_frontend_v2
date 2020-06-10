@@ -4,17 +4,17 @@ import { CloseSquareOutlined, EditOutlined } from '@ant-design/icons';
 import { TableWithTabHOC } from 'hocs/TableWithTab.hoc';
 import { SalesOrderForm } from 'forms/SalesOrder.form';
 
-import { shipperItemColumn } from '@app/common/columns/shipperItem.column';
+import { shipperSalesOrderColumn } from '@app/common/columns/shipperSalesOrder.column';
 import { yantraColors } from 'helpers/yantraColors';
 import { useAPI } from '@app/common/hooks/api';
 import { LoadAPI } from 'hocs/LoadAPI';
-import { Button, Col, Descriptions, Typography, Divider, Modal, Popconfirm, Row } from 'antd';
+import { Button, Col, Typography, Divider, Modal, Popconfirm, Row } from 'antd';
 import { deleteOrders, viewBid } from '@app/common/api/shipper';
 import { dateFormatter } from '@app/common/helpers/dateFomatter';
 import { deleteHOC } from '../../hocs/form';
+import { ItemTable } from '../../components/ItemTable';
 
 const { Text }  = Typography;
-const { Item }  = Descriptions;
 
 const Address = ({ id }) => (
   <LoadAPI
@@ -69,18 +69,18 @@ export const FreightExchange = () => {
   const [editingId, setEditingId] = useState(undefined);
 
   const columns = [
-    ...shipperItemColumn,
+    ...shipperSalesOrderColumn,
     {
       title: 'Sender address',
       // dataIndex: 'sender_address',
       key: 'sender_address',
-      render: ({ sender_address }) => <Address id={sender_address} />,
+      render: ({ sender_address }) => <Address id={sender_address.id} />,
     },
     {
       title: 'Receiver address',
       // dataIndex: 'receiver_address',
       key: 'receiver_address',
-      render: ({ receiver_address }) => <Address id={receiver_address} />,
+      render: ({ receiver_address }) => {return <Address id={receiver_address.id} />},
     },
     {
       title: 'Action',
@@ -160,6 +160,9 @@ export const FreightExchange = () => {
         showModal
         cancelEditing={cancelEditing}
         modalBody={SalesOrderForm}
+        expandHandleKey='package'
+        expandParams={{ loading }}
+        ExpandBody={ItemTable}
       />
     </div>
   );

@@ -1,4 +1,4 @@
-export const shipperItemColumn = [
+export const shipperSalesOrderColumn = [
   {
     title: 'Order Id',
     dataIndex: 'order_id',

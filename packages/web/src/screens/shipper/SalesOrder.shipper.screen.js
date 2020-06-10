@@ -2,14 +2,15 @@ import React, { useState } from 'react';
 import { CloseSquareOutlined, EditOutlined } from '@ant-design/icons';
 import { TableWithTabHOC } from 'hocs/TableWithTab.hoc';
 import { SalesOrderForm } from 'forms/SalesOrder.form';
-import { shipperItemColumn } from '@app/common/columns/shipperItem.column';
+import { shipperSalesOrderColumn } from '@app/common/columns/shipperSalesOrder.column';
 import { yantraColors } from 'helpers/yantraColors';
 import { useAPI } from '@app/common/hooks/api';
 import { LoadAPI } from 'hocs/LoadAPI';
-import { Popconfirm, Modal ,Button } from 'antd';
+import { Popconfirm, Modal } from 'antd';
 import { loadAPI } from '@app/common/helpers/api';
-import {deleteOrders, viewBid} from '@app/common/api/shipper';
+import {deleteOrders} from '@app/common/api/shipper';
 import { deleteHOC } from '../../hocs/form';
+import {ItemTable} from '../../components/ItemTable';
 
 const Address = ({ id }) => (
   <LoadAPI
@@ -34,18 +35,18 @@ export const SalesOrderShipperScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const columns = [
-    ...shipperItemColumn,
+    ...shipperSalesOrderColumn,
     {
       title: 'Sender address',
       // dataIndex: 'sender_address',
       key: 'sender_address',
-      render: ({ sender_address }) => <Address id={sender_address} />,
+      render: ({ sender_address }) => <Address id={sender_address.id} />,
     },
     {
       title: 'Receiver address',
       // dataIndex: 'receiver_address',
       key: 'receiver_address',
-      render: ({ receiver_address }) => <Address id={receiver_address} />,
+      render: ({ receiver_address }) => <Address id={receiver_address.id} />,
     },
     {
       title: 'Action',
@@ -175,6 +176,9 @@ export const SalesOrderShipperScreen = () => {
         editingId={editingId}
         cancelEditing={cancelEditing}
         modalBody={SalesOrderForm}
+        expandHandleKey='package'
+        expandParams={{ loading }}
+        ExpandBody={ItemTable}
       />
     </div>
   );

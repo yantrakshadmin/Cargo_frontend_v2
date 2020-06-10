@@ -17,6 +17,9 @@ export const TableWithTabHOC = ({
   hideRightButton,
   showModal,
   customRowSelectionType,
+  expandHandleKey,
+  ExpandBody,
+  expandParams
 }) => {
   const [modalVisible, setModalVisible] = useState(!!editingId);
   const [activeTab, setActiveTab] = useState(tabs[0].key);
@@ -101,7 +104,6 @@ export const TableWithTabHOC = ({
       </Row>
       <Divider style={{ margin: 0, padding: 0 }} />
       <Row />
-
       <Row>
         <Col span={24}>
           {tabs ? (
@@ -116,6 +118,15 @@ export const TableWithTabHOC = ({
                         { ...rowSelection,type:customRowSelectionType[tab.key] }
                         :rowSelection
 }
+                    expandable={ExpandBody? {
+                      expandedRowRender: record => (
+                        <p style={{ margin: 0 }}>
+                          <ExpandBody {...expandParams} {...record} />
+                        </p>
+                      ),
+                      rowExpandable: record => expandHandleKey?record[expandHandleKey]:null,
+                    }:null}
+
                     dataSource={tab.data}
                     loading={tab.loading}
                     columns={tab.columns}
