@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Col, Row, Button, Divider, Typography, Spin } from 'antd';
+import { Form, Col, Row, Button, Divider, Typography, Spin, Space, Input } from 'antd';
 import { formItem } from 'hocs/formItem.hoc';
 import {
   salesOrderFormFields,
@@ -8,6 +8,7 @@ import {
 import { useAPI } from '@app/common/hooks/api';
 import { useHandelForm } from 'hooks/form';
 import { createOrders, editOrders, retrieveOrders } from '@app/common/api/shipper';
+import { PlusOutlined, MinusCircleOutlined } from '@ant-design/icons';
 
 const { Text } = Typography;
 
@@ -17,23 +18,26 @@ export const SalesOrderForm = ({ id, onCancel, onDone }) => {
 
   const { data: addresses, loading: addressLoading } = useAPI(`/address/`);
   const { form, data, submit, loading } = useHandelForm({
-    create: async ({ order_id, shipment_type, sender_address, receiver_address }) =>
+    create: async ({ order_id, shipment_type, sender_address, receiver_address,packages }) =>
       // eslint-disable-next-line no-return-await
       await createOrders({
         order_id,
         shipment_type,
         sender_address,
         receiver_address,
-        packages: items,
+        packages,
+        // packages: items,
       }),
-    edit: async (orderId, { order_id, shipment_type, sender_address, receiver_address }) =>
+    edit: async (orderId, { order_id, shipment_type, sender_address, receiver_address, packages }) =>
       // eslint-disable-next-line no-return-await
       await editOrders(orderId, {
         order_id,
         shipment_type,
         sender_address,
         receiver_address,
-        packages: items,
+        packages
+        // packages: items,
+
       }),
     retrieve: retrieveOrders,
     success: 'Order created/edited successfully.',
@@ -48,59 +52,49 @@ export const SalesOrderForm = ({ id, onCancel, onDone }) => {
       setError(null);
     }, 5000);
     if (id && data) {
-      console.log({ data });
       const { order_id, shipment_type, sender_address, receiver_address, package: packages } = data;
-      form.setFieldsValue({ order_id, shipment_type, sender_address, receiver_address });
-      setItems(packages);
+      form.setFieldsValue({ order_id, shipment_type, sender_address, receiver_address,packages });
+      // setItems(packages);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data,error]);
+  }, [data, error]);
 
-  const itemRemove = (i) => {
-    setError(null);
-    setItems(
-      items.filter((item, index) => {
-        return i !== index;
-      }),
-    );
-  };
+  // const itemRemove = (i) => {
+  //   setError(null);
+  //   setItems(
+  //     items.filter((item, index) => {
+  //       return i !== index;
+  //     }),
+  //   );
+  // };
 
-  const addItem = () => {
-    const newItem = form.getFieldsValue([
-      'prod_name',
-      'quantity',
-      'length',
-      'breadth',
-      'height',
-      'width',
-      'unit_price',
-      'weight',
-    ]);
-    console.log({ newItem });
-
-    setError(null);
-    if (
-      newItem.prod_name !== undefined &&
-      newItem.quantity !== undefined &&
-      newItem.length !== undefined &&
-      newItem.breadth !== undefined &&
-      newItem.height !== undefined &&
-      newItem.weight !== undefined &&
-      newItem.unit_price !== undefined
-    ) {
-      if (
-        items.every((i) => {
-          return i.prod_name !== newItem.prod_name;
-        })
-      ) {
-        setItems([...items, newItem]);
-      } else {
-        setError('Item name already exist!');
-      }
-    } else {
-      setError('Please fill item details!');
-    }
-  };
+  // const addItem = (add) => {
+  //   const packages = form.getFieldsValue(['packages']);
+  //   const newItem = packages[packages.length-1]
+  //
+  //   setError(null);
+  //   if (
+  //     newItem.prod_name !== undefined &&
+  //     newItem.quantity !== undefined &&
+  //     newItem.length !== undefined &&
+  //     newItem.breadth !== undefined &&
+  //     newItem.height !== undefined &&
+  //     newItem.weight !== undefined &&
+  //     newItem.unit_price !== undefined
+  //   ) {
+  //     if (
+  //       packages.every((i) => {
+  //         return i.prod_name !== newItem.prod_name;
+  //       })
+  //     ) {
+  //       add();
+  //     } else {
+  //       setError('Item name already exist!');
+  //     }
+  //   } else {
+  //     setError('Please fill item details!');
+  //   }
+  // };
 
   const otherConfigsDropdown = {
     selectOptions: addresses || [],
@@ -112,8 +106,13 @@ export const SalesOrderForm = ({ id, onCancel, onDone }) => {
   return (
     <Spin spinning={addressLoading || loading}>
       <Divider orientation='left'>Order Details</Divider>
-
-      <Form onFinish={submit} form={form} layout='vertical' hideRequiredMark>
+      <Form
+        onFinish={submit}
+        form={form}
+        layout='vertical'
+        // onFieldsChange={()=>{setItems(form.getFieldsValue(['packages']).packages);}}
+        hideRequiredMark
+        autoComplete='off'>
         <Row>
           <Col span={8}>
             {salesOrderFormFields.slice(0, 2).map((item) => (
@@ -146,64 +145,110 @@ export const SalesOrderForm = ({ id, onCancel, onDone }) => {
         </Row>
         <Divider orientation='left'>Items Details</Divider>
 
-        <Row align='middle'>
-          <Col span={7}>
-            {salesOrderItemFormField.slice(0, 1).map((item) => (
-              <div className='p-2'>
-                {formItem(item.key, item.rules, item.kwargs, item.type, item.others, item.label)}
+        <Form.List name='packages'>
+          {(fields, { add, remove }) => {
+            return (
+              <div>
+                {fields.map(field => (
+                  <Row align='middle'>
+                    <Col span={7}>
+                      {salesOrderItemFormField.slice(0, 1).map((item) => (
+                        <div className='p-2'>
+                          {formItem(item.key,
+                            item.rules,
+                            item.kwargs,
+                            item.type,
+                            {
+                              ...item.others,formOptions:
+                                  {
+                                    ...field,
+                                    name: [field.name, 'prod_name'],
+                                    fieldKey: [field.fieldKey, 'prod_name']
+                                  } },
+                            item.label)}
+                        </div>
+                      ))}
+                    </Col>
+                    {salesOrderItemFormField.slice(1, 2).map((item) => (
+                      <Col span={2}>
+                        <div className='p-2'>
+                          {formItem(item.key,
+                            item.rules, item.kwargs, item.type,
+                            {
+                              ...item.others,
+                              formOptions:
+                                  {
+                                    ...field,
+                                    name: [field.name, item.key],
+                                    fieldKey: [field.fieldKey, item.key]
+                                  } },
+                            item.label)}
+                        </div>
+                      </Col>
+                    ))}
+                    {salesOrderItemFormField.slice(2, 3).map((item) => (
+                      <Col span={4}>
+                        <div className='p-2'>
+                          {formItem(item.key,
+                            item.rules, item.kwargs, item.type,
+                            {
+                              ...item.others,
+                              formOptions:
+                                  {
+                                    ...field,
+                                    name: [field.name, item.key],
+                                    fieldKey: [field.fieldKey, item.key]
+                                  } },
+                            item.label)}
+                        </div>
+                      </Col>
+                    ))}
+                    {salesOrderItemFormField.slice(3, 7).map((item) => (
+                      <Col span={2}>
+                        <div className='p-2'>
+                          {formItem(item.key,
+                            item.rules, item.kwargs, item.type,
+                            {
+                              ...item.others,
+                              formOptions:
+                                  {
+                                    ...field,
+                                    name: [field.name, item.key],
+                                    fieldKey: [field.fieldKey, item.key]
+                                  } },
+                            item.label)}
+                        </div>
+                      </Col>
+                    ))}
+                    <Button
+                      type='danger'
+                      onClick={() => {
+                        remove(field.name);
+                      }}
+                    >
+                      <MinusCircleOutlined />
+                      {' '}
+                      Delete
+                    </Button>
+                  </Row>
+                ))}
+                <Form.Item>
+                  <Button
+                    type='dashed'
+                    onClick={() => {
+                      add();
+                    }}
+                    block
+                  >
+                    <PlusOutlined />
+                    {' '}
+                    Add Item
+                  </Button>
+                </Form.Item>
               </div>
-            ))}
-          </Col>
-          <Col span={2}>
-            {salesOrderItemFormField.slice(1, 2).map((item) => (
-              <div className='p-2'>
-                {formItem(item.key, item.rules, item.kwargs, item.type, item.others, item.label)}
-              </div>
-            ))}
-          </Col>
-          <Col span={4}>
-            {salesOrderItemFormField.slice(2, 3).map((item) => (
-              <div className='p-2'>
-                {formItem(item.key, item.rules, item.kwargs, item.type, item.others, item.label)}
-              </div>
-            ))}
-          </Col>
-          <Col span={2}>
-            {salesOrderItemFormField.slice(3, 4).map((item) => (
-              <div className='p-2'>
-                {formItem(item.key, item.rules, item.kwargs, item.type, item.others, item.label)}
-              </div>
-            ))}
-          </Col>
-          <Col span={2}>
-            {salesOrderItemFormField.slice(4, 5).map((item) => (
-              <div className='p-2'>
-                {formItem(item.key, item.rules, item.kwargs, item.type, item.others, item.label)}
-              </div>
-            ))}
-          </Col>
-          <Col span={2}>
-            {salesOrderItemFormField.slice(5, 6).map((item) => (
-              <div className='p-2'>
-                {formItem(item.key, item.rules, item.kwargs, item.type, item.others, item.label)}
-              </div>
-            ))}
-          </Col>
-          <Col span={2}>
-            {salesOrderItemFormField.slice(6, 7).map((item) => (
-              <div className='p-2'>
-                {formItem(item.key, item.rules, item.kwargs, item.type, item.others, item.label)}
-              </div>
-            ))}
-          </Col>
-          <Col span={3}>
-            <div className='p-2'>
-              <Button type='primary' onClick={addItem}>
-                Add Item
-              </Button>
-            </div>
-          </Col>
-        </Row>
+            );
+          }}
+        </Form.List>
         {error ? (
           <Row align='top'>
             <Col>
@@ -213,42 +258,6 @@ export const SalesOrderForm = ({ id, onCancel, onDone }) => {
             </Col>
           </Row>
         ) : null}
-        {(items || []).map((i, index) => (
-          <Row key={i.name}>
-            <Col span={7}>
-              <div className='p-h-4 p-v-2'>{i.prod_name}</div>
-            </Col>
-            <Col span={2}>
-              <div className='p-h-4 p-v-2'>{i.quantity}</div>
-            </Col>
-            <Col span={4}>
-              <div className='p-h-4 p-v-2'>{i.unit_price}</div>
-            </Col>
-            <Col span={2}>
-              <div className='p-h-4 p-v-2'>{i.length}</div>
-            </Col>
-            <Col span={2}>
-              <div className='p-h-4 p-v-2'>{i.breadth}</div>
-            </Col>
-            <Col span={2}>
-              <div className='p-h-4 p-v-2'>{i.height}</div>
-            </Col>
-            <Col span={2}>
-              <div className='p-h-4 p-v-2'>{i.weight}</div>
-            </Col>
-            <Col span={3}>
-              <div className='p-2'>
-                <Button
-                  type='danger'
-                  onClick={() => {
-                    itemRemove(index);
-                  }}>
-                  Remove
-                </Button>
-              </div>
-            </Col>
-          </Row>
-        ))}
         <Row>
           <Button type='primary' htmlType='submit'>
             Save

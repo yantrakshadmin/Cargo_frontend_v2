@@ -16,6 +16,9 @@ export const extraRoutesShipper = [
   {
     path: '/edit-profile/',
     Component: lazy(() => import('screens/shipper/EditProfile')),
+  },{
+    path: '/',
+    Component: lazy(() => import('screens/shipper/Dashboard.shipper.screen')),
   },
   {
     path:'/freight-exchange/view-bid/:id',
@@ -27,6 +30,9 @@ export const extraRoutesSupplierFTL = [
   {
     path: '/edit-profile/',
     Component: lazy(() => import('screens/supplier/FTL/EditProfile')),
+  },{
+    path: '/',
+    Component: lazy(() => import('screens/supplier/FTL/Dashboard.ftl.supplier.screen')),
   },
 
 ]

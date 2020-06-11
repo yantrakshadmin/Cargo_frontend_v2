@@ -84,8 +84,8 @@ export const mainTripManagementFormFields = [
     key: 'vehicle_source',
     rules: [{ required: true, message: 'Please input vehicle source!' }],
     type: FORM_ELEMENT_TYPES.RADIO,
-    others: { radioOptions:[{ value:'own',label:'Own' },
-      { value:'broker',label:'Broker' }] },
+    others: { radioOptions:[{ value:'Own',label:'Own' },
+      { value:'Broker',label:'Broker' }] },
     label: 'Vehicle Source',
   },
   {
