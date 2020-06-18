@@ -84,6 +84,11 @@ export const shipperRoutes = [
     path: '/freight-exchange/',
     Component: lazy(() => import('screens/shipper/FreightExchange.shipper.screen')),
   },{
+    name: 'Carrier Selection',
+    icon:['fas', 'layer-group'],
+    path: '/carrier-selection/',
+    Component: lazy(() => import('screens/shipper/CarrierSelection.shipper')),
+  },{
     name: 'Live Trucks',
     icon:['fas', 'layer-group'],
     path: '/live-trucks/',
@@ -137,5 +142,4 @@ export const supplierPTLRoutes = [
     path: '/view-pickup-requests/',
     Component: lazy(() => import('screens/supplier/PTL/ViewPickupRequest.supplier.screen')),
   },
-
 ];

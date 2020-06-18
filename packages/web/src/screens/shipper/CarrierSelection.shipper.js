@@ -31,19 +31,11 @@ const Address = ({ id }) => (
 );
 
 
-export const FreightExchange = () => {
+export const CarrierSelection = () => {
   const { data, loading, reload } = useAPI(`/orders/`, {});
   const [selected, setSelected] = useState([]);
-  const [assigned, setAssigned] = useState([]);
-  const [notAssigned, setNotAssigned] = useState([]);
   const [editingId, setEditingId] = useState(undefined);
 
-  useEffect(()=>{
-    if(data){
-      setAssigned(data.filter((i)=>(i.status ==='Active')))
-      setNotAssigned(data.filter((i)=>(i.status !=='Active')))
-    }
-  },[data])
   const columns = [
     ...shipperSalesOrderColumn,
     {
@@ -82,7 +74,7 @@ export const FreightExchange = () => {
           <Link to={`/freight-exchange/view-bid/${row.id}`}>
             <Button
               type='primary'
-          >
+            >
               View Bid
             </Button>
           </Link>
@@ -93,19 +85,19 @@ export const FreightExchange = () => {
 
   const tabs = [
     {
-      name: 'Bid not assigned',
-      key: 'not_assigned',
-      data:notAssigned,
+      name: 'Freight Exchange',
+      key: 'freightExchange',
+      data,
+      loading,
+      columns,
+    },  {
+      name: 'PTL',
+      key: 'ptl',
+      data,
       loading,
       columns,
     },
-    {
-      name: 'Bid Assigned',
-      key: 'assigned',
-      data:assigned,
-      loading,
-      columns,
-    },
+
   ];
 
   const onChange = (selectedRowKeys) => {
@@ -140,4 +132,4 @@ export const FreightExchange = () => {
   );
 };
 
-export default FreightExchange;
+export default CarrierSelection;

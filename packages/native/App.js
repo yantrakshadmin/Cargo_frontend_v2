@@ -24,20 +24,28 @@ const Initial = () => {
   return null;
 };
 
+const InnerBody = () => {
+  return(
+    <>
+      {/* <AntDesign theme={theme}> */}
+      <StatusBar barStyle='dark-content' />
+      <Initial />
+      <NavigationContainer screenOptions={{ headerShown: false }}>
+        <Stack.Navigator initialRouteName='Home'>
+          <Stack.Screen name='Home' component={GettingStarted} />
+          <Stack.Screen name='Intro' component={MonorepoIntro} />
+        </Stack.Navigator>
+      </NavigationContainer>
+      {/* </AntDesign> */}
+    </>
+  );
+}
+
 const App = () => {
   return (
-    <AntDesign theme={theme}>
-      <Provider store={store}>
-        <StatusBar barStyle='dark-content' />
-        <Initial />
-        <NavigationContainer screenOptions={{ headerShown: false }}>
-          <Stack.Navigator initialRouteName='Home'>
-            <Stack.Screen name='Home' component={GettingStarted} />
-            <Stack.Screen name='Intro' component={MonorepoIntro} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </Provider>
-    </AntDesign>
+    <Provider store={store}>
+      <InnerBody />
+    </Provider>
   );
 };
 

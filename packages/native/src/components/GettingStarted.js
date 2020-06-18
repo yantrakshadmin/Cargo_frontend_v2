@@ -9,7 +9,6 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import { styles } from 'styles/default';
-import { HelloMonorepo } from '@app/common/components/helloMonorepo';
 
 export const GettingStarted = ({ navigation }) => (
   <>
@@ -26,14 +25,15 @@ export const GettingStarted = ({ navigation }) => (
           <View style={{ ...styles.sectionContainer, alignItems: 'center' }}>
             <TouchableOpacity onPress={() => navigation.push('Intro')}>
               <Text style={styles.sectionTitle}>
-                <HelloMonorepo />
+
+GGG
               </Text>
             </TouchableOpacity>
           </View>
           <View style={styles.sectionContainer}>
             <Text style={styles.sectionTitle}>Step One</Text>
             <Text style={styles.sectionDescription}>
-              Edit 
+              Edit
               {' '}
               <Text style={styles.highlight}>App.js</Text>
               {' '}

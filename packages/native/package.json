@@ -19,6 +19,7 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
+    "poststart": "adb reverse tcp:8081 tcp:8081",
     "test": "jest",
     "lint": "eslint .",
     "studio": "studio android",
