@@ -12,6 +12,8 @@ import { store } from '@app/common/reducers';
 
 import { GettingStarted } from './src/components/GettingStarted';
 import { MonorepoIntro } from './src/components/MonorepoIntro';
+import { publicRoutes } from './src/constants/routes';
+import PublicStack from './src/navigation/stack.navigator';
 
 const Stack = createStackNavigator();
 const theme = require('@app/common/theme').default;
@@ -25,21 +27,18 @@ const Initial = () => {
 };
 
 const InnerBody = () => {
-  return(
+  return (
     <>
-      {/* <AntDesign theme={theme}> */}
-      <StatusBar barStyle='dark-content' />
-      <Initial />
-      <NavigationContainer screenOptions={{ headerShown: false }}>
-        <Stack.Navigator initialRouteName='Home'>
-          <Stack.Screen name='Home' component={GettingStarted} />
-          <Stack.Screen name='Intro' component={MonorepoIntro} />
-        </Stack.Navigator>
-      </NavigationContainer>
-      {/* </AntDesign> */}
+      <AntDesign theme={theme}>
+        <StatusBar barStyle='dark-content' />
+        <Initial />
+        <NavigationContainer screenOptions={{ headerShown: false }}>
+          <PublicStack />
+        </NavigationContainer>
+      </AntDesign>
     </>
   );
-}
+};
 
 const App = () => {
   return (

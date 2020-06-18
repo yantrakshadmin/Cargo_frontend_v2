@@ -24,16 +24,13 @@ export const GettingStarted = ({ navigation }) => (
         <View style={styles.body}>
           <View style={{ ...styles.sectionContainer, alignItems: 'center' }}>
             <TouchableOpacity onPress={() => navigation.push('Intro')}>
-              <Text style={styles.sectionTitle}>
-
-GGG
-              </Text>
+              <Text style={styles.sectionTitle}>Hello Monorepo</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.sectionContainer}>
             <Text style={styles.sectionTitle}>Step One</Text>
             <Text style={styles.sectionDescription}>
-              Edit
+              Edit 
               {' '}
               <Text style={styles.highlight}>App.js</Text>
               {' '}
