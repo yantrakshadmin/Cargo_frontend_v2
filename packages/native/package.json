@@ -12,7 +12,8 @@
       "jetifier",
       "**react-native**",
       "@react-navigation/**",
-      "react"
+      "react",
+      "react-redux"
     ]
   },
   "scripts": {

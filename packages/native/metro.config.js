@@ -48,6 +48,7 @@ function getConfig(appDir) {
         ...absoluteImports,
         // Resolve all react-native module imports to the locally-installed version
         'react-native': path.resolve(appDir, 'node_modules', 'react-native'),
+        'react-redux': path.resolve(appDir, 'node_modules', 'react-redux'),
         react: path.resolve(appDir, 'node_modules', 'react'),
         // Resolve additional nohoist modules depended on by other packages
         'react-native-svg': path.resolve(appDir, 'node_modules', 'react-native-svg'),

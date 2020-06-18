@@ -9,7 +9,7 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import { styles } from 'styles/default';
-import { HelloMonorepo } from '@app/common/components/helloMonorepo';
+// import { HelloMonorepo } from '@app/common/components/helloMonorepo';
 
 export const GettingStarted = ({ navigation }) => (
   <>
@@ -25,9 +25,7 @@ export const GettingStarted = ({ navigation }) => (
         <View style={styles.body}>
           <View style={{ ...styles.sectionContainer, alignItems: 'center' }}>
             <TouchableOpacity onPress={() => navigation.push('Intro')}>
-              <Text style={styles.sectionTitle}>
-                <HelloMonorepo />
-              </Text>
+              <Text style={styles.sectionTitle}>Hello Monorepo</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.sectionContainer}>
