@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Typography } from 'antd';
+import { Button, Typography, Modal } from 'antd';
 import { ApartmentOutlined } from '@ant-design/icons';
 import { Link } from '@reach/router';
 
@@ -14,7 +14,6 @@ export const SignInScreen = () => {
         <div className='sign-in-left-container'>
           <SignInCard />
         </div>
-
         <div className='sign-in-right-container'>
           <Title level={3} style={{ color: '#fff' }}>
             Sign Up

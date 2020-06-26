@@ -1,4 +1,4 @@
-import * as jwtDecode from 'jwt-decode';
+import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '../constants/storage';
@@ -18,7 +18,9 @@ const getAccessToken = async () => {
   const accessPayload = jwtDecode(accessToken);
   if (new Date(parseInt(accessPayload.exp, 10) * 1000) > new Date()) return accessToken;
 
-  const { data: { access: newAccessToken } } = await axios.post('/api/token/refresh/', {
+  const {
+    data: { access: newAccessToken },
+  } = await axios.post('/api/token/refresh/', {
     refresh: refreshToken,
   });
 

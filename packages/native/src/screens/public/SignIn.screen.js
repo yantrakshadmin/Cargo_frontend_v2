@@ -1,15 +1,64 @@
 import React, { useState } from 'react';
 import { View, TouchableOpacity, TextInput, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { Button, WhiteSpace, WingBlank } from '@ant-design/react-native';
-import { column, container, row, signInStyle } from '../../styles/advanceStyles';
-import { Divider } from '../../components/divider.component';
+import { Button, WhiteSpace, WingBlank, Modal } from '@ant-design/react-native';
+import { useDispatch } from 'react-redux';
+import { ACCESS_TOKEN, REFRESH_TOKEN } from '@app/common/constants/storage';
+import { getUserMeta } from '@app/common/helpers/auth';
+import { getJWTTokens, isUserVerified, verifyUser } from '@app/common/api/auth';
 import { margin, yantraColors } from '../../styles/default';
+import { Divider } from '../../components/divider.component';
+import { column, container, row, signInStyle } from '../../styles/advanceStyles';
 
 export const SignInScreen = ({ navigation }) => {
-  const [username, changeUsername] = useState('');
-  const [password, changePassword] = useState('');
+  const dispatch = useDispatch();
+  const [verify, changeVerify] = useState({ open: false, username: '', password: '' });
+  const [loading, changeLoading] = useState(false);
   const [hidePassword, changeHidePassword] = useState(true);
+  const [otp, changeOtp] = useState('');
+
+  const handelSignIn = async ({ username, password }) => {
+    try {
+      changeLoading(true);
+      const { data: tokens } = await getJWTTokens({ username, password });
+
+      const { access, refresh } = tokens;
+      await global.storage.set(ACCESS_TOKEN, access);
+      await global.storage.set(REFRESH_TOKEN, refresh);
+
+      await getUserMeta(dispatch);
+    } catch (e) {
+      // notification.error({ message: `Can't SignIn user: ${username}`, description: e.toString() });
+      console.log(e, 'Error');
+    }
+    changeLoading(false);
+  };
+
+  // eslint-disable-next-line consistent-return
+  const handleSubmit = async ({ username, password }) => {
+    const { data: verified, error } = await isUserVerified({ username });
+
+    if (error) console.log(error);
+    // notification.error({
+    //   message: `Error with user: ${username}`,
+    //   description: error.toString(),
+    // });
+    else if (verified.verified) await handelSignIn({ username, password });
+    else changeVerify({ open: true, username, password });
+  };
+
+  const handleVerification = async () => {
+    const { error } = await verifyUser({ username: verify.username, otp });
+    if (error) console.log('cant');
+    // notification.error({
+    //   message: `Cant verify user: ${verify.username}`,
+    //   description: error.toString(),
+    // });
+    else {
+      await handelSignIn({ username: verify.username, password: verify.password });
+      changeVerify({ open: false, username: '', password: '' });
+    }
+  };
 
   return (
     <View style={container}>
@@ -22,14 +71,43 @@ export const SignInScreen = ({ navigation }) => {
           </View>
         </WingBlank>
         <Divider />
+        <Modal
+          title='Verify OTP'
+          transparent
+          onClose={() => {
+            changeVerify({ open: false, username: '', password: '' });
+          }}
+          maskClosable
+          visible={verify.open}
+          closable
+          footer={[
+            {
+              text: 'Cancel',
+              onPress: () => changeVerify({ open: false, username: '', password: '' }),
+            },
+            { text: 'Ok', onPress: () => handleVerification() },
+          ]}>
+          <Divider />
+          <View style={row}>
+            <Text style={{ fontSize: 13, fontWeight: 'bold' }}>Enter Verification OTP : </Text>
+            <TextInput
+              value={otp}
+              onChangeText={(text) => {
+                changeOtp(text);
+              }}
+              placeholder='Please input OTP'
+              maxLength={6}
+            />
+          </View>
+        </Modal>
         <View style={signInStyle.inputContainer}>
           <View style={row}>
             <Icon name='md-person' size={30} color='#000' />
             <View style={signInStyle.inputText}>
               <TextInput
-                value={username}
+                value={verify.username}
                 onChangeText={(text) => {
-                  changeUsername(text);
+                  changeVerify({ ...verify, username: text });
                 }}
                 placeholder='Username'
                 maxLength={20}
@@ -42,9 +120,9 @@ export const SignInScreen = ({ navigation }) => {
             <View style={signInStyle.inputText}>
               <TextInput
                 secureTextEntry={hidePassword}
-                value={password}
+                value={verify.password}
                 onChangeText={(text) => {
-                  changePassword(text);
+                  changeVerify({ ...verify, password: text });
                 }}
                 placeholder='Password'
                 maxLength={20}
@@ -62,7 +140,9 @@ export const SignInScreen = ({ navigation }) => {
               />
             </TouchableOpacity>
             <View style={margin('marginLeft').md}>
-              <Button type='primary'>Sign In</Button>
+              <Button type='primary' loading={loading} onPress={() => handleSubmit(verify)}>
+                Sign In
+              </Button>
             </View>
           </View>
           <Divider />

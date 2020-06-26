@@ -45,7 +45,7 @@ export const SignInCard = () => {
         message: `Error with user: ${username}`,
         description: error.toString(),
       });
-    else if (verified.verified) handelSignIn({ username, password });
+    else if (verified.verified) await handelSignIn({ username, password });
     else setVerify({ open: true, username, password });
   };
 

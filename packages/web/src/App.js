@@ -6,10 +6,8 @@ import { Provider } from 'react-redux';
 import 'helpers/shared';
 
 import { store } from '@app/common/reducers';
-
 import { Loading } from 'components/Loding';
 import { RootRouter } from 'components/RootRouter';
-
 
 function App() {
   return (

@@ -1,5 +1,5 @@
 import { Dimensions, Platform } from 'react-native';
-import { yantraColors } from './default';
+import { margin, yantraColors } from './default';
 
 export const container = {
   flex: 1,
@@ -26,7 +26,19 @@ export const rowSpaceBetween = {
   alignItems: 'center',
   justifyContent: 'space-between',
 };
-
+export const getFlex = (flex, flexDirection, justifyContent, alignItems, key, value) => ({
+  flex,
+  flexDirection,
+  justifyContent,
+  alignItems,
+  [key]: value,
+});
+export const font = (size, weight, textAlign, key, value) => ({
+  fontSize: size,
+  fontWeight: weight || null,
+  textAlign,
+  [key]: value,
+});
 export const signInStyle = {
   inputText: {
     flex: 1,
@@ -77,5 +89,82 @@ export const signInStyle = {
     fontSize: 27,
     fontWeight: 'bold',
     color: yantraColors.primary,
+  },
+};
+
+export const screenWrapperStyle = {
+  container: {
+    flex: 1,
+    backgroundColor: yantraColors.bg,
+  },
+  headerContainer: {
+    width: '100%',
+    flexDirection: 'column',
+    alignItems: 'center',
+    backgroundColor: yantraColors.white,
+    borderWidth: 0,
+    borderBottomWidth: 1,
+    borderColor: yantraColors.primary,
+    borderTopWidth: 0,
+  },
+  statusBar: {
+    // height: getStatusBarHeight(true),
+  },
+  subContainerScrollView: { flexGrow: 1, backgroundColor: yantraColors.bg },
+  searchBarContainer: {
+    backgroundColor: yantraColors.white,
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: '#ddd',
+    borderTopWidth: 0,
+    borderLeftWidth: 0,
+    shadowColor: '#ddd',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.4,
+    shadowRadius: 10,
+    elevation: 1,
+  },
+  title: {
+    ...margin('padding').md,
+    marginVertical: 0,
+    fontWeight: 'bold',
+    fontSize: 34,
+    lineHeight: 41,
+    color: yantraColors.black,
+  },
+  sideIcons: { width: 50 },
+  logoContainer: [
+    signInStyle.inputText,
+    { flex: 1, flexDirection: 'row', justifyContent: 'center', ...margin('padding').md },
+  ],
+  logo: { width: 169.67, height: 50, resizeMode: 'stretch' },
+  searchBar: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 10,
+  },
+  childrenContainer: { flex: 1 },
+};
+
+export const tableStyle = {
+  border: {
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: yantraColors.black,
+  },
+  headingCell: {
+    borderWidth: 0,
+    borderStyle: 'solid',
+    borderColor: yantraColors.black,
+    padding: 5,
+    height: '100%',
+  },
+  dataCellContainer: {
+    borderWidth: 0,
+    borderTopWidth: 1,
+    borderStyle: 'solid',
+    borderColor: yantraColors.black,
   },
 };

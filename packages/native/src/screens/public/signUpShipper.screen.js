@@ -2,12 +2,10 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Button, WhiteSpace, WingBlank } from '@ant-design/react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { $User$Supplier$FTL, $User$Supplier$PTL } from '@app/common/constants/userTypes';
 import { FORM_ELEMENT_TYPES } from '@app/web/src/constants/formFields.constant';
 import { column, container, signInStyle } from '../../styles/advanceStyles';
 import { Divider } from '../../components/divider.component';
 import { yantraColors } from '../../styles/default';
-import { InputCreater } from '../../components/InputCreater';
 import { signUpShipperFields } from '../../formFields/signUpShipper.formFields';
 import { FormItemCreaterNative } from '../../components/formItemCreaterNative';
 

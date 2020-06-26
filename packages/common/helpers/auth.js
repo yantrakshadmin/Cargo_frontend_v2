@@ -7,14 +7,16 @@ import { getUserMeta as getUserMetaAPI } from '../api/auth';
 
 export const getUserMeta = async (dispatch) => {
   const storage = getStorage();
-  if (!await storage.get(ACCESS_TOKEN, null)) return false;
+  if (!(await storage.get(ACCESS_TOKEN, null))) return false;
+  const { data: meta } = await getUserMetaAPI();
 
   try {
-    const { data: meta } = await getUserMetaAPI();
-
+    // const { data: meta } = await getUserMetaAPI();
+    // console.log(meta,'yela')
     if (meta) {
       const { category: type, name, email, username } = meta;
       dispatch(userAuthenticated({ name, type, email, username }));
+      console.log(meta, 'meta');
       return false;
     }
 

@@ -1,10 +1,9 @@
 import React, { useState, Suspense } from 'react';
-import { Layout, Menu, Divider,Dropdown, Avatar,Typography } from 'antd';
+import { Layout, Menu, Divider, Dropdown, Avatar, Typography } from 'antd';
 import { Link } from '@reach/router';
 import { useDispatch } from 'react-redux';
 import { UserOutlined } from '@ant-design/icons';
-
-import logo from '@app/common/assets/Yantraksh Logo.png';
+import logo from '@app/common/assets/yantrakshLogo.png';
 import { useUser } from '@app/common/hooks/user';
 
 import { Loading } from 'components/Loding';
@@ -40,8 +39,6 @@ export const ScreenWrapper = ({ routes, navigate, children }) => {
     </Menu>
   );
 
-
-
   return (
     <Layout className=''>
       <Header
@@ -54,8 +51,7 @@ export const ScreenWrapper = ({ routes, navigate, children }) => {
         {/* eslint-disable-next-line max-len */}
         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
         <Dropdown overlay={menu} trigger={['click']}>
-          <div
-            className='row align-center'>
+          <div className='row align-center'>
             <p className='m-2'>
               {user.name}
               {' '}
@@ -83,9 +79,7 @@ export const ScreenWrapper = ({ routes, navigate, children }) => {
             theme='dark'
             mode='inline'
             inlineCollapsed
-
             defaultSelectedKeys={[routes[0].name]}
-
             defaultOpenKeys={[routes[0].name]}
             style={{ height: '100%', borderRight: 0 }}>
             {routes.map((i) => {
@@ -93,11 +87,9 @@ export const ScreenWrapper = ({ routes, navigate, children }) => {
                 return (
                   <SubMenu
                     key={i.name}
-                    icon={(
-                      <FontAwesomeIcon
-                        icon={i.icon}
-                        style={{ marginRight:isCollapsed?50:5 }} />
-)}
+                    icon={
+                      <FontAwesomeIcon icon={i.icon} style={{ marginRight: isCollapsed ? 50 : 5 }} />
+                    }
                     title={i.name}>
                     {i.subMenu.map((subItem) => (
                       <Menu.Item key={subItem.name}>
@@ -112,7 +104,9 @@ export const ScreenWrapper = ({ routes, navigate, children }) => {
               return (
                 <Menu.Item
                   key={i.name}
-                  icon={<FontAwesomeIcon icon={i.icon} style={{ marginRight:isCollapsed?50:5 }} />}>
+                  icon={
+                    <FontAwesomeIcon icon={i.icon} style={{ marginRight: isCollapsed ? 50 : 5 }} />
+                  }>
                   <Link to={i.path} key={i.name}>
                     {i.name}
                   </Link>
