@@ -10,8 +10,9 @@ import { ShippingShipperScreenNative } from '../screens/shipper/shipping.shipper
 import { LiveTruckShipperScreenNative } from '../screens/shipper/liveTruck.shipper.screen.native';
 import { TransportDirectoryShipperScreenNative } from '../screens/shipper/transportDirectory.shipper.screen.native';
 import { ItemShipperScreenNative } from '../screens/shipper/Item.shipper.screen.native';
-import { VendorShipperSceenNative } from '../screens/shipper/vendor.shipper.sceen.native';
+import { VendorShipperScreenNative } from '../screens/shipper/vendor.shipper.screen';
 import { AddressShipperScreenNative } from '../screens/shipper/address.shipper.screen.native';
+import { FreightExchangeShipperScreenNative } from '../screens/shipper/freightExchange.shipper.screen.native';
 
 export const SalesOrder = [
   {
@@ -38,7 +39,7 @@ export const Masters = [
   },
   {
     name: 'Vendor',
-    Component: VendorShipperSceenNative,
+    Component: VendorShipperScreenNative,
   },
   {
     name: 'Address',
@@ -64,11 +65,11 @@ export const publicRoutes = [
 export const FreightExchange = [
   {
     name: 'Bid Not Assigned',
-    Component: SalesOrderShipperScreen,
+    Component: FreightExchangeShipperScreenNative,
   },
   {
     name: 'Bid Assigned',
-    Component: SalesOrderShipperScreen,
+    Component: FreightExchangeShipperScreenNative,
   },
 ];
 

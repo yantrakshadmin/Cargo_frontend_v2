@@ -11,7 +11,7 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import logo from '../assets/yantrakshLogo.png';
 import { yantraColors } from '../styles/default';
-import { screenWrapperStyle } from '../styles/advanceStyles';
+import { getHeight, screenWrapperStyle } from '../styles/advanceStyles';
 
 export const ScreenWrapperNative = ({
   noHeader,
@@ -23,6 +23,7 @@ export const ScreenWrapperNative = ({
   loading,
   onRefresh,
   rightButton,
+  FloatingComponent,
 }) => {
   let header;
   if (!noHeader) {
@@ -68,7 +69,11 @@ export const ScreenWrapperNative = ({
           <Text style={screenWrapperStyle.title}>{title}</Text>
         </View>
         <View style={screenWrapperStyle.childrenContainer}>{children}</View>
+        <View style={getHeight(100)} />
       </ScrollView>
+      <View style={screenWrapperStyle.floatingContainer}>
+        {FloatingComponent ? <FloatingComponent /> : null}
+      </View>
     </View>
   );
 };

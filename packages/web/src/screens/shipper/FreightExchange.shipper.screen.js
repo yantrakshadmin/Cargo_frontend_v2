@@ -8,11 +8,10 @@ import { shipperSalesOrderColumn } from '@app/common/columns/shipperSalesOrder.c
 import { yantraColors } from 'helpers/yantraColors';
 import { useAPI } from '@app/common/hooks/api';
 import { LoadAPI } from 'hocs/LoadAPI';
-import { Button, Popconfirm,  } from 'antd';
+import { Button, Popconfirm } from 'antd';
 import { deleteOrders } from '@app/common/api/shipper';
 import { deleteHOC } from '../../hocs/form';
 import { ItemTable } from '../../components/ItemTable';
-
 
 const Address = ({ id }) => (
   <LoadAPI
@@ -30,7 +29,6 @@ const Address = ({ id }) => (
   />
 );
 
-
 export const FreightExchange = () => {
   const { data, loading, reload } = useAPI(`/orders/`, {});
   const [selected, setSelected] = useState([]);
@@ -38,12 +36,13 @@ export const FreightExchange = () => {
   const [notAssigned, setNotAssigned] = useState([]);
   const [editingId, setEditingId] = useState(undefined);
 
-  useEffect(()=>{
-    if(data){
-      setAssigned(data.filter((i)=>(i.status ==='Active')))
-      setNotAssigned(data.filter((i)=>(i.status !=='Active')))
+  useEffect(() => {
+    if (data) {
+      setAssigned(data.filter((i) => i.status === 'Active'));
+      setNotAssigned(data.filter((i) => i.status !== 'Active'));
     }
-  },[data])
+  }, [data]);
+
   const columns = [
     ...shipperSalesOrderColumn,
     {
@@ -80,11 +79,7 @@ export const FreightExchange = () => {
             <CloseSquareOutlined style={{ color: '#ff0000', fontSize: 30 }} />
           </Popconfirm>
           <Link to={`/freight-exchange/view-bid/${row.id}`}>
-            <Button
-              type='primary'
-          >
-              View Bid
-            </Button>
+            <Button type='primary'>View Bid</Button>
           </Link>
         </div>
       ),
@@ -95,14 +90,14 @@ export const FreightExchange = () => {
     {
       name: 'Bid not assigned',
       key: 'not_assigned',
-      data:notAssigned,
+      data: notAssigned,
       loading,
       columns,
     },
     {
       name: 'Bid Assigned',
       key: 'assigned',
-      data:assigned,
+      data: assigned,
       loading,
       columns,
     },

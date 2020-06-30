@@ -2,12 +2,11 @@ import React from 'react';
 import { Text, TextInput, View } from 'react-native';
 import { FORM_ELEMENT_TYPES } from '@app/web/src/constants/formFields.constant';
 import { Picker } from '@react-native-community/picker';
-import { $User$Supplier$FTL, $User$Supplier$PTL } from '@app/common/constants/userTypes';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { column, row, signInStyle } from '../styles/advanceStyles';
 import { Divider } from './divider.component';
 
-export const FormItemCreaterNative = (Field, form, setForm) => {
+export const FormItemCreaterNative = (Field, form, onChangeForm) => {
   switch (Field.type) {
     case FORM_ELEMENT_TYPES.RADIO:
       return (
@@ -17,11 +16,18 @@ export const FormItemCreaterNative = (Field, form, setForm) => {
               <Text>{Field.title}</Text>
             </View>
             <Picker
-              selectedValue={form.type}
-              style={{ height: 50, width: 100 }}
-              onValueChange={(itemValue) => setForm({ ...form, type: itemValue })}>
+              selectedValue={form[Field.key]}
+              style={{ flex: 1 }}
+              onValueChange={(itemValue, index) => {
+                onChangeForm({ ...form, [Field.key]: itemValue }, Field);
+              }}>
               {Field.radioOptions.map((Item) => (
-                <Picker.Item label={Item.label} value={Item.value} key={Item.value} />
+                <Picker.Item
+                  label={Item.label || Item}
+                  /* eslint-disable-next-line no-nested-ternary */
+                  value={Item.value || Item}
+                  key={Item.value || Item}
+                />
               ))}
             </Picker>
           </View>
@@ -39,7 +45,7 @@ export const FormItemCreaterNative = (Field, form, setForm) => {
               <TextInput
                 value={form[Field.key]}
                 onChangeText={(text) => {
-                  setForm({ ...form, [Field.key]: text });
+                  onChangeForm({ ...form, [Field.key]: text }, Field);
                 }}
                 placeholder={Field.title}
                 maxLength={20}

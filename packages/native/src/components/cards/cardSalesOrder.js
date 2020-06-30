@@ -1,31 +1,14 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, Modal } from 'react-native';
+import { View, Text, TouchableOpacity, Modal } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-// import { Grid, Modal } from '@ant-design/react-native';
-import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
 import { shipperItemColumn } from '@app/common/columns/shipperItems.column';
-import { font, getFlex, row, screenWrapperStyle, signInStyle } from '../../styles/advanceStyles';
+import { font, getFlex, row } from '../../styles/advanceStyles';
 import { margin, yantraColors } from '../../styles/default';
 import { Divider } from '../divider.component';
 import { cardStyle } from '../../styles/cardsStyles';
 import { YantraButton } from '../button';
 import { TableCreate } from '../tableCreate';
 import { ScreenWrapperNative } from '../screenWrapper.native';
-
-// {"id": 20,
-//
-//   "is_cod": false,
-//
-//   "order_id": "123",
-//
-//   "owner": 2,
-//
-//   "package": [{"breadth": 231, "height": 231, "id": 20, "length": 231, "prod_name": "123", "quantity": 123, "unit_price": 231, "weight": 132}, {"breadth": 456, "height": 456, "id": 21, "length": 456, "prod_name": "456", "quantity": 564, "unit_price": 564, "weight": 564}],
-//
-//   "receiver_address": {"city": "New Delhi", "company": "Asher", "country": "India", "email": "ashertoufeeq@gmail.com", "id": 1, "name": "Asher Toufeeq", "owner": 2, "phone": "09557807977", "pin": 110025, "state": "Delhi", "street": "D-20/9,Okhla Vihar Okhla"},
-//
-//   "sender_address": {"city": "Navi Mumbai", "company": "wfyewfdytewfdtyf", "country": "India", "email": "saxenasarthak72@gmail.com", "id": 4, "name": "Sarthak Saxena", "owner": 2, "phone": "07303216990", "pin": 603203, "state": "Assam", "street": "Jai Balaji CHS , nerul , sector 6"},
-//   "shipment_type": "FTL", "status": "Hold"}
 
 export const CardSalesOrder = ({ order, style }) => {
   const [visible, setVisible] = useState(false);

@@ -39,6 +39,7 @@ export const font = (size, weight, textAlign, key, value) => ({
   textAlign,
   [key]: value,
 });
+
 export const signInStyle = {
   inputText: {
     flex: 1,
@@ -91,12 +92,13 @@ export const signInStyle = {
     color: yantraColors.primary,
   },
 };
-
+export const getHeight = (height) => ({ height });
 export const screenWrapperStyle = {
   container: {
     flex: 1,
     backgroundColor: yantraColors.bg,
   },
+  floatingContainer: { position: 'absolute', bottom: 0, right: 0, margin: 10, maxHeight: 100 },
   headerContainer: {
     width: '100%',
     flexDirection: 'column',
@@ -110,7 +112,7 @@ export const screenWrapperStyle = {
   statusBar: {
     // height: getStatusBarHeight(true),
   },
-  subContainerScrollView: { flexGrow: 1, backgroundColor: yantraColors.bg },
+  subContainerScrollView: { flexGrow: 1, backgroundColor: yantraColors.bg, position: 'relative' },
   searchBarContainer: {
     backgroundColor: yantraColors.white,
     borderWidth: 1,
@@ -167,4 +169,22 @@ export const tableStyle = {
     borderStyle: 'solid',
     borderColor: yantraColors.black,
   },
+};
+
+export const tagsStyle = {
+  container: (bg, shadow) => ({
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: bg,
+    borderRadius: 10,
+    shadowColor: shadow,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.8,
+    shadowRadius: 10,
+    elevation: 1,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    margin: 5,
+  }),
 };

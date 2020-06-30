@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import { loadAPI } from '@app/common/helpers/api';
+import { exp } from 'react-native-reanimated';
 import { useAPI } from '../../hooks/api';
 import { ScreenWrapperNative } from '../../components/screenWrapper.native';
 import { CardSalesOrder } from '../../components/cards/cardSalesOrder';
@@ -13,6 +14,7 @@ export const SalesOrderShipperScreen = ({ navigation, route }) => {
   const [selected, setSelected] = useState([]);
   const [editingId, setEditingId] = useState(undefined);
   const [modalVisible, setModalVisible] = useState(false);
+
   const filteredDate = [
     {
       name: 'All Sales Orders',
@@ -75,13 +77,11 @@ export const SalesOrderShipperScreen = ({ navigation, route }) => {
       loading,
     },
   ];
-
   const checkSelected = (id) => {
     return selected.some((item) => {
       return item === id;
     });
   };
-
   return (
     <ScreenWrapperNative
       header

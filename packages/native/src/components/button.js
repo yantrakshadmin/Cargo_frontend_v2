@@ -12,8 +12,8 @@ export const YantraButton = ({ Icon, containerStyle, children, title, onPress, t
     };
   } else {
     buttonStyle = {
-      container: { backgroundColor: yantraColors.primary },
-      text: { color: yantraColors.white },
+      container: { backgroundColor: yantraColors.white },
+      text: { color: yantraColors.black },
     };
   }
   return (

@@ -9,6 +9,7 @@ export const yantraColors = {
   gray: '#ddd',
   grayDark: '#ccc',
   success: '#52c41a',
+  danger: '#f4333c',
 };
 export const margin = (key) => ({
   sm: { [key]: 5 },

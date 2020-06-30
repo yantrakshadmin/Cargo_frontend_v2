@@ -1,10 +1,23 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { useAPI } from '../../hooks/api';
+import { ScreenWrapperNative } from '../../components/screenWrapper.native';
+import { CardLiveTruck } from '../../components/cards/cardLiveTruck';
 
-export const LiveTruckShipperScreenNative = () => {
+export const LiveTruckShipperScreenNative = ({ navigation }) => {
+  const { data, loading, reload } = useAPI(`/live-trucks/`, {});
   return (
-    <View>
-      <Text>LiveTruckShipperScreenNative</Text>
-    </View>
+    <ScreenWrapperNative
+      header
+      title='Truck'
+      loading={loading}
+      navigation={navigation}
+      pullToRefresh
+      onRefresh={() => {
+        reload();
+      }}>
+      {(data || []).map((Item) => (
+        <CardLiveTruck truck={Item} />
+      ))}
+    </ScreenWrapperNative>
   );
 };
