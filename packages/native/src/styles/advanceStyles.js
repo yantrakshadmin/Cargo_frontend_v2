@@ -65,6 +65,7 @@ export const signInStyle = {
     width: '100%',
     flexDirection: 'column',
     alignItems: 'center',
+    justifyContent:'flex-start',
     padding: 10,
   },
   buttonsContainer: {

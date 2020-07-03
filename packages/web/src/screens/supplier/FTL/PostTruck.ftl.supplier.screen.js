@@ -9,10 +9,8 @@ import {dateFormatter} from '@app/common/helpers/dateFomatter';
 
 export const PostTruckFtlSupplierScreen = () => {
   const { data, loading, reload } = useAPI(`/posted-trucks/`);
-  console.log(data,"Post truck")
   const postTruckColumn = [
     ...supplierPostTruckColumn,
-
     {
       title: 'Scheduled Date',
       dataIndex: 'scheduled_date',

@@ -1,5 +1,6 @@
 import Countries from '@app/common/constants/countryAndState.json';
 import { FORM_ELEMENT_TYPES } from '@app/web/src/constants/formFields.constant';
+import { getSwitchOptions } from '@app/common/helpers/getSwitchOptions';
 
 export const vendorFormField = [
   {
@@ -30,14 +31,18 @@ export const vendorFormField = [
   {
     key: 'states_dealtin',
     title: 'States Dealt In',
-    type: FORM_ELEMENT_TYPES.RADIO,
-    radioOptions: ['All States', ...Countries.countries[81].states],
+    multiple:true,
+    type: FORM_ELEMENT_TYPES.SWITCH,
+    showModal:true,
+    switchOptions: getSwitchOptions(['All States', ...Countries.countries[81].states]),
   },
-  // {
-  //   key: 'truck_type',
-  //   rules: [{ required: true, message: 'Please input truck type!' }],
-  //   title: 'Truck Type',
-  //   type: FORM_ELEMENT_TYPES.MULTIPLE_CHECKBOX,
-  //   name: 'Truck Type',
-  // },
+  {
+    key: 'truck_type',
+    title: 'Truck Type',
+    type: FORM_ELEMENT_TYPES.SWITCH,
+    multiple:true,
+    switchOptions:[{ label: 'Transporter', value: 1 },
+      { label: 'Broker', value: 2 },
+      { label: 'Fleet Owner', value: 3 }]
+  },
 ];

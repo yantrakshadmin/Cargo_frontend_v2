@@ -3,6 +3,7 @@ import { Modal, View, TouchableOpacity } from 'react-native';
 import { Button } from '@ant-design/react-native';
 import { ScreenWrapperNative } from './screenWrapper.native';
 import { margin } from '../styles/default';
+import {YantraButton} from './button';
 
 export const CustomModal = ({
   visible,
@@ -33,13 +34,12 @@ export const CustomModal = ({
         <ScreenWrapperNative noHeader title={title}>
           {children}
           <View style={margin('padding').md}>
-            <Button
-              type='primary'
+            <YantraButton
               onPress={() => {
                 setVisible(false);
               }}>
               Back
-            </Button>
+            </YantraButton>
           </View>
         </ScreenWrapperNative>
       </Modal>

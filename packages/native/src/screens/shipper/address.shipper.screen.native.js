@@ -32,14 +32,16 @@ export const AddressShipperScreenNative = ({ navigation }) => {
               <Icon color={yantraColors.white} size={20} name='plus' />
             </View>
           )}>
-          <FormAddressNative />
+          <FormAddressNative
+            onDone={()=>{reload(); setVisible(false)}}
+            onCancel={()=>{reload(); setVisible(false)}} />
         </CustomModal>
       )}
       onRefresh={() => {
         reload();
       }}>
       {(data || []).map((Item) => (
-        <CardAddress address={Item} />
+        <CardAddress reload={reload} address={Item} />
       ))}
     </ScreenWrapperNative>
   );

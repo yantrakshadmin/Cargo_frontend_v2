@@ -101,6 +101,8 @@ export const TransportDirectory = () => {
             {modal.data.Email}
           </Descriptions.Item>
           <Descriptions.Item label='Contact Numbers' span={4}>
+            {modal.data['Primary Contact Number']}
+            <br />
             {modal.data['Contact Number']}
             <br />
             {modal.data['Contact Number 1']}

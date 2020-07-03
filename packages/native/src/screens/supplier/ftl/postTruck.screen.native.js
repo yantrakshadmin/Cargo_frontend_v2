@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { ScreenWrapperNative } from '../../components/screenWrapper.native';
-import { CardVendor } from '../../components/cards/cardVendor';
-import { useAPI } from '../../hooks/api';
-import { CustomModal } from '../../components/customModal';
-import { yantraColors } from '../../styles/default';
-import { getFlex } from '../../styles/advanceStyles';
-import { FormVendorNative } from '../../forms/formVendor.native';
+import { useAPI } from '../../../hooks/api';
+import { ScreenWrapperNative } from '../../../components/screenWrapper.native';
+import { CustomModal } from '../../../components/customModal';
+import { yantraColors } from '../../../styles/default';
+import { getFlex } from '../../../styles/advanceStyles';
+import { CardLiveTruck } from '../../../components/cards/cardLiveTruck';
+import { FormPostTruckNative } from '../../../forms/formPostTruck.native';
 
-export const VendorShipperScreenNative = ({ navigation }) => {
-  const { data, loading, reload } = useAPI(`/vendors/`);
+export const PostTruckScreenNative = ({ navigation }) => {
   const [visible, setVisible] = useState(false);
+  const { data, loading, reload } = useAPI(`/posted-trucks/`);
   return (
     <ScreenWrapperNative
       header
-      title='Vendor'
+      title='Post Truck'
       loading={loading}
       navigation={navigation}
       pullToRefresh
@@ -32,7 +32,7 @@ export const VendorShipperScreenNative = ({ navigation }) => {
               <Icon color={yantraColors.white} size={20} name='plus' />
             </View>
           )}>
-          <FormVendorNative
+          <FormPostTruckNative
             onDone={()=>{reload(); setVisible(false)}}
             onCancel={()=>{reload(); setVisible(false)}} />
         </CustomModal>
@@ -41,7 +41,7 @@ export const VendorShipperScreenNative = ({ navigation }) => {
         reload();
       }}>
       {(data || []).map((Item) => (
-        <CardVendor vendor={Item} reload={reload}  />
+        <CardLiveTruck reload={reload} truck={Item} />
       ))}
     </ScreenWrapperNative>
   );

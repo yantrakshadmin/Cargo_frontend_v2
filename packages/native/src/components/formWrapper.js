@@ -4,8 +4,21 @@ import { Button, WhiteSpace, WingBlank } from '@ant-design/react-native';
 import { column, container, signInStyle } from '../styles/advanceStyles';
 import { Divider } from './divider.component';
 import { FormItemCreaterNative } from './formItemCreaterNative';
+import { useHandelForm } from '../hooks/form';
 
-export const FormWrapper = ({ title, buttonLabel, fields, onSubmit }) => {
+export const FormWrapper = (
+  { title,
+    success,
+    failure,
+    buttonLabel,
+    fields,
+    onDone,
+    onCancel,
+    create,
+    edit,
+    retrieve,
+    id }) => {
+
   const createState = () => {
     let obj;
     fields.map((i) => {
@@ -14,7 +27,22 @@ export const FormWrapper = ({ title, buttonLabel, fields, onSubmit }) => {
     });
     return obj;
   };
+
   const [form, setForm] = useState({ ...createState() });
+  const { loading, submit } = useHandelForm({
+    create,
+    edit,
+    retrieve,
+    success,
+    failure,
+    done: onDone,
+    close: onCancel,
+    id,
+    form,
+    setForm:(data)=>{setForm(data)}
+  });
+
+
   const [ourField, setOurField] = useState(fields);
   const onChange = (newForm, Field) => {
     if (Field.dependantOn) {
@@ -53,7 +81,7 @@ export const FormWrapper = ({ title, buttonLabel, fields, onSubmit }) => {
         <View style={signInStyle.buttonsContainer}>
           <WingBlank>
             <WhiteSpace />
-            <Button onPress={onSubmit}>{buttonLabel || 'Submit'}</Button>
+            <Button loading={loading} onPress={submit}>{buttonLabel || 'Submit'}</Button>
             <WhiteSpace />
           </WingBlank>
         </View>

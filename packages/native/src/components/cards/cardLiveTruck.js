@@ -14,9 +14,9 @@ export const CardLiveTruck = ({ truck, style }) => {
       <View style={[margin('padding').md, getFlex(1), { width: '100%' }]}>
         <View style={getFlex(1, 'row', 'space-between', 'center')}>
           <Text style={font(15, 'bold')}>
-            {truck.origin} 
+            {truck.origin}
             {' '}
-            <Text style={font(15, 'normal')}>to</Text> 
+            <Text style={font(15, 'normal')}>to</Text>
             {' '}
             {truck.destination}
           </Text>
@@ -25,14 +25,6 @@ export const CardLiveTruck = ({ truck, style }) => {
               Id#
               {truck.id}
             </Text>
-            <View style={getFlex(1, 'row', 'flex-end', 'center')}>
-              <TouchableOpacity style={[margin('margin').md]} onPress={() => {}}>
-                <Icon color={yantraColors.primary} size={20} name='edit' />
-              </TouchableOpacity>
-              <TouchableOpacity style={[margin('margin-vertical').md]} onPress={() => {}}>
-                <Icon color={yantraColors.danger} size={20} name='trash' />
-              </TouchableOpacity>
-            </View>
           </View>
         </View>
         <Divider />
@@ -52,9 +44,16 @@ export const CardLiveTruck = ({ truck, style }) => {
         </View>
         <View style={getFlex(1, 'row', 'flex-start', 'center')}>
           <Text style={font(15, 'bold')}>
-            Truck Type : 
+            Truck Type :
             {' '}
             <Text style={font(15, 'normal')}>{truck.truck_type}</Text>
+          </Text>
+        </View>
+        <View style={getFlex(1, 'row', 'flex-start', 'center')}>
+          <Text style={font(15, 'bold')}>
+            Total Trucks :
+            {' '}
+            <Text style={font(15, 'normal')}>{truck.total_trucks}</Text>
           </Text>
         </View>
       </View>

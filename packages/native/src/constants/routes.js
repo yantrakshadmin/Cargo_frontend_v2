@@ -8,11 +8,18 @@ import { SalesOrderShipperScreen } from '../screens/shipper/salesOrder.shipper.s
 import { TabCreater } from '../navigation/TabCreater';
 import { ShippingShipperScreenNative } from '../screens/shipper/shipping.shipper.screen.native';
 import { LiveTruckShipperScreenNative } from '../screens/shipper/liveTruck.shipper.screen.native';
-import { TransportDirectoryShipperScreenNative } from '../screens/shipper/transportDirectory.shipper.screen.native';
+import { TransportDirectoryShipperScreenNative }
+  from '../screens/shipper/transportDirectory.shipper.screen.native';
 import { ItemShipperScreenNative } from '../screens/shipper/Item.shipper.screen.native';
 import { VendorShipperScreenNative } from '../screens/shipper/vendor.shipper.screen';
 import { AddressShipperScreenNative } from '../screens/shipper/address.shipper.screen.native';
-import { FreightExchangeShipperScreenNative } from '../screens/shipper/freightExchange.shipper.screen.native';
+import { FreightExchangeShipperScreenNative }
+  from '../screens/shipper/freightExchange.shipper.screen.native';
+import { AvailableLoadsScreenNative } from '../screens/supplier/ftl/availableLoads.screen.native';
+import { PostTruckScreenNative } from '../screens/supplier/ftl/postTruck.screen.native';
+import { MyBidsScreenNative } from '../screens/supplier/ftl/myBids.screen.native';
+import { TripManagementScreenNative } from '../screens/supplier/ftl/tripManagement.screen.native';
+import { SignOutScreen } from '../screens/public/signOut.screen';
 
 export const SalesOrder = [
   {
@@ -33,10 +40,7 @@ export const SalesOrder = [
   },
 ];
 export const Masters = [
-  {
-    name: 'Item',
-    Component: ItemShipperScreenNative,
-  },
+
   {
     name: 'Vendor',
     Component: VendorShipperScreenNative,
@@ -44,6 +48,10 @@ export const Masters = [
   {
     name: 'Address',
     Component: AddressShipperScreenNative,
+  },
+  {
+    name: 'Item',
+    Component: ItemShipperScreenNative,
   },
 ];
 
@@ -121,6 +129,51 @@ export const shipperRoutes = [
     Component: TransportDirectoryShipperScreenNative,
     navigationOptions: {
       drawerIcon: ({ tintColor }) => <Icon name='address-book' color={tintColor} size={18} />,
+    },
+  },
+  {
+    name: 'Log Out',
+    Component: SignOutScreen,
+    navigationOptions: {
+      drawerIcon: ({ tintColor }) => <Icon name='sign-out-alt' color={tintColor} size={18} />,
+    },
+  },
+];
+
+export const supplierFTLRoutes = [
+  {
+    name: 'Available Loads',
+    Component: AvailableLoadsScreenNative,
+    navigationOptions: {
+      drawerIcon: ({ tintColor }) => <Icon name='boxes' color={tintColor} size={18} />,
+    },
+  },
+  {
+    name: 'Post Truck',
+    Component: PostTruckScreenNative,
+    navigationOptions: {
+      drawerIcon: ({ tintColor }) => <Icon name='truck' color={tintColor} size={18} />,
+    },
+  },
+  {
+    name: 'My Bids',
+    Component: MyBidsScreenNative,
+    navigationOptions: {
+      drawerIcon: ({ tintColor }) => <Icon name='money-bill' color={tintColor} size={18} />,
+    },
+  },
+  {
+    name: 'Trip Management',
+    Component: TripManagementScreenNative,
+    navigationOptions: {
+      drawerIcon: ({ tintColor }) => <Icon name='route' color={tintColor} size={18} />,
+    },
+  },
+  {
+    name: 'Log Out',
+    Component: SignOutScreen,
+    navigationOptions: {
+      drawerIcon: ({ tintColor }) => <Icon name='sign-out-alt' color={tintColor} size={18} />,
     },
   },
 ];

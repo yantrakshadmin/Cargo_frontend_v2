@@ -1,16 +1,45 @@
-import React from 'react';
-import { Text, TextInput, View } from 'react-native';
+import React,{ useState } from 'react';
+import { TouchableOpacity, Text, TextInput, View } from 'react-native';
 import { FORM_ELEMENT_TYPES } from '@app/web/src/constants/formFields.constant';
 import { Picker } from '@react-native-community/picker';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { column, row, signInStyle } from '../styles/advanceStyles';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { column, getFlex, row, signInStyle } from '../styles/advanceStyles';
 import { Divider } from './divider.component';
+import { RadioPicker } from './radioPicker';
+
+
 
 export const FormItemCreaterNative = (Field, form, onChangeForm) => {
+  const [show, setShow] = useState(false);
+
   switch (Field.type) {
+    case FORM_ELEMENT_TYPES.DATE:return(
+      <View style={row}>
+        <Text>
+          {Field.title}
+          {' : '}
+        </Text>
+        <TouchableOpacity onPress={()=>{setShow(true)}}>
+          <Text>Select Date</Text>
+        </TouchableOpacity>
+        {show && (
+          <DateTimePicker
+            testID='dateTimePicker'
+            value={form[Field.key]}
+            mode='date'
+            display='default'
+            onChange={(itemValue, selectedDate) => {
+              onChangeForm({ ...form, [Field.key]: selectedDate }, Field);
+              setShow(false)
+            }}
+        />
+        )}
+      </View>
+    )
     case FORM_ELEMENT_TYPES.RADIO:
       return (
-        <View style={[column, { width: '100%' }]}>
+        <View style={[column, { width: '100%' }]} key={Field.key}>
           <View style={row} key={Field.key}>
             <View style={signInStyle.inputText}>
               <Text>{Field.title}</Text>
@@ -36,7 +65,7 @@ export const FormItemCreaterNative = (Field, form, onChangeForm) => {
       );
     case FORM_ELEMENT_TYPES.INPUT:
       return (
-        <View style={[column, { width: '100%' }]}>
+        <View style={[column, { width: '100%' }]} key={Field.key}>
           <View style={row}>
             {Field.icon ? (
               <Icon name={Field.icon.name} size={Field.icon.size} color={Field.icon.color} />
@@ -48,7 +77,6 @@ export const FormItemCreaterNative = (Field, form, onChangeForm) => {
                   onChangeForm({ ...form, [Field.key]: text }, Field);
                 }}
                 placeholder={Field.title}
-                maxLength={20}
                 {...Field.inputParams}
               />
             </View>
@@ -57,6 +85,26 @@ export const FormItemCreaterNative = (Field, form, onChangeForm) => {
           <Divider />
         </View>
       );
+    case FORM_ELEMENT_TYPES.SWITCH:return(
+      <View
+        style={
+        [
+          getFlex(1,'column','flex-start','flex-start'),
+          { width: '100%' ,margin:5 }]
+}
+        key={Field.key}>
+        <RadioPicker
+          options={Field.switchOptions}
+          defaultValue={Field.defaultValue}
+          multiple={Field.multiple}
+          heading={Field.title}
+          showModal={Field.showModal}
+          onChange={(value)=>{
+            onChangeForm({ ...form, [Field.key]:value }, Field);}}
+        />
+        <Divider />
+      </View>
+    );
     default:
       return null;
   }

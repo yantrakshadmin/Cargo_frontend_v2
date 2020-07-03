@@ -5,27 +5,31 @@ import { supplierTripManagementColumn } from '@app/common/columns/supplierTripMa
 import { CloseSquareOutlined, EditOutlined } from '@ant-design/icons';
 import { yantraColors } from 'helpers/yantraColors';
 import { useAPI } from '@app/common/hooks/api';
+import { dateFormatter } from '@app/common/helpers/dateFomatter';
 import { TripManagementForm } from '../../../forms/tripManagement.form';
 
 export const TripManagementFtl = () => {
-  const data1 = [
-    {
-      order_id: 1,
-      date: '19/12/2020',
-    },
-  ];
-  const { data,loading, reload } = useAPI(`/address/`);
+  const { data,loading, reload } = useAPI(`trip-list/`);
   const [selectedRow, setSelectedRow] = useState({
     id: 0,
     isEditable: true,
     showModal: false,
   });
-  console.log(data,'GGG')
   // path('trip-management/', TripManagementAPIView.as_view()),
   //   path('edit-trip/<int:pk>/', TripManagementDetailAPIView.as_view()),
   //   path('trip-list/', TripManagementListAPIView.as_view()),
   const columns = [
     ...supplierTripManagementColumn,
+    {
+      title: 'Date',
+      dataIndex: 'date',
+      key: 'date',
+      render: (row) => (
+        <div>
+          {dateFormatter(row)}
+        </div>
+      )
+    },
     {
       title: 'Action',
       key: 'operation',
@@ -53,7 +57,7 @@ export const TripManagementFtl = () => {
       title='Trip Management'
       refresh={reload}
       columns={columns}
-      data={data1}
+      data={data}
       customRightButtonLabel='Manage Trip'
       loading={loading}
       customModalTitle='Trip Details'

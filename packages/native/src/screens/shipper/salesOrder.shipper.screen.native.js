@@ -36,10 +36,13 @@ export const SalesOrderShipperScreen = ({ navigation, route }) => {
               try {
                 const raw = data.find((row2) => row2.id === id);
                 // eslint-disable-next-line no-await-in-loop
+                console.log(raw,'Raw');
                 const done = await loadAPI(`/edit-order/${id}/`, {
                   method: 'PATCH',
                   data: {
                     ...raw,
+                    receiver_address:raw.receiver_address.id,
+                    sender_address:raw.sender_address.id,
                     status: 'Active',
                   },
                 });

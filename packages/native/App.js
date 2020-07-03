@@ -34,8 +34,6 @@ const InnerBody = () => {
   useEffect(() => {
     const init = async () => {
       const toHome = await getUserMeta(dispatch);
-      // if (toHome) window.location = '/';
-      console.log(toHome, 'home');
     };
 
     init().then(() => setLoading(false));
@@ -46,7 +44,6 @@ const InnerBody = () => {
         <StatusBar barStyle='dark-content' />
         <Initial />
         <NavigationContainer screenOptions={{ headerShown: false }}>
-          {console.log(user, 'user')}
           <PrivateRoutes userType={user.type} />
         </NavigationContainer>
       </AntDesign>

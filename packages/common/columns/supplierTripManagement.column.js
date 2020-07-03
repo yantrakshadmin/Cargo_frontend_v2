@@ -6,11 +6,6 @@ export const supplierTripManagementColumn = [
     key: 'order_id',
   },
   {
-    title: 'Date',
-    dataIndex: 'date',
-    key: 'date',
-  },
-  {
     title: 'Vehicle Number',
     dataIndex: 'vehicle-number',
     key: 'vehicle-number',
