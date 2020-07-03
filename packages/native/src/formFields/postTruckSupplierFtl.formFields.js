@@ -32,11 +32,13 @@ export const postTruckFormFields = [
   {
     key: 'truck_type',
     title: 'Truck Type',
-    type: FORM_ELEMENT_TYPES.SWITCH,
-    multiple:true,
-    switchOptions:[{ label: 'Transporter', value: 1 },
-      { label: 'Broker', value: 2 },
-      { label: 'Fleet Owner', value: 3 }]
+    type: FORM_ELEMENT_TYPES.RADIO,
+    defaultValue:'Open',
+    radioOptions: [
+      { value: 'Open', label: 'Open' },
+      { value: 'Container', label: 'Container' },
+      { value: 'Trailer', label: 'Trailer' },
+    ],
   },
   {
     key: 'scheduled_date',

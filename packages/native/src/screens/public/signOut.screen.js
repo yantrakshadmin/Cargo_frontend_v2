@@ -4,11 +4,12 @@ import { useDispatch } from 'react-redux';
 import { logout } from '@app/common/actions/auth';
 import { getFlex } from '../../styles/advanceStyles';
 
-export const SignOutScreen = () => {
+export const SignOutScreen = ({ navigation,home }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(logout());
-  }, [logout]);
+    navigation.navigate(home)
+  }, [navigation,dispatch]);
   return (
     <View style={getFlex(1,'column','center','center')}>
       <ActivityIndicator size='large' color='#000000' />

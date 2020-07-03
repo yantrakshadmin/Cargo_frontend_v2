@@ -12,6 +12,7 @@ import { getUserMeta } from '@app/common/helpers/auth';
 import { useUser } from './src/hooks/user';
 import { PrivateRoutes } from './src/navigation/shipper.routes';
 import 'helpers/shared';
+import { LoadingComponent } from './src/components/Loading.Component';
 
 const theme = require('@app/common/theme').default;
 
@@ -33,11 +34,13 @@ const InnerBody = () => {
 
   useEffect(() => {
     const init = async () => {
+      setLoading(true)
       const toHome = await getUserMeta(dispatch);
     };
-
-    init().then(() => setLoading(false));
+    init().then(() => setLoading(false)).catch(()=>setLoading(false));
   }, [dispatch]);
+  if(loading)
+    return(<LoadingComponent />)
   return (
     <>
       <AntDesign theme={theme}>

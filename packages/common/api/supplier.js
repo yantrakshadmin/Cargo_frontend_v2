@@ -30,3 +30,5 @@ export const tripManagementEdit = (id, data) =>
     method: 'PATCH',
     data,
   });
+export const deleteTripManagement = (id) => loadAPI(`/edit-trip/${id}/`, { method: 'DELETE' });
+

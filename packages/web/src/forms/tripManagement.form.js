@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Form, Col, Row, Button, Divider, Spin } from 'antd';
 
 import { formItem } from 'hocs/formItem.hoc';
@@ -29,7 +29,7 @@ export const TripManagementForm = ({ onCancel, onDone }) => {
 
   const checkVehicleSource = () => {
     const newItem = form.getFieldsValue(['vehicle_source']);
-    setShouldGetBrokerName(newItem.vehicle_source === 'broker');
+    setShouldGetBrokerName(newItem.vehicle_source === 'Broker');
 
     const orderId = form.getFieldValue('order');
     let order;

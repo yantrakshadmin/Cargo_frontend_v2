@@ -58,7 +58,6 @@ export const FreightExchangeShipperScreenNative = ({ navigation, route }) => {
                     ))}
                   </View>
                 ) : null}
-                {console.log(Item.data, Item)}
                 {Item.data.map((order) => (
                   <TouchableOpacity
                     activeOpacity={1}

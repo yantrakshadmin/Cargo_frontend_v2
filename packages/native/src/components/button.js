@@ -1,9 +1,10 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
+import { Toast } from '@ant-design/react-native';
 import { getFlex, signInStyle, font } from '../styles/advanceStyles';
 import { margin, yantraColors } from '../styles/default';
 
-export const YantraButton = ({ Icon, containerStyle, children, title, onPress, type }) => {
+export const YantraButton = ({ Icon, containerStyle, children, title, onPress, type,disabled }) => {
   let buttonStyle;
   if (type === 'primary') {
     buttonStyle = {
@@ -17,10 +18,12 @@ export const YantraButton = ({ Icon, containerStyle, children, title, onPress, t
     };
   }
   return (
-    <View style={[getFlex(4, 'column', 'center', 'center'), containerStyle]}>
+    <View style={[
+      getFlex(4, 'column', 'center', 'center'),
+      containerStyle,{ opacity:disabled?.7:1 }]}>
       <TouchableOpacity
         activeOpacity={1}
-        onPress={onPress}
+        onPress={disabled?()=>{Toast.info('Button is disabled')}:onPress}
         style={[
           signInStyle.subContainer,
           containerStyle,

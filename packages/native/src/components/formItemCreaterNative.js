@@ -4,10 +4,10 @@ import { FORM_ELEMENT_TYPES } from '@app/web/src/constants/formFields.constant';
 import { Picker } from '@react-native-community/picker';
 import Icon from 'react-native-vector-icons/Ionicons';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import {dateFormatter, nativeDateFormatter} from '@app/common/helpers/dateFomatter';
 import { column, getFlex, row, signInStyle } from '../styles/advanceStyles';
 import { Divider } from './divider.component';
 import { RadioPicker } from './radioPicker';
-
 
 
 export const FormItemCreaterNative = (Field, form, onChangeForm) => {
@@ -15,26 +15,31 @@ export const FormItemCreaterNative = (Field, form, onChangeForm) => {
 
   switch (Field.type) {
     case FORM_ELEMENT_TYPES.DATE:return(
+      <View style={[column, { width: '100%' }]} key={Field.key}>
       <View style={row}>
         <Text>
           {Field.title}
           {' : '}
         </Text>
         <TouchableOpacity onPress={()=>{setShow(true)}}>
-          <Text>Select Date</Text>
+          <Text>
+            {nativeDateFormatter(form[Field.key])}
+          </Text>
         </TouchableOpacity>
         {show && (
           <DateTimePicker
             testID='dateTimePicker'
             value={form[Field.key]}
-            mode='date'
+            mode='datetime'
             display='default'
             onChange={(itemValue, selectedDate) => {
-              onChangeForm({ ...form, [Field.key]: selectedDate }, Field);
               setShow(false)
+              onChangeForm({ ...form, [Field.key]: selectedDate }, Field);
             }}
         />
         )}
+      </View>
+        <Divider />
       </View>
     )
     case FORM_ELEMENT_TYPES.RADIO:
@@ -50,6 +55,12 @@ export const FormItemCreaterNative = (Field, form, onChangeForm) => {
               onValueChange={(itemValue, index) => {
                 onChangeForm({ ...form, [Field.key]: itemValue }, Field);
               }}>
+              <Picker.Item
+                label='Choose...'
+                /* eslint-disable-next-line no-nested-ternary */
+                value=''
+                key='choose'
+              />
               {Field.radioOptions.map((Item) => (
                 <Picker.Item
                   label={Item.label || Item}
@@ -67,6 +78,12 @@ export const FormItemCreaterNative = (Field, form, onChangeForm) => {
       return (
         <View style={[column, { width: '100%' }]} key={Field.key}>
           <View style={row}>
+            {Field.showHeading?(
+              <Text>
+                {Field.title}
+                {' : '}
+              </Text>
+            ):null}
             {Field.icon ? (
               <Icon name={Field.icon.name} size={Field.icon.size} color={Field.icon.color} />
             ) : null}

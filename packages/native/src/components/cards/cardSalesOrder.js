@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Modal } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { shipperItemColumn } from '@app/common/columns/shipperItems.column';
+import { useAPI } from '../../hooks/api';
 import { font, getFlex, row } from '../../styles/advanceStyles';
 import { margin, yantraColors } from '../../styles/default';
 import { Divider } from '../divider.component';
@@ -9,15 +10,21 @@ import { cardStyle } from '../../styles/cardsStyles';
 import { YantraButton } from '../button';
 import { TableCreate } from '../tableCreate';
 import { ScreenWrapperNative } from '../screenWrapper.native';
+import { CustomModal } from '../customModal';
+import { CardViewBids } from './cardViewBids';
 
 export const CardSalesOrder = ({ order, style }) => {
   const [visible, setVisible] = useState(false);
+  const [visibleBids, setVisibleBids] = useState(false);
+  const { data, loading, reload } = useAPI(`/bids/${order.id}`, {});
+  console.log(data,'bid')
+
   return (
     <View style={[cardStyle.container, style]}>
       <View style={[margin('padding').md, getFlex(1), { width: '100%' }]}>
         <View style={getFlex(1, 'row', 'space-between', 'center')}>
           <Text style={font(15, 'bold')}>
-            {order.sender_address.city} 
+            {order.sender_address.city}
             {' '}
             <Text style={font(15, 'normal')}>to</Text>
             {' '}
@@ -73,11 +80,10 @@ export const CardSalesOrder = ({ order, style }) => {
           <Icon color={yantraColors.primary} size={20} name='share' />
         </TouchableOpacity>
         <YantraButton
-          Icon={<Icon color={yantraColors.success} size={13} name='phone' />}
           onPress={() => {
-            console.log('click');
+            setVisibleBids(true);
           }}>
-          Contact
+          View Bids
         </YantraButton>
       </View>
       <Modal
@@ -99,6 +105,9 @@ export const CardSalesOrder = ({ order, style }) => {
           />
         </ScreenWrapperNative>
       </Modal>
+      <CustomModal visible={visibleBids} setVisible={setVisibleBids} title='View Bids'>
+        {(data||[]).map((item,index)=>(<CardViewBids key={index.toString()} bid={item} />))}
+      </CustomModal>
     </View>
   );
 };

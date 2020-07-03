@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import { Button, WhiteSpace, WingBlank } from '@ant-design/react-native';
+import { Button, WhiteSpace, WingBlank ,Toast } from '@ant-design/react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { FORM_ELEMENT_TYPES } from '@app/web/src/constants/formFields.constant';
+import { createShipperAccount } from '@app/common/api/auth';
 import { column, container, signInStyle } from '../../styles/advanceStyles';
 import { Divider } from '../../components/divider.component';
 import { yantraColors } from '../../styles/default';
 import { signUpShipperFields } from '../../formFields/signUpShipper.formFields';
 import { FormItemCreaterNative } from '../../components/formItemCreaterNative';
 
-export const SignUpShipperScreen = () => {
+
+export const SignUpShipperScreen = ({ navigation }) => {
   const [form, setForm] = useState({
     first_name: '',
     last_name: '',
@@ -19,6 +21,27 @@ export const SignUpShipperScreen = () => {
     confirmPassword: '',
     type: '',
   });
+  const [loading,setLoading] = useState(false)
+  const handleSubmit = async (data) => {
+    setLoading(true)
+    const { password, confirmPassword } = data;
+    if (password !== confirmPassword) {
+      Toast.info(
+        'Password and confirm password should be same!');
+      setLoading(false)
+    } else {
+      try {
+        const { data: { username } } = await createShipperAccount(data);
+        Toast.info(`Created your account`);
+        navigation.navigate('Sign In');
+        setLoading(false)
+      } catch (e) {
+        Toast.info( 'Error in creating user!');
+        setLoading(false)
+      }
+    }
+  };
+
   const [hidePassword, changeHidePassword] = useState(true);
 
   const fields = [
@@ -93,7 +116,11 @@ export const SignUpShipperScreen = () => {
         <View style={signInStyle.buttonsContainer}>
           <WingBlank>
             <WhiteSpace />
-            <Button> Sign Up</Button>
+            <Button
+              loading={loading}
+              onPress={async ()=>{await handleSubmit(form)}}>
+              Sign Up
+            </Button>
             <WhiteSpace />
           </WingBlank>
         </View>

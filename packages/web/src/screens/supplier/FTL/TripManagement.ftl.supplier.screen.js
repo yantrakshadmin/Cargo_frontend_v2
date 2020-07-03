@@ -6,6 +6,10 @@ import { CloseSquareOutlined, EditOutlined } from '@ant-design/icons';
 import { yantraColors } from 'helpers/yantraColors';
 import { useAPI } from '@app/common/hooks/api';
 import { dateFormatter } from '@app/common/helpers/dateFomatter';
+import { deleteAddress } from '@app/common/api/shipper';
+import { Popconfirm } from 'antd';
+import { deleteTripManagement } from '@app/common/api/supplier';
+import { deleteHOC } from '../../../hocs/form';
 import { TripManagementForm } from '../../../forms/tripManagement.form';
 
 export const TripManagementFtl = () => {
@@ -41,12 +45,20 @@ export const TripManagementFtl = () => {
               setSelectedRow({ id: row.id, isEditable: false, showModal: true });
             }}
           />
-          <CloseSquareOutlined
-            style={{ color: '#ff0000', fontSize: 30, margin: 5 }}
-            onClick={() => {
-              console.log(selectedRow);
-            }}
-          />
+          <Popconfirm
+            title='Confirm Delete'
+            onConfirm={deleteHOC({
+              row,
+              reload,
+              api: deleteTripManagement,
+              success: 'Deleted trip successfully',
+              failure: 'Error in deleting Trip',
+            })}
+          >
+            <CloseSquareOutlined
+              style={{ color: '#ff0000', fontSize: 30, margin: 5 }}
+            />
+          </Popconfirm>
         </div>
       ),
     },

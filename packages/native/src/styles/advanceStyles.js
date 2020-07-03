@@ -189,3 +189,26 @@ export const tagsStyle = {
     margin: 5,
   }),
 };
+
+export const dashboardStyle = {
+  topMenuContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 5,
+  },
+  row: { flexDirection: 'row', width: '100%' },
+  topCardBody: color => {
+    return {
+      flex: 1,
+      borderRadius: 10,
+      borderTopWidth: 0,
+      borderLeftWidth: 0,
+      margin:5,
+      backgroundColor: color,
+      padding:15,
+      color: yantraColors.white,
+    };
+  },
+  topCardText: { color: yantraColors.white, textAlign: 'center' },
+}

@@ -133,7 +133,7 @@ export const shipperRoutes = [
   },
   {
     name: 'Log Out',
-    Component: SignOutScreen,
+    Component: ({ navigation })=>(<SignOutScreen home='Dashboard' navigation={navigation} />),
     navigationOptions: {
       drawerIcon: ({ tintColor }) => <Icon name='sign-out-alt' color={tintColor} size={18} />,
     },
@@ -171,7 +171,7 @@ export const supplierFTLRoutes = [
   },
   {
     name: 'Log Out',
-    Component: SignOutScreen,
+    Component: ({ navigation })=>(<SignOutScreen home='Available Loads' navigation={navigation} />),
     navigationOptions: {
       drawerIcon: ({ tintColor }) => <Icon name='sign-out-alt' color={tintColor} size={18} />,
     },
