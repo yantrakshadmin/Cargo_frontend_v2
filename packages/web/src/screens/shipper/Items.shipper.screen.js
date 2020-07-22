@@ -2,15 +2,14 @@ import React from 'react';
 import { CloseSquareOutlined, EditOutlined } from '@ant-design/icons';
 
 import { MasterHOC } from 'hocs/Master.hoc';
-import { VendorForm } from 'forms/Vendor.form';
-
-// import { shipperItemColumn } from '@app/common/columns/shipperItem.column';
 import { yantraColors } from 'helpers/yantraColors';
+import { shipperItemColumn } from '@app/common/columns/shipperItems.column';
+import { ItemForm } from '../../forms/item.form';
 
 export const ItemsShipperScreen = () => {
   const data = [];
   const columns = [
-    // ...shipperItemColumn,
+    ...shipperItemColumn,
     {
       title: 'Action',
       key: 'operation',
@@ -23,7 +22,7 @@ export const ItemsShipperScreen = () => {
     },
   ];
 
-  return <MasterHOC title='Item' columns={columns} data={data} modalBody={VendorForm} />;
+  return <MasterHOC title='Item' columns={columns} data={data} modalBody={ItemForm} />;
 };
 
 export default ItemsShipperScreen;

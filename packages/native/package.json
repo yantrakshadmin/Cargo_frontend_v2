@@ -25,7 +25,8 @@
     "lint": "eslint .",
     "studio": "studio android",
     "xcode": "open ios/ycargo.xcworkspace",
-    "pod": "cd ios && pod install"
+    "pod": "cd ios && pod install",
+    "apk": "react-native run-android --variant=release"
   },
   "dependencies": {
     "@ant-design/icons-react-native": "^2.2.1",
