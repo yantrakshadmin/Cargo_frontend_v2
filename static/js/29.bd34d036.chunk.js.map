@@ -1,1 +1,0 @@
-{"version":3,"sources":["screens/supplier/FTL/EditProfile.js"],"names":["EditProfile"],"mappings":"6GAAA,2BAUeA,UARK,WAClB,OACE","file":"static/js/29.bd34d036.chunk.js","sourcesContent":["import React from 'react'\n\nconst EditProfile = () =>{\n  return(\n    <div>\n      Edit Profile\n    </div>\n  )\n}\n\nexport default EditProfile\n"],"sourceRoot":""}
