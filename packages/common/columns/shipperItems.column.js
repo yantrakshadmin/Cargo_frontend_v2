@@ -18,10 +18,6 @@ export const shipperItemColumn = [
     title: 'Height',
     dataIndex: 'height',
     key: 'height',
-  },{
-    title: 'Quantity',
-    dataIndex: 'quantity',
-    key: 'quantity',
   },
   {
     title: 'Weight',

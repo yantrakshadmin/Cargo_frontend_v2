@@ -10,7 +10,7 @@ import { ShippingShipperScreenNative } from '../screens/shipper/shipping.shipper
 import { LiveTruckShipperScreenNative } from '../screens/shipper/liveTruck.shipper.screen.native';
 import { TransportDirectoryShipperScreenNative }
   from '../screens/shipper/transportDirectory.shipper.screen.native';
-import { ItemShipperScreenNative } from '../screens/shipper/Item.shipper.screen.native';
+import { ItemShipperScreenNative } from '../screens/shipper/item.shipper.screen.native';
 import { VendorShipperScreenNative } from '../screens/shipper/vendor.shipper.screen';
 import { AddressShipperScreenNative } from '../screens/shipper/address.shipper.screen.native';
 import { FreightExchangeShipperScreenNative }

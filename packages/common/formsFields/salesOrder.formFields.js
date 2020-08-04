@@ -51,6 +51,7 @@ export const salesOrderFormFields = [
   //   others: null,
   //   label: 'Date',
   // },
+
 ];
 
 export const salesOrderItemFormField = [
@@ -63,16 +64,6 @@ export const salesOrderItemFormField = [
     type: FORM_ELEMENT_TYPES.INPUT,
     others: null,
     label: 'Product Name',
-  },
-  {
-    key: 'quantity',
-    rules: [{ required: true, message: 'Please enter quantity!' }],
-    type: FORM_ELEMENT_TYPES.INPUT,
-    kwargs: {
-      placeholder: 'Quantity',
-      type: 'number',
-    },
-    others: null,
   },
   {
     key: 'unit_price',
@@ -126,3 +117,25 @@ export const salesOrderItemFormField = [
     others: null,
   },
 ];
+
+export const itemDropDown = [
+  {
+    key: 'selected',
+    rules: [{ required: true, message: 'Please select consignor!' }],
+    type: FORM_ELEMENT_TYPES.SELECT,
+    kwargs: {
+      placeholder: 'Select',
+    },
+    label: 'Add Item',
+  },
+  {
+    key: 'quantity',
+    rules: [{ required: true, message: 'Please enter quantity!' }],
+    type: FORM_ELEMENT_TYPES.INPUT,
+    kwargs: {
+      placeholder: 'Quantity',
+      type: 'number',
+    },
+    others: null,
+  },
+]

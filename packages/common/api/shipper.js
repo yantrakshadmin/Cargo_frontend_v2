@@ -38,6 +38,22 @@ export const editAddress = (id, data) =>
     data,
   });
 
+export const createItem = ({ prod_name,unit_price, length, breadth, height, weight }) =>
+  loadAPI(`create-item/`, {
+    method: 'POST',
+    data: { prod_name,unit_price, length, breadth, height, weight },
+  });
+
+
+export const deleteItem = (id) => loadAPI(`edit-item/${id}/`, { method: 'DELETE' });
+export const retrieveItem = (id) => loadAPI(`edit-item/${id}/`);
+
+export const editItem = (id, data) =>
+  loadAPI(`edit-item/${id}/`, {
+    method: 'PATCH',
+    data,
+  });
+
 export const createVendor = ({
   name,
   company,

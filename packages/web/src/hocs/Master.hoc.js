@@ -9,6 +9,7 @@ export const MasterHOC = ({
   columns,
   modalParams,
   modalBody: ModalBody,
+  modalStyle,
   hideRightButton,
   tableOptions,
   customModalTitle,
@@ -38,7 +39,7 @@ export const MasterHOC = ({
         <Modal
           visible={modalVisible}
           onCancel={onCancel}
-          style={{ minWidth: '80vw' }}
+          style={modalStyle||{ minWidth: '80vw' }}
           title={customModalTitle || customRightButtonLabel || `Add ${title}`}
           footer={null}>
           <ModalBody

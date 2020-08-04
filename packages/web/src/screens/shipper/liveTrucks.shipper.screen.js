@@ -11,9 +11,8 @@ const LiveTrucks = () => {
   const { data, loading, reload } = useAPI(`/live-trucks/`, {});
   const [modalVisible, setModalVisible] = useState(false);
   const [id, setId] = useState(0);
-  console.log(data);
   useEffect(() => {
-    if (data) {
+    if ( data && data[0]) {
       setId(data[0].id);
     }
   }, [data]);
@@ -57,7 +56,7 @@ const LiveTrucks = () => {
               return (
                 <Descriptions title='Owner Details' key={i.id.toString()} layout='vertical'>
                   <Item label='Name'>
-                    {i.owner.first_name} 
+                    {i.owner.first_name}
                     {' '}
                     {i.owner.last_name}
                   </Item>

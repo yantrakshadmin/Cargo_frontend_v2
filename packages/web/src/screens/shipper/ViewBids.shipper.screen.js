@@ -8,7 +8,7 @@ import { MasterHOC } from '../../hocs/Master.hoc';
 const ViewBids = ({ id }) =>{
   const { data, loading, reload } = useAPI(`/bids/${id}`, {});
   const [filteredData, setFilteredData] = useState([]);
-  console.log(id,'Ggg')
+
   const filterTableData=(array)=>{
     const filtered = []
     array.forEach((i)=>{
@@ -18,7 +18,6 @@ const ViewBids = ({ id }) =>{
       filtered.push(i)
       return null
     })
-    console.log(filtered)
     return filtered
   }
 

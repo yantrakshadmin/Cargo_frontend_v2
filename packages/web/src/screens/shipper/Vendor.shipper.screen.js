@@ -47,8 +47,8 @@ export const VendorShipperScreen = () => {
               row,
               reload,
               api: deleteVendor,
-              success: 'Deleted address successfully',
-              failure: 'Error in deleting address',
+              success: 'Deleted item successfully',
+              failure: 'Error in deleting item',
             })}
           >
             <CloseSquareOutlined

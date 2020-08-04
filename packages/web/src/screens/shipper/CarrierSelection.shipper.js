@@ -71,13 +71,32 @@ export const CarrierSelection = () => {
             })}>
             <CloseSquareOutlined style={{ color: '#ff0000', fontSize: 30 }} />
           </Popconfirm>
-          <Link to={`/freight-exchange/view-bid/${row.id}`}>
+          {/* eslint-disable-next-line no-nested-ternary */}
+          {row.status === 'Active' ?(
             <Button
+              disabled
               type='primary'
             >
-              View Bid
+              Planned
             </Button>
-          </Link>
+          ):(
+            row.shipment_type === 'FTL' ? (
+              <Link to={`/freight-exchange/view-bid/${row.id}`}>
+                <Button
+                  type='primary'
+            >
+                  View Bid
+                </Button>
+              </Link>
+            )
+              :   (
+                <Button
+                  type='primary'
+              >
+                  View Rates
+                </Button>
+              )
+          )}
         </div>
       ),
     },
@@ -85,8 +104,8 @@ export const CarrierSelection = () => {
 
   const tabs = [
     {
-      name: 'Freight Exchange',
-      key: 'freightExchange',
+      name: 'FTL',
+      key: 'ftl',
       data,
       loading,
       columns,

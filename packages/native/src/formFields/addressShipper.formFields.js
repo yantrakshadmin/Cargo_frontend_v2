@@ -1,5 +1,5 @@
 import { FORM_ELEMENT_TYPES }
-from '@app/web/src/constants/formFields.constant';
+  from '@app/web/src/constants/formFields.constant';
 import Countries from '@app/common/constants/countriesArray';
 import CountryAndState from '@app/common/constants/countryAndState';
 

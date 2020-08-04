@@ -52,7 +52,7 @@ export const SalesOrderShipperScreen = () => {
       title: 'Action',
       key: 'operation',
       render: (row) => (
-        <div className='row align-center justify-between'>
+        <div className='row align-center justify-start'>
           <EditOutlined
             style={{ color: yantraColors.primary, fontSize: 30 }}
             onClick={() => setEditingId(row.id)}
@@ -83,9 +83,9 @@ export const SalesOrderShipperScreen = () => {
       loading,
     },
     {
-      name: 'On Hold FTL',
-      key: 'onHoldFTL',
-      data: (data || []).filter((row) => row.status === 'Hold' && row.shipment_type === 'FTL'),
+      name: 'Pending',
+      key: 'pending',
+      data: (data || []).filter((row) => row.status === 'Hold'),
       columns,
       loading,
       menu: [
@@ -115,24 +115,8 @@ export const SalesOrderShipperScreen = () => {
       ],
     },
     {
-      name: 'On Hold PTL',
-      key: 'onHoldPTL',
-      data: (data || []).filter((row) => row.status === 'Hold' && row.shipment_type === 'PTL'),
-      columns,
-      loading,
-      menu: [
-        {
-          title: 'Check Rates',
-          onClick: () => {
-            setModalVisible(true);
-          },
-          type: 'primary',
-        },
-      ],
-    },
-    {
-      name: 'Assigned',
-      key: 'Assigned',
+      name: 'Planned',
+      key: 'planned',
       data: (data || []).filter((row) => row.status === 'Assigned'),
       loading,
       columns,

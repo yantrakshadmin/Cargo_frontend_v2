@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Form, Col, Row, Button, Divider, Typography, Spin, Space, Input } from 'antd';
 import { formItem } from 'hocs/formItem.hoc';
 import {
+  itemDropDown,
   salesOrderFormFields,
   salesOrderItemFormField,
 } from '@app/common/formsFields/salesOrder.formFields';
@@ -13,10 +14,10 @@ import { PlusOutlined, MinusCircleOutlined } from '@ant-design/icons';
 const { Text } = Typography;
 
 export const SalesOrderForm = ({ id, onCancel, onDone }) => {
-  const [items, setItems] = useState([]);
   const [error, setError] = useState(null);
 
   const { data: addresses, loading: addressLoading } = useAPI(`/address/`);
+  const { data: items, loading: itemsLoading } = useAPI(`/items/`);
   const { form, data, submit, loading } = useHandelForm({
     create: async ({ order_id, shipment_type, sender_address, receiver_address,packages }) =>
       // eslint-disable-next-line no-return-await
@@ -28,7 +29,9 @@ export const SalesOrderForm = ({ id, onCancel, onDone }) => {
         packages,
         // packages: items,
       }),
-    edit: async (orderId, { order_id, shipment_type, sender_address, receiver_address, packages }) =>
+    edit: async (orderId,
+      { order_id, shipment_type,
+        sender_address, receiver_address, packages }) =>
       // eslint-disable-next-line no-return-await
       await editOrders(orderId, {
         order_id,
@@ -59,48 +62,18 @@ export const SalesOrderForm = ({ id, onCancel, onDone }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, error]);
 
-  // const itemRemove = (i) => {
-  //   setError(null);
-  //   setItems(
-  //     items.filter((item, index) => {
-  //       return i !== index;
-  //     }),
-  //   );
-  // };
-
-  // const addItem = (add) => {
-  //   const packages = form.getFieldsValue(['packages']);
-  //   const newItem = packages[packages.length-1]
-  //
-  //   setError(null);
-  //   if (
-  //     newItem.prod_name !== undefined &&
-  //     newItem.quantity !== undefined &&
-  //     newItem.length !== undefined &&
-  //     newItem.breadth !== undefined &&
-  //     newItem.height !== undefined &&
-  //     newItem.weight !== undefined &&
-  //     newItem.unit_price !== undefined
-  //   ) {
-  //     if (
-  //       packages.every((i) => {
-  //         return i.prod_name !== newItem.prod_name;
-  //       })
-  //     ) {
-  //       add();
-  //     } else {
-  //       setError('Item name already exist!');
-  //     }
-  //   } else {
-  //     setError('Please fill item details!');
-  //   }
-  // };
-
   const otherConfigsDropdown = {
     selectOptions: addresses || [],
     key: 'id',
     customTitle: 'company',
     dataKeys: ['name', 'city', 'pin', 'street', 'state', 'phone'],
+  };
+  const itemsOtherConfigsDropdown = {
+    selectOptions: items || [],
+    key: 'id',
+    customTitle: 'prod_name',
+    dataKeys: ['unit_price', 'length', 'breadth', 'height', 'weight'],
+    dataLabel: ['Unit Price', 'Length', 'Breadth', 'Beight', 'Weight'],
   };
 
   return (
@@ -151,28 +124,30 @@ export const SalesOrderForm = ({ id, onCancel, onDone }) => {
               <div>
                 {fields.map(field => (
                   <Row align='middle'>
-                    <Col span={7}>
-                      {salesOrderItemFormField.slice(0, 1).map((item) => (
+                    <Col span={13}>
+                      {itemDropDown.slice(0, 1).map((item) => (
                         <div className='p-2'>
-                          {formItem(item.key,
+                          {formItem(
+                            item.key,
                             item.rules,
                             item.kwargs,
                             item.type,
                             {
-                              ...item.others,formOptions:
-                                  {
-                                    ...field,
-                                    name: [field.name, 'prod_name'],
-                                    fieldKey: [field.fieldKey, 'prod_name']
-                                  } },
-                            item.label)}
+                              ...itemsOtherConfigsDropdown,formOptions:
+                                {
+                                  ...field,
+                                  name: [field.name, item.key],
+                                  fieldKey: [field.fieldKey, item.key]
+                                } },
+                            item.label,
+                          )}
                         </div>
                       ))}
                     </Col>
-                    {salesOrderItemFormField.slice(1, 2).map((item) => (
-                      <Col span={2}>
-                        <div className='p-2'>
-                          {formItem(item.key,
+                    <Col span={7}>
+                      <div className='p-2'>
+                        {itemDropDown.slice(1, 2).map((item) => (
+                          formItem(item.key,
                             item.rules, item.kwargs, item.type,
                             {
                               ...item.others,
@@ -182,44 +157,10 @@ export const SalesOrderForm = ({ id, onCancel, onDone }) => {
                                     name: [field.name, item.key],
                                     fieldKey: [field.fieldKey, item.key]
                                   } },
-                            item.label)}
-                        </div>
-                      </Col>
-                    ))}
-                    {salesOrderItemFormField.slice(2, 3).map((item) => (
-                      <Col span={4}>
-                        <div className='p-2'>
-                          {formItem(item.key,
-                            item.rules, item.kwargs, item.type,
-                            {
-                              ...item.others,
-                              formOptions:
-                                  {
-                                    ...field,
-                                    name: [field.name, item.key],
-                                    fieldKey: [field.fieldKey, item.key]
-                                  } },
-                            item.label)}
-                        </div>
-                      </Col>
-                    ))}
-                    {salesOrderItemFormField.slice(3, 7).map((item) => (
-                      <Col span={2}>
-                        <div className='p-2'>
-                          {formItem(item.key,
-                            item.rules, item.kwargs, item.type,
-                            {
-                              ...item.others,
-                              formOptions:
-                                  {
-                                    ...field,
-                                    name: [field.name, item.key],
-                                    fieldKey: [field.fieldKey, item.key]
-                                  } },
-                            item.label)}
-                        </div>
-                      </Col>
-                    ))}
+                            item.label)
+                        ))}
+                      </div>
+                    </Col>
                     <Button
                       type='danger'
                       onClick={() => {

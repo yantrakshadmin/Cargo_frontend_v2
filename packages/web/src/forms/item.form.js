@@ -1,19 +1,18 @@
 import React from 'react';
 import { Form, Col, Row, Button, Spin } from 'antd';
-import { createAddress, editAddress, retrieveAddress } from '@app/common/api/shipper';
-import {salesOrderItemFormField} from '@app/common/formsFields/salesOrder.formFields';
+import { createItem,editItem, retrieveItem } from '@app/common/api/shipper';
+import { salesOrderItemFormField } from '@app/common/formsFields/salesOrder.formFields';
 import { formItem } from 'hocs/formItem.hoc';
 import { useHandelForm } from 'hooks/form';
 
 export const ItemForm = ({ onCancel, onDone, id }) => {
 
-
   const { form, loading, submit } = useHandelForm({
-    create: createAddress,
-    edit: editAddress,
-    retrieve: retrieveAddress,
-    success: 'Successfully added/edited new address',
-    failure: 'Error in adding/editing address',
+    create: createItem,
+    edit: editItem,
+    retrieve: retrieveItem,
+    success: 'Successfully added/edited new item',
+    failure: 'Error in adding/editing item',
     done: onDone,
     close: onCancel,
     id,
@@ -28,22 +27,15 @@ export const ItemForm = ({ onCancel, onDone, id }) => {
         layout='vertical'
         hideRequiredMark>
         <Row>
-          <Col span={8}>
+          <Col span={12}>
             {salesOrderItemFormField.slice(0, 1).map((item) => (
               <div className='p-2'>
                 {formItem(item.key, item.rules, item.kwargs, item.type, item.others, item.label)}
               </div>
             ))}
           </Col>
-          <Col span={8}>
+          <Col span={12}>
             {salesOrderItemFormField.slice(1, 2).map((item) => (
-              <div className='p-2'>
-                {formItem(item.key, item.rules, item.kwargs, item.type, item.others, item.label)}
-              </div>
-            ))}
-          </Col>
-          <Col span={8}>
-            {salesOrderItemFormField.slice(2, 3).map((item) => (
               <div className='p-2'>
                 {formItem(item.key, item.rules, item.kwargs, item.type, item.others, item.label)}
               </div>
@@ -52,14 +44,14 @@ export const ItemForm = ({ onCancel, onDone, id }) => {
         </Row>
         <Row>
           <Col span={12}>
-            {salesOrderItemFormField.slice(3,5).map((item) => (
+            {salesOrderItemFormField.slice(2,4).map((item) => (
               <div className='p-2'>
                 {formItem(item.key, item.rules, item.kwargs, item.type, item.others, item.label)}
               </div>
             ))}
           </Col>
           <Col span={12}>
-            {salesOrderItemFormField.slice(5,7).map((item) => (
+            {salesOrderItemFormField.slice(4,6).map((item) => (
               <div className='p-2'>
                 {formItem(item.key, item.rules, item.kwargs, item.type, item.others, item.label)}
               </div>
