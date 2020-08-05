@@ -14,9 +14,9 @@ export const CardLiveTruck = ({ truck, style }) => {
       <View style={[margin('padding').md, getFlex(1), { width: '100%' }]}>
         <View style={getFlex(1, 'row', 'space-between', 'center')}>
           <Text style={font(15, 'bold')}>
-            {truck.origin}
+            {truck.origin} 
             {' '}
-            <Text style={font(15, 'normal')}>to</Text>
+            <Text style={font(15, 'normal')}>to</Text> 
             {' '}
             {truck.destination}
           </Text>
@@ -44,14 +44,14 @@ export const CardLiveTruck = ({ truck, style }) => {
         </View>
         <View style={getFlex(1, 'row', 'flex-start', 'center')}>
           <Text style={font(15, 'bold')}>
-            Truck Type :
+            Truck Type : 
             {' '}
             <Text style={font(15, 'normal')}>{truck.truck_type}</Text>
           </Text>
         </View>
         <View style={getFlex(1, 'row', 'flex-start', 'center')}>
           <Text style={font(15, 'bold')}>
-            Total Trucks :
+            Total Trucks : 
             {' '}
             <Text style={font(15, 'normal')}>{truck.total_trucks}</Text>
           </Text>
@@ -69,7 +69,14 @@ export const CardLiveTruck = ({ truck, style }) => {
           <Icon color={yantraColors.primary} size={20} name='share' />
         </TouchableOpacity>
         <YantraButton
-          Icon={<Icon color={yantraColors.success} size={13} name='phone' />}
+          Icon={(
+            <Icon
+              color={yantraColors.success}
+              size={13}
+              name='phone'
+              style={[{ transform: [{ rotate: '90deg' }] }]}
+            />
+          )}
           onPress={() => {
             console.log('click');
           }}>

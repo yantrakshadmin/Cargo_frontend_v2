@@ -1,17 +1,10 @@
-import { FORM_ELEMENT_TYPES }
-  from '@app/web/src/constants/formFields.constant';
+import { FORM_ELEMENT_TYPES } from '@app/web/src/constants/formFields.constant';
 
 export const itemFormField = [
   {
     key: 'prod_name',
     title: 'Name',
     type: FORM_ELEMENT_TYPES.INPUT,
-  },
-  {
-    key: 'quantity',
-    type: FORM_ELEMENT_TYPES.INPUT,
-    title: 'Quantity',
-    inputParams: { keyboardType: 'number-pad', maxLength: 13 },
   },
   {
     key: 'unit_price',

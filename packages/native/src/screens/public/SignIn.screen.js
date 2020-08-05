@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, TextInput, Text } from 'react-native';
+import { View, TouchableOpacity, TextInput, Text, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Button, WhiteSpace, WingBlank, Modal } from '@ant-design/react-native';
 import { useDispatch } from 'react-redux';
@@ -8,7 +8,8 @@ import { getUserMeta } from '@app/common/helpers/auth';
 import { getJWTTokens, isUserVerified, verifyUser } from '@app/common/api/auth';
 import { margin, yantraColors } from '../../styles/default';
 import { Divider } from '../../components/divider.component';
-import { column, container, row, signInStyle } from '../../styles/advanceStyles';
+import { column, container, row, screenWrapperStyle, signInStyle } from '../../styles/advanceStyles';
+import logo from '../../assets/yantrakshLogo.png';
 
 export const SignInScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -66,8 +67,7 @@ export const SignInScreen = ({ navigation }) => {
         <WingBlank>
           <WhiteSpace />
           <View style={column}>
-            <Text style={signInStyle.yantrakshHeading}>Yantraksh</Text>
-            <Text>Sign in to your account</Text>
+            <Image source={logo} style={screenWrapperStyle.logo} />
           </View>
         </WingBlank>
         <Divider />

@@ -13,41 +13,50 @@ import { CustomModal } from '../customModal';
 import { ConfirmDialog } from '../ConfirmDialog';
 import { FormTripManagement } from '../../forms/formTripManagement.native';
 
-export const CardTripManagement = ({ trip, style,reload }) => {
-  const [visible,setVisible] = useState(false)
+export const CardTripManagement = ({ trip, style, reload }) => {
+  const [visible, setVisible] = useState(false);
 
-  const onDelete = async ()=>{
-    try{
+  const onDelete = async () => {
+    try {
       await deleteTripManagement(trip.id);
-      reload()
+      reload();
       Toast.info('Successfully Deleted !!!', 1);
-    }
-    catch (e) {
+    } catch (e) {
       Toast.info('Error in Deleting !!!', 1);
     }
-  }
-  const LOG=
-  { "advance": "0",
-    "balance": "0",
-    "broker_name": "0",
-    "date": "2020-07-31T11:16:14.090000Z",
-    "driver_name": "Ggg",
-    "driver_number": "7887878888",
-    "id": 1, "invoice_number": "76565",
-    "lr_number": "0", "order": 23,
-    "other_charges": "8776", "owner": 5,
-    "vehicle_charges": "877", "vehicle_number": "Dl23U8989",
-    "vehicle_source": "Own" }
+  };
+  const LOG = {
+    advance: '0',
+    balance: '0',
+    broker_name: '0',
+    date: '2020-07-31T11:16:14.090000Z',
+    driver_name: 'Ggg',
+    driver_number: '7887878888',
+    id: 1,
+    invoice_number: '76565',
+    lr_number: '0',
+    order: 23,
+    other_charges: '8776',
+    owner: 5,
+    vehicle_charges: '877',
+    vehicle_number: 'Dl23U8989',
+    vehicle_source: 'Own',
+  };
 
   return (
     <View style={[cardStyle.container, style || null]}>
-      <CustomModal
-        visible={visible}
-        setVisible={setVisible}>
+      <CustomModal visible={visible} setVisible={setVisible}>
         <FormTripManagement
-          onDone={()=>{reload(); setVisible(false)}}
+          onDone={() => {
+            reload();
+            setVisible(false);
+          }}
           id={trip.id}
-          onCancel={()=>{setVisible(false); reload()}}  />
+          onCancel={() => {
+            setVisible(false);
+            reload();
+          }}
+        />
       </CustomModal>
       <View style={[margin('padding').md, getFlex(1), { width: '100%' }]}>
         <View style={getFlex(1, 'row', 'space-between', 'center')}>
@@ -58,17 +67,17 @@ export const CardTripManagement = ({ trip, style,reload }) => {
               {trip.id}
             </Text>
             <View style={getFlex(1, 'row', 'flex-end', 'center')}>
-              <TouchableOpacity style={[margin('margin').md]} onPress={() => {setVisible(true)}}>
+              <TouchableOpacity
+                style={[margin('margin').md]}
+                onPress={() => {
+                  setVisible(true);
+                }}>
                 <Icon color={yantraColors.primary} size={20} name='edit' />
               </TouchableOpacity>
               <TouchableOpacity
                 style={[margin('margin-vertical').md]}
-                onPress={() => (
-                  ConfirmDialog(
-                    'Delete',
-                    'Press Ok to Delete trip',
-                    ()=>{},
-                    onDelete))}>
+                onPress={() =>
+                  ConfirmDialog('Delete', 'Press Ok to Delete trip', () => {}, onDelete)}>
                 <Icon color={yantraColors.danger} size={20} name='trash' />
               </TouchableOpacity>
             </View>
@@ -77,21 +86,21 @@ export const CardTripManagement = ({ trip, style,reload }) => {
         <Divider />
         <View style={getFlex(1, 'row', 'flex-start', 'center')}>
           <Text style={font(15, 'bold')}>
-            Invoice Number :
+            Invoice Number : 
             {' '}
             <Text style={font(15, 'normal')}>{trip.invoice_number}</Text>
           </Text>
         </View>
         <View style={getFlex(1, 'row', 'flex-start', 'center')}>
           <Text style={font(15, 'bold')}>
-            Vehicle Source :
+            Vehicle Source : 
             {' '}
             <Text style={font(15, 'normal')}>{trip.vehicle_source}</Text>
           </Text>
         </View>
         <View style={getFlex(1, 'row', 'flex-start', 'center')}>
           <Text style={font(15, 'bold')}>
-            Date :
+            Date : 
             {' '}
             <Text style={font(15, 'normal')}>{dateFormatter(trip.date)}</Text>
           </Text>
@@ -106,7 +115,14 @@ export const CardTripManagement = ({ trip, style,reload }) => {
           <Text style={font(13, 'bold')}>{trip.driver_name}</Text>
         </View>
         <YantraButton
-          Icon={<Icon color={yantraColors.success} size={13} name='phone' />}
+          Icon={(
+            <Icon
+              color={yantraColors.success}
+              size={13}
+              name='phone'
+              style={[{ transform: [{ rotate: '90deg' }] }]}
+            />
+          )}
           onPress={() => {
             console.log('click');
           }}>

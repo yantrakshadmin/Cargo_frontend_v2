@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { Button, WhiteSpace, WingBlank ,Toast } from '@ant-design/react-native';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { Button, WhiteSpace, WingBlank, Toast } from '@ant-design/react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { FORM_ELEMENT_TYPES } from '@app/web/src/constants/formFields.constant';
 import { createShipperAccount } from '@app/common/api/auth';
-import { column, container, signInStyle } from '../../styles/advanceStyles';
+import { column, container, screenWrapperStyle, signInStyle } from '../../styles/advanceStyles';
 import { Divider } from '../../components/divider.component';
 import { yantraColors } from '../../styles/default';
 import { signUpShipperFields } from '../../formFields/signUpShipper.formFields';
 import { FormItemCreaterNative } from '../../components/formItemCreaterNative';
-
+import logo from '../../assets/yantrakshLogo.png';
 
 export const SignUpShipperScreen = ({ navigation }) => {
   const [form, setForm] = useState({
@@ -21,23 +21,24 @@ export const SignUpShipperScreen = ({ navigation }) => {
     confirmPassword: '',
     type: '',
   });
-  const [loading,setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const handleSubmit = async (data) => {
-    setLoading(true)
+    setLoading(true);
     const { password, confirmPassword } = data;
     if (password !== confirmPassword) {
-      Toast.info(
-        'Password and confirm password should be same!');
-      setLoading(false)
+      Toast.info('Password and confirm password should be same!');
+      setLoading(false);
     } else {
       try {
-        const { data: { username } } = await createShipperAccount(data);
+        const {
+          data: { username },
+        } = await createShipperAccount(data);
         Toast.info(`Created your account`);
         navigation.navigate('Sign In');
-        setLoading(false)
+        setLoading(false);
       } catch (e) {
-        Toast.info( 'Error in creating user!');
-        setLoading(false)
+        Toast.info('Error in creating user!');
+        setLoading(false);
       }
     }
   };
@@ -105,8 +106,7 @@ export const SignUpShipperScreen = ({ navigation }) => {
         <WingBlank>
           <WhiteSpace />
           <View style={column}>
-            <Text style={signInStyle.yantrakshHeading}>Yantraksh</Text>
-            <Text>Sign Up as Shipper</Text>
+            <Image source={logo} style={screenWrapperStyle.logo} />
           </View>
         </WingBlank>
         <Divider />
@@ -118,8 +118,10 @@ export const SignUpShipperScreen = ({ navigation }) => {
             <WhiteSpace />
             <Button
               loading={loading}
-              onPress={async ()=>{await handleSubmit(form)}}>
-              Sign Up
+              onPress={async () => {
+                await handleSubmit(form);
+              }}>
+              Sign Up as Shipper
             </Button>
             <WhiteSpace />
           </WingBlank>

@@ -1,8 +1,11 @@
 import React from 'react';
 import { View, Text } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import { cardStyle } from '../../styles/cardsStyles';
-import { margin } from '../../styles/default';
+import { margin, yantraColors } from '../../styles/default';
 import { font, getFlex } from '../../styles/advanceStyles';
+import { YantraButton } from '../button';
+import { onCallButtonClicked } from '../../helpers/shared';
 
 // [Sun Jun 28 2020 11:34:21.190]  LOG      {
 // "Address": null, "City": "Ajmer",
@@ -16,6 +19,7 @@ import { font, getFlex } from '../../styles/advanceStyles';
 // "Services": null, "State": "Rajasthan", "index": 24659}
 
 export const CardTransportDirectoryModal = ({ transporter, style }) => {
+  console.log({ transporter });
   return (
     <View style={[cardStyle.container, style]}>
       <View style={[margin('padding').md, getFlex(1), { width: '100%' }]}>
@@ -64,6 +68,20 @@ export const CardTransportDirectoryModal = ({ transporter, style }) => {
             {transporter['Contact Number 4'] ? '\n' : null}
             {transporter['Contact Number 4']}
           </Text>
+          <YantraButton
+            type='primary'
+            color={yantraColors.primary}
+            Icon={(
+              <Icon
+                color={yantraColors.white}
+                size={13}
+                name='phone'
+                style={[{ transform: [{ rotate: '90deg' }] }]}
+              />
+            )}
+            onPress={() => onCallButtonClicked(transporter['Primary Contact Number'])}>
+            Contact
+          </YantraButton>
         </View>
       </View>
     </View>

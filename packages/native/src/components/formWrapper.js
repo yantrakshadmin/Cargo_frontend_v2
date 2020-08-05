@@ -6,19 +6,19 @@ import { Divider } from './divider.component';
 import { FormItemCreaterNative } from './formItemCreaterNative';
 import { useHandelForm } from '../hooks/form';
 
-export const FormWrapper = (
-  { title,
-    success,
-    failure,
-    buttonLabel,
-    fields,
-    onDone,
-    onCancel,
-    create,
-    edit,
-    retrieve,
-    id }) => {
-
+export const FormWrapper = ({
+  title,
+  success,
+  failure,
+  buttonLabel,
+  fields,
+  onDone,
+  onCancel,
+  create,
+  edit,
+  retrieve,
+  id,
+}) => {
   const createState = () => {
     let obj;
     fields.map((i) => {
@@ -39,9 +39,10 @@ export const FormWrapper = (
     close: onCancel,
     id,
     form,
-    setForm:(data)=>{setForm(data)}
+    setForm: (data) => {
+      setForm(data);
+    },
   });
-
 
   const [ourField, setOurField] = useState(fields);
   const onChange = (newForm, Field) => {
@@ -70,8 +71,7 @@ export const FormWrapper = (
         <WingBlank>
           <WhiteSpace />
           <View style={column}>
-            <Text style={signInStyle.yantrakshHeading}>Yantraksh</Text>
-            <Text>{title || ' '}</Text>
+            <Text style={signInStyle.yantrakshHeading}>{title || ' '}</Text>
           </View>
         </WingBlank>
         <Divider />
@@ -81,7 +81,9 @@ export const FormWrapper = (
         <View style={signInStyle.buttonsContainer}>
           <WingBlank>
             <WhiteSpace />
-            <Button loading={loading} onPress={submit}>{buttonLabel || 'Submit'}</Button>
+            <Button loading={loading} onPress={submit}>
+              {buttonLabel || 'Submit'}
+            </Button>
             <WhiteSpace />
           </WingBlank>
         </View>

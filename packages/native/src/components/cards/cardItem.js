@@ -1,24 +1,22 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { deleteAddress } from '@app/common/api/shipper';
+import { deleteItem } from '@app/common/api/shipper';
 import { Toast } from '@ant-design/react-native';
 import { cardStyle } from '../../styles/cardsStyles';
 import { getFlex, font, row } from '../../styles/advanceStyles';
 import { margin, yantraColors } from '../../styles/default';
 import { Divider } from '../divider.component';
-import { YantraButton } from '../button';
 import { CustomModal } from '../customModal';
-import { FormAddressNative } from '../../forms/formAddress.native';
+import { FormItemNative } from '../../forms/formItem.native';
 import { ConfirmDialog } from '../ConfirmDialog';
-import { onCallButtonClicked } from '../../helpers/shared';
 
-export const CardAddress = ({ address, style, reload }) => {
+export const CardItem = ({ item, style, reload }) => {
   const [visible, setVisible] = useState(false);
 
   const onDelete = async () => {
     try {
-      await deleteAddress(address.id);
+      await deleteItem(item.id);
       reload();
       Toast.info('Successfully Deleted !!!', 1);
     } catch (e) {
@@ -29,12 +27,12 @@ export const CardAddress = ({ address, style, reload }) => {
   return (
     <View style={[cardStyle.container, style || null]}>
       <CustomModal visible={visible} setVisible={setVisible}>
-        <FormAddressNative
+        <FormItemNative
           onDone={() => {
             reload();
             setVisible(false);
           }}
-          id={address.id}
+          id={item.id}
           onCancel={() => {
             setVisible(false);
             reload();
@@ -43,11 +41,11 @@ export const CardAddress = ({ address, style, reload }) => {
       </CustomModal>
       <View style={[margin('padding').md, getFlex(1), { width: '100%' }]}>
         <View style={getFlex(1, 'row', 'space-between', 'center')}>
-          <Text style={[font(17, 'bold'), getFlex(3)]}>{address.company}</Text>
+          <Text style={[font(17, 'bold'), getFlex(3)]}>{item.prod_name.toUpperCase()}</Text>
           <View style={[getFlex(1, 'column', 'flex-start', 'flex-end')]}>
             <Text style={font(9)}>
               Id#
-              {address.id}
+              {item.id}
             </Text>
             <View style={getFlex(1, 'row', 'flex-end', 'center')}>
               <TouchableOpacity
@@ -67,47 +65,34 @@ export const CardAddress = ({ address, style, reload }) => {
           </View>
         </View>
         <Divider />
-        <View style={getFlex(1, 'row', 'flex-start', 'center')}>
-          <Text style={font(15, 'bold')}>
-            {address.street}
-            {'\n'}
-            {address.city}
-            {', '}
-            {address.state}
-            {'\n'}
-            {address.country}
-            {','}
-            {address.pin}
-          </Text>
+        <View style={getFlex(1, 'column', 'flex-start')}>
+          <View style={[getFlex(1, 'row', 'flex-start', 'center'), margin('margin').sm]}>
+            <Icon name='dollar-sign' size={15} color='#444' />
+            <Text style={font(15, 'bold')}>
+              {'  Price :  '}
+              {item.unit_price}
+            </Text>
+          </View>
+          <View style={[getFlex(1, 'row', 'flex-start'), margin('margin').sm]}>
+            <Text style={font(15, 'bold')}>
+              {'Weight :  '}
+              {item.weight}
+            </Text>
+          </View>
+          <View style={[getFlex(1, 'row', 'flex-start'), margin('margin').sm]}>
+            <Text style={font(15, 'bold')}>
+              {'Height :  '}
+              {item.weight}
+            </Text>
+          </View>
+          <View style={[getFlex(1, 'row', 'flex-start'), margin('margin').sm]}>
+            <Text style={font(15, 'bold')}>
+              {'Breadth :  '}
+              {item.breadth}
+              {'     '}
+            </Text>
+          </View>
         </View>
-        <View style={getFlex(1, 'row', 'flex-start', 'flex-start')}>
-          <Text style={[font(17, 'normal'), getFlex(3)]}>{address.email}</Text>
-        </View>
-      </View>
-      <Divider />
-      <View style={[row, margin('padding').md]}>
-        <View style={[getFlex(2, 'column', 'center', 'center', 'paddingRight', 5)]}>
-          <Icon name='user-circle' size={35} color='#444' />
-        </View>
-        <View style={getFlex(6, 'column', 'flex-start', 'flex-start')}>
-          <Text style={font(13, 'bold')}>{address.name}</Text>
-          <Text style={font(9)}>{address.phone}</Text>
-        </View>
-        <TouchableOpacity style={[getFlex(1, 'column', 'center', 'center')]} onPress={() => {}}>
-          <Icon color={yantraColors.primary} size={20} name='share' />
-        </TouchableOpacity>
-        <YantraButton
-          Icon={(
-            <Icon
-              color={yantraColors.success}
-              size={13}
-              name='phone'
-              style={[{ transform: [{ rotate: '90deg' }] }]}
-            />
-          )}
-          onPress={() => onCallButtonClicked(address.phone)}>
-          Contact
-        </YantraButton>
       </View>
     </View>
   );

@@ -35,11 +35,10 @@ export const CardTransportDirectory = ({ transporter, style }) => {
       <View style={getFlex(1, 'row', 'center', 'center', 'padding', 5)}>
         <YantraButton
           type='primary'
-          Icon={<Icon color={yantraColors.white} size={13} name='phone' />}
           onPress={() => {
             setVisible(true);
           }}>
-          Contact
+          View Details
         </YantraButton>
         <CustomModal visible={visible} title={transporter['Company Name']} setVisible={setVisible}>
           <View>

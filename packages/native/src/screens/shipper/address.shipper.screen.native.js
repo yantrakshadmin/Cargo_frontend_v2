@@ -12,6 +12,7 @@ import { FormAddressNative } from '../../forms/formAddress.native';
 export const AddressShipperScreenNative = ({ navigation }) => {
   const [visible, setVisible] = useState(false);
   const { data, loading, reload } = useAPI(`/address/`);
+  console.log({ data });
   return (
     <ScreenWrapperNative
       header
@@ -33,8 +34,15 @@ export const AddressShipperScreenNative = ({ navigation }) => {
             </View>
           )}>
           <FormAddressNative
-            onDone={()=>{reload(); setVisible(false)}}
-            onCancel={()=>{reload(); setVisible(false)}} />
+            onDone={() => {
+              reload();
+              setVisible(false);
+            }}
+            onCancel={() => {
+              reload();
+              setVisible(false);
+            }}
+          />
         </CustomModal>
       )}
       onRefresh={() => {
