@@ -1,2 +1,0 @@
-(this["webpackJsonp@app/web"]=this["webpackJsonp@app/web"]||[]).push([[28],{806:function(e,t,n){"use strict";n.r(t);var p=n(0),a=n.n(p);t.default=function(){return a.a.createElement("div",null,"Edit Profile")}}}]);
-//# sourceMappingURL=28.5ec7a1d1.chunk.js.map
