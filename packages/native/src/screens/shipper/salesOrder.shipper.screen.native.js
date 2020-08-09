@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import { loadAPI } from '@app/common/helpers/api';
-import { exp } from 'react-native-reanimated';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import { useAPI } from '../../hooks/api';
 import { ScreenWrapperNative } from '../../components/screenWrapper.native';
 import { CardSalesOrder } from '../../components/cards/cardSalesOrder';
-import { row, signInStyle } from '../../styles/advanceStyles';
+import { getFlex, row } from '../../styles/advanceStyles';
 import { YantraButton } from '../../components/button';
 import { margin, yantraColors } from '../../styles/default';
+import { CustomModal } from '../../components/customModal';
+import { FormSalesOrder } from '../../forms/formSalesOrder.native';
 
 export const SalesOrderShipperScreen = ({ navigation, route }) => {
   const { data, loading, reload } = useAPI(`/orders/`, {});
   const [selected, setSelected] = useState([]);
   const [editingId, setEditingId] = useState(undefined);
-  const [modalVisible, setModalVisible] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   const filteredDate = [
     {
@@ -23,9 +25,9 @@ export const SalesOrderShipperScreen = ({ navigation, route }) => {
       loading,
     },
     {
-      name: 'On Hold FTL',
-      key: 'onHoldFTL',
-      data: (data || []).filter((row1) => row1.status === 'Hold' && row1.shipment_type === 'FTL'),
+      name: 'Pending',
+      key: 'pending',
+      data: (data || []).filter((row1) => row1.status === 'Hold'),
       loading,
       menu: [
         {
@@ -36,20 +38,17 @@ export const SalesOrderShipperScreen = ({ navigation, route }) => {
               try {
                 const raw = data.find((row2) => row2.id === id);
                 // eslint-disable-next-line no-await-in-loop
-                console.log(raw,'Raw');
                 const done = await loadAPI(`/edit-order/${id}/`, {
                   method: 'PATCH',
                   data: {
                     ...raw,
-                    receiver_address:raw.receiver_address.id,
-                    sender_address:raw.sender_address.id,
+                    receiver_address: raw.receiver_address.id,
+                    sender_address: raw.sender_address.id,
                     status: 'Active',
                   },
                 });
-                console.log(done, 'done rtd');
               } catch (e) {
                 // ignore
-                console.log(e, 'error in rtd');
               }
 
             reload();
@@ -59,24 +58,9 @@ export const SalesOrderShipperScreen = ({ navigation, route }) => {
       ],
     },
     {
-      name: 'On Hold PTL',
-      key: 'onHoldPTL',
-      data: (data || []).filter((row3) => row3.status === 'Hold' && row3.shipment_type === 'PTL'),
-      loading,
-      menu: [
-        {
-          title: 'Check Rates',
-          onClick: () => {
-            setModalVisible(true);
-          },
-          type: 'primary',
-        },
-      ],
-    },
-    {
-      name: 'Assigned',
-      key: 'Assigned',
-      data: (data || []).filter((row4) => row4.status === 'Assigned'),
+      name: 'Planned',
+      key: 'planned',
+      data: (data || []).filter((row4) => row4.status === 'Active'),
       loading,
     },
   ];
@@ -94,7 +78,32 @@ export const SalesOrderShipperScreen = ({ navigation, route }) => {
       pullToRefresh
       onRefresh={() => {
         reload();
-      }}>
+      }}
+      FloatingComponent={() => (
+        <CustomModal
+          visible={visible}
+          setVisible={setVisible}
+          Appear={() => (
+            <View
+              style={[
+                { width: 50, height: 50, backgroundColor: yantraColors.primary, borderRadius: 25 },
+                getFlex(1, 'row', 'center', 'center'),
+              ]}>
+              <Icon color={yantraColors.white} size={20} name='plus' />
+            </View>
+          )}>
+          <FormSalesOrder
+            onDone={() => {
+              reload();
+              setVisible(false);
+            }}
+            onCancel={() => {
+              reload();
+              setVisible(false);
+            }}
+          />
+        </CustomModal>
+      )}>
       {filteredDate.map((Item) => {
         if (Item.name === route.name) {
           if (Item.data)

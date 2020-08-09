@@ -8,13 +8,11 @@ import { SalesOrderShipperScreen } from '../screens/shipper/salesOrder.shipper.s
 import { TabCreater } from '../navigation/TabCreater';
 import { ShippingShipperScreenNative } from '../screens/shipper/shipping.shipper.screen.native';
 import { LiveTruckShipperScreenNative } from '../screens/shipper/liveTruck.shipper.screen.native';
-import { TransportDirectoryShipperScreenNative }
-  from '../screens/shipper/transportDirectory.shipper.screen.native';
+import { TransportDirectoryShipperScreenNative } from '../screens/shipper/transportDirectory.shipper.screen.native';
 import { ItemShipperScreenNative } from '../screens/shipper/item.shipper.screen.native';
 import { VendorShipperScreenNative } from '../screens/shipper/vendor.shipper.screen';
 import { AddressShipperScreenNative } from '../screens/shipper/address.shipper.screen.native';
-import { FreightExchangeShipperScreenNative }
-  from '../screens/shipper/freightExchange.shipper.screen.native';
+import { CarrierSelectionShipperScreenNative } from '../screens/shipper/carrierSelection.shipper.screen.native';
 import { AvailableLoadsScreenNative } from '../screens/supplier/ftl/availableLoads.screen.native';
 import { PostTruckScreenNative } from '../screens/supplier/ftl/postTruck.screen.native';
 import { MyBidsScreenNative } from '../screens/supplier/ftl/myBids.screen.native';
@@ -27,20 +25,15 @@ export const SalesOrder = [
     Component: SalesOrderShipperScreen,
   },
   {
-    name: 'On Hold FTL',
+    name: 'Pending',
     Component: SalesOrderShipperScreen,
   },
   {
-    name: 'On Hold PTL',
-    Component: SalesOrderShipperScreen,
-  },
-  {
-    name: 'Assigned',
+    name: 'Planned',
     Component: SalesOrderShipperScreen,
   },
 ];
 export const Masters = [
-
   {
     name: 'Vendor',
     Component: VendorShipperScreenNative,
@@ -70,14 +63,14 @@ export const publicRoutes = [
   },
 ];
 
-export const FreightExchange = [
+export const CarrierSelection = [
   {
-    name: 'Bid Not Assigned',
-    Component: FreightExchangeShipperScreenNative,
+    name: 'FTL',
+    Component: CarrierSelectionShipperScreenNative,
   },
   {
-    name: 'Bid Assigned',
-    Component: FreightExchangeShipperScreenNative,
+    name: 'PTL',
+    Component: CarrierSelectionShipperScreenNative,
   },
 ];
 
@@ -104,8 +97,8 @@ export const shipperRoutes = [
     },
   },
   {
-    name: 'Freight Exchange',
-    Component: () => <TabCreater TabRoutes={FreightExchange} />,
+    name: 'Carrier Selection',
+    Component: () => <TabCreater TabRoutes={CarrierSelection} />,
     navigationOptions: {
       drawerIcon: ({ tintColor }) => <Icon name='boxes' color={tintColor} size={18} />,
     },
@@ -133,7 +126,7 @@ export const shipperRoutes = [
   },
   {
     name: 'Log Out',
-    Component: ({ navigation })=>(<SignOutScreen home='Dashboard' navigation={navigation} />),
+    Component: ({ navigation }) => <SignOutScreen home='Dashboard' navigation={navigation} />,
     navigationOptions: {
       drawerIcon: ({ tintColor }) => <Icon name='sign-out-alt' color={tintColor} size={18} />,
     },
@@ -171,7 +164,7 @@ export const supplierFTLRoutes = [
   },
   {
     name: 'Log Out',
-    Component: ({ navigation })=>(<SignOutScreen home='Available Loads' navigation={navigation} />),
+    Component: ({ navigation }) => <SignOutScreen home='Available Loads' navigation={navigation} />,
     navigationOptions: {
       drawerIcon: ({ tintColor }) => <Icon name='sign-out-alt' color={tintColor} size={18} />,
     },

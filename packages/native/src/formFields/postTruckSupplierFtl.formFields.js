@@ -3,9 +3,8 @@ import { FORM_ELEMENT_TYPES } from '@app/web/src/constants/formFields.constant';
 export const postTruckFormFields = [
   {
     key: 'name',
-    title:'Name',
+    title: 'Name',
     type: FORM_ELEMENT_TYPES.INPUT,
-    label: 'Name',
   },
   {
     key: 'origin',
@@ -33,7 +32,7 @@ export const postTruckFormFields = [
     key: 'truck_type',
     title: 'Truck Type',
     type: FORM_ELEMENT_TYPES.RADIO,
-    defaultValue:'Open',
+    defaultValue: 'Open',
     radioOptions: [
       { value: 'Open', label: 'Open' },
       { value: 'Container', label: 'Container' },
@@ -44,6 +43,6 @@ export const postTruckFormFields = [
     key: 'scheduled_date',
     title: 'Scheduled Date',
     type: FORM_ELEMENT_TYPES.DATE,
-    defaultValue:new Date(1598051730000)
+    defaultValue: new Date(1598051730000),
   },
 ];

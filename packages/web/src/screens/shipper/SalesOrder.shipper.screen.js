@@ -8,9 +8,9 @@ import { useAPI } from '@app/common/hooks/api';
 import { LoadAPI } from 'hocs/LoadAPI';
 import { Popconfirm, Modal } from 'antd';
 import { loadAPI } from '@app/common/helpers/api';
-import {deleteOrders} from '@app/common/api/shipper';
+import { deleteOrders } from '@app/common/api/shipper';
 import { deleteHOC } from '../../hocs/form';
-import {ItemTable} from '../../components/ItemTable';
+import { ItemTable } from '../../components/ItemTable';
 
 const Address = ({ id }) => (
   <LoadAPI
@@ -65,9 +65,8 @@ export const SalesOrderShipperScreen = () => {
               api: deleteOrders,
               success: 'Deleted address successfully',
               failure: 'Error in deleting address',
-            })}
-          >
-            <CloseSquareOutlined style={{ color: '#ff0000', fontSize: 30,margin:5 }} />
+            })}>
+            <CloseSquareOutlined style={{ color: '#ff0000', fontSize: 30, margin: 5 }} />
           </Popconfirm>
         </div>
       ),
@@ -102,6 +101,8 @@ export const SalesOrderShipperScreen = () => {
                   data: {
                     ...raw,
                     status: 'Active',
+                    sender_address: raw.sender_address.id,
+                    receiver_address: raw.receiver_address.id,
                   },
                 });
               } catch (e) {
@@ -117,7 +118,7 @@ export const SalesOrderShipperScreen = () => {
     {
       name: 'Planned',
       key: 'planned',
-      data: (data || []).filter((row) => row.status === 'Assigned'),
+      data: (data || []).filter((row) => row.status === 'Active'),
       loading,
       columns,
     },
@@ -151,11 +152,15 @@ export const SalesOrderShipperScreen = () => {
       <TableWithTabHOC
         reset={reset}
         rowKey={(record) => record.id}
-        rowSelection={{ type:'checkbox', selectedRowKeys: selected, onChange }}
+        rowSelection={{ type: 'checkbox', selectedRowKeys: selected, onChange }}
         refresh={reload}
         tabs={tabs}
-        customRowSelectionType={{ allSalesOrder:'checkbox',
-          onHoldFTL:'checkbox',onHoldPTL:'radio',Assigned:'checkbox' }}
+        customRowSelectionType={{
+          allSalesOrder: 'checkbox',
+          onHoldFTL: 'checkbox',
+          onHoldPTL: 'radio',
+          Assigned: 'checkbox',
+        }}
         title='Sales Orders'
         editingId={editingId}
         cancelEditing={cancelEditing}

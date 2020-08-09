@@ -7,7 +7,7 @@ import { YantraButton } from '../../components/button';
 import { margin, yantraColors } from '../../styles/default';
 import { CardSalesOrder } from '../../components/cards/cardSalesOrder';
 
-export const FreightExchangeShipperScreenNative = ({ navigation, route }) => {
+export const CarrierSelectionShipperScreenNative = ({ navigation, route }) => {
   const { data, loading, reload } = useAPI(`/orders/`, {});
   const [selected, setSelected] = useState([]);
   const checkSelected = (id) => {
@@ -18,15 +18,15 @@ export const FreightExchangeShipperScreenNative = ({ navigation, route }) => {
 
   const filteredData = [
     {
-      name: 'Bid Not Assigned',
-      key: 'not_assigned',
-      data: (data || []).filter((row1) => row1.status !== 'Active'),
+      name: 'FTL',
+      key: 'ftl',
+      data: (data || []).filter((row1) => row1.shipment_type === 'FTL'),
       loading,
     },
     {
-      name: 'Bid Assigned',
-      key: 'assigned',
-      data: (data || []).filter((row2) => row2.status === 'Active'),
+      name: 'PTL',
+      key: 'ptl',
+      data: (data || []).filter((row2) => row2.shipment_type === 'PTL'),
       loading,
     },
   ];
@@ -34,7 +34,7 @@ export const FreightExchangeShipperScreenNative = ({ navigation, route }) => {
   return (
     <ScreenWrapperNative
       header
-      title='Freight Exchange'
+      title='Carrier Selection'
       loading={loading}
       navigation={navigation}
       pullToRefresh

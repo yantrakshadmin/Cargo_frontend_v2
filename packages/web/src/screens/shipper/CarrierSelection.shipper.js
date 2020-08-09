@@ -8,11 +8,11 @@ import { shipperSalesOrderColumn } from '@app/common/columns/shipperSalesOrder.c
 import { yantraColors } from 'helpers/yantraColors';
 import { useAPI } from '@app/common/hooks/api';
 import { LoadAPI } from 'hocs/LoadAPI';
-import { Button, Popconfirm,  } from 'antd';
+import { Button, Modal, Popconfirm } from 'antd';
 import { deleteOrders } from '@app/common/api/shipper';
 import { deleteHOC } from '../../hocs/form';
 import { ItemTable } from '../../components/ItemTable';
-
+import { PTLRateTable } from '../../components/PTLRateTable';
 
 const Address = ({ id }) => (
   <LoadAPI
@@ -30,11 +30,10 @@ const Address = ({ id }) => (
   />
 );
 
-
 export const CarrierSelection = () => {
   const { data, loading, reload } = useAPI(`/orders/`, {});
-  const [selected, setSelected] = useState([]);
   const [editingId, setEditingId] = useState(undefined);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const columns = [
     ...shipperSalesOrderColumn,
@@ -72,30 +71,19 @@ export const CarrierSelection = () => {
             <CloseSquareOutlined style={{ color: '#ff0000', fontSize: 30 }} />
           </Popconfirm>
           {/* eslint-disable-next-line no-nested-ternary */}
-          {row.status === 'Active' ?(
+
+          {row.shipment_type === 'FTL' ? (
+            <Link to={`/freight-exchange/view-bid/${row.id}`}>
+              <Button type='primary'>View Bid</Button>
+            </Link>
+          ) : (
             <Button
-              disabled
-              type='primary'
-            >
-              Planned
+              onClick={() => {
+                setModalVisible(true);
+              }}
+              type='primary'>
+              View Rates
             </Button>
-          ):(
-            row.shipment_type === 'FTL' ? (
-              <Link to={`/freight-exchange/view-bid/${row.id}`}>
-                <Button
-                  type='primary'
-            >
-                  View Bid
-                </Button>
-              </Link>
-            )
-              :   (
-                <Button
-                  type='primary'
-              >
-                  View Rates
-                </Button>
-              )
           )}
         </div>
       ),
@@ -106,38 +94,28 @@ export const CarrierSelection = () => {
     {
       name: 'FTL',
       key: 'ftl',
-      data,
-      loading,
-      columns,
-    },  {
-      name: 'PTL',
-      key: 'ptl',
-      data,
+      data: (data || []).filter((row) => row.shipment_type === 'FTL'),
       loading,
       columns,
     },
-
+    {
+      name: 'PTL',
+      key: 'ptl',
+      data: (data || []).filter((row) => row.shipment_type === 'PTL'),
+      loading,
+      columns,
+    },
   ];
-
-  const onChange = (selectedRowKeys) => {
-    setSelected(selectedRowKeys);
-  };
-
-  const reset = () => {
-    setSelected([]);
-  };
 
   const cancelEditing = () => setEditingId(undefined);
 
   return (
     <div>
       <TableWithTabHOC
-        reset={reset}
-        rowKey={(record) => record.id}
-        rowSelection={{ type: 'checkbox', selectedRowKeys: selected, onChange }}
+        reset={() => {}}
         refresh={reload}
         tabs={tabs}
-        title='Freight Exchange'
+        title='Carrier Selection'
         editingId={editingId}
         hideRightButton
         showModal
@@ -147,6 +125,17 @@ export const CarrierSelection = () => {
         expandParams={{ loading }}
         ExpandBody={ItemTable}
       />
+      <Modal
+        visible={modalVisible}
+        destroyOnClose
+        style={{ minWidth: '40vw', padding: 0 }}
+        title='PTL Rates'
+        onCancel={() => {
+          setModalVisible(false);
+        }}
+        footer={null}>
+        <PTLRateTable />
+      </Modal>
     </div>
   );
 };

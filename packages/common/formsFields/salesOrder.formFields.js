@@ -51,7 +51,6 @@ export const salesOrderFormFields = [
   //   others: null,
   //   label: 'Date',
   // },
-
 ];
 
 export const salesOrderItemFormField = [
@@ -120,7 +119,7 @@ export const salesOrderItemFormField = [
 
 export const itemDropDown = [
   {
-    key: 'selected',
+    key: 'prod_name',
     rules: [{ required: true, message: 'Please select consignor!' }],
     type: FORM_ELEMENT_TYPES.SELECT,
     kwargs: {
@@ -138,4 +137,4 @@ export const itemDropDown = [
     },
     others: null,
   },
-]
+];

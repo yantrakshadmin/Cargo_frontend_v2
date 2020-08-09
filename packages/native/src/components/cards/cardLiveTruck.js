@@ -9,6 +9,7 @@ import { Divider } from '../divider.component';
 import { YantraButton } from '../button';
 
 export const CardLiveTruck = ({ truck, style }) => {
+  console.log(truck, 'truck');
   return (
     <View style={[cardStyle.container, style]}>
       <View style={[margin('padding').md, getFlex(1), { width: '100%' }]}>

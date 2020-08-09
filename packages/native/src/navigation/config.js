@@ -37,15 +37,14 @@ export const drawerConfig = {
 };
 
 const keys = [
-  { name: 'Bid Assigned', icon: 'rocket' },
-  { name: 'Bid Not Assigned', icon: 'times-circle' },
+  { name: 'PTL', icon: 'luggage-cart' },
+  { name: 'FTL', icon: 'truck-loading' },
   { name: 'Address', icon: 'address-card' },
   { name: 'Vendor', icon: 'user' },
   { name: 'Item', icon: 'box' },
-  { name: 'On Hold FTL', icon: 'pause-circle' },
-  { name: 'On Hold PTL', icon: 'pause-circle' },
+  { name: 'Pending', icon: 'pause-circle' },
   { name: 'All Sales Orders', icon: 'boxes' },
-  { name: 'Assigned', icon: 'rocket' },
+  { name: 'Planned', icon: 'rocket' },
 ];
 
 export const tabConfigs = {
