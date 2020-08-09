@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { CloseSquareOutlined, EditOutlined } from '@ant-design/icons';
 import { Link } from '@reach/router';
 import { TableWithTabHOC } from 'hocs/TableWithTab.hoc';

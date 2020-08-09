@@ -4,7 +4,7 @@ import { Toast } from '@ant-design/react-native';
 import { getFlex, signInStyle, font } from '../styles/advanceStyles';
 import { margin, yantraColors } from '../styles/default';
 
-export const YantraButton = ({ Icon, containerStyle, children, title, onPress, type,disabled }) => {
+export const YantraButton = ({ Icon, containerStyle, children, title, onPress, type, disabled }) => {
   let buttonStyle;
   if (type === 'primary') {
     buttonStyle = {
@@ -18,12 +18,21 @@ export const YantraButton = ({ Icon, containerStyle, children, title, onPress, t
     };
   }
   return (
-    <View style={[
-      getFlex(4, 'column', 'center', 'center'),
-      containerStyle,{ opacity:disabled?.7:1 }]}>
+    <View
+      style={[
+        getFlex(4, 'column', 'center', 'center'),
+        containerStyle,
+        { opacity: disabled ? 0.7 : 1 },
+      ]}>
       <TouchableOpacity
         activeOpacity={1}
-        onPress={disabled?()=>{Toast.info('Button is disabled')}:onPress}
+        onPress={
+          disabled
+            ? () => {
+              Toast.info('Button is disabled');
+            }
+            : onPress
+        }
         style={[
           signInStyle.subContainer,
           containerStyle,
@@ -31,7 +40,7 @@ export const YantraButton = ({ Icon, containerStyle, children, title, onPress, t
           getFlex(null, 'row', 'center', 'center'),
           { borderWidth: 0.5, borderTopWidth: 0.5, paddingVertical: 10, borderRadius: 20 },
         ]}>
-        <View style={margin('marginRight').md}>{Icon}</View>
+        {Icon ? <View style={margin('marginRight').md}>{Icon}</View> : null}
         <Text style={[font(13, 'bold'), buttonStyle.text]}>{title || children}</Text>
       </TouchableOpacity>
     </View>

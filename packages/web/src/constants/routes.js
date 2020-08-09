@@ -74,19 +74,19 @@ export const shipperRoutes = [
   },
   {
     name: 'Sales Order',
-    icon: ['fas', 'layer-group'],
+    icon: ['fas', 'boxes'],
     path: '/sales-orders/',
     Component: lazy(() => import('screens/shipper/SalesOrder.shipper.screen')),
   },
   {
     name: 'Carrier Selection',
-    icon: ['fas', 'layer-group'],
+    icon: ['fas', 'boxes'],
     path: '/carrier-selection/',
     Component: lazy(() => import('screens/shipper/CarrierSelection.shipper')),
   },
   {
     name: 'Live Trucks',
-    icon: ['fas', 'layer-group'],
+    icon: ['fas', 'truck'],
     path: '/live-trucks/',
     Component: lazy(() => import('screens/shipper/liveTrucks.shipper.screen')),
   },
@@ -98,7 +98,7 @@ export const shipperRoutes = [
   },
   {
     name: 'Transport Directory',
-    icon: ['fas', 'layer-group'],
+    icon: ['fas', 'address-book'],
     path: '/transport-directory/',
     Component: lazy(() => import('screens/shipper/TransportDirectory.shipper.screen')),
   },
@@ -107,25 +107,25 @@ export const shipperRoutes = [
 export const supplierFTLRoutes = [
   {
     name: 'Available loads',
-    icon: ['fas', 'layout'],
+    icon: ['fas', 'boxes'],
     path: '/available-loads/',
     Component: lazy(() => import('screens/supplier/FTL/AvailableLoads.ftl.supplier.screen')),
   },
   {
     name: 'Post Truck',
-    icon: ['fas', 'layout'],
+    icon: ['fas', 'truck'],
     path: '/post-truck/',
     Component: lazy(() => import('screens/supplier/FTL/PostTruck.ftl.supplier.screen')),
   },
   {
     name: 'My Bids',
-    icon: ['fas', 'layout'],
+    icon: ['fas', 'money-bill'],
     path: '/my-bids/',
     Component: lazy(() => import('screens/supplier/FTL/MyBids.ftl.supplier.screen')),
   },
   {
     name: 'Trips Management',
-    icon: ['fas', 'layout'],
+    icon: ['fas', 'route'],
     path: '/trips-management/',
     Component: lazy(() => import('screens/supplier/FTL/TripManagement.ftl.supplier.screen')),
   },

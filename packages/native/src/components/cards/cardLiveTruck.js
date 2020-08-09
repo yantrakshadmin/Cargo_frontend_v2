@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { dateFormatter } from '@app/common/helpers/dateFomatter';
-import { GetTruckType } from '@app/common/helpers/getTruckType';
 import { cardStyle } from '../../styles/cardsStyles';
 import { margin, yantraColors } from '../../styles/default';
-import { font, getFlex, row, tagsStyle, verifiedStyle } from '../../styles/advanceStyles';
+import { font, getFlex, row, userImageStyle, verifiedStyle } from '../../styles/advanceStyles';
 import { Divider } from '../divider.component';
 import { YantraButton } from '../button';
 import { CustomModal } from '../customModal';
-import { Tag } from '../tag';
+import { useUser } from '../../hooks/user';
 
-export const CardLiveTruck = ({ truck, style }) => {
-  console.log(truck, 'truck');
+export const CardLiveTruck = ({ truck, style, isSupplier }) => {
+  const user = useUser();
   const [visible, setVisible] = useState(false);
   const Verified = ({ status }) => (
     <View
@@ -79,20 +78,32 @@ export const CardLiveTruck = ({ truck, style }) => {
       <Divider />
       <View style={[row, margin('padding').md]}>
         <View style={[getFlex(2, 'column', 'center', 'center', 'paddingRight', 5)]}>
-          <Icon name='user-circle' size={35} color='#444' />
+          {user.dp ? (
+            <Image source={{ uri: user.dp }} style={userImageStyle} />
+          ) : (
+            <Icon name='user-circle' size={35} color='#444' />
+          )}
         </View>
         <View style={getFlex(6, 'column', 'flex-start', 'flex-start')}>
           <Text style={font(13, 'bold')}>{truck.name}</Text>
         </View>
-        <TouchableOpacity style={[getFlex(1, 'column', 'center', 'center')]} onPress={() => {}}>
-          <Icon color={yantraColors.primary} size={20} name='share' />
-        </TouchableOpacity>
-        <YantraButton
-          onPress={() => {
-            setVisible(true);
-          }}>
-          Contact
-        </YantraButton>
+        {isSupplier ? (
+          <View style={[getFlex(1, 'column', 'center', 'center')]} />
+        ) : (
+          <TouchableOpacity style={[getFlex(1, 'column')]} onPress={() => {}}>
+            <Icon color={yantraColors.primary} size={20} name='share' />
+          </TouchableOpacity>
+        )}
+        {isSupplier ? (
+          <View style={[getFlex(4, 'column')]} />
+        ) : (
+          <YantraButton
+            onPress={() => {
+              setVisible(true);
+            }}>
+            Contact Details
+          </YantraButton>
+        )}
         <CustomModal title='Owner Details' visible={visible} setVisible={setVisible}>
           <View style={[cardStyle.container]}>
             <View style={[margin('padding').md, getFlex(1), { width: '100%' }]}>

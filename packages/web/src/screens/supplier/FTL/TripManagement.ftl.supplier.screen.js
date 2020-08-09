@@ -6,33 +6,25 @@ import { CloseSquareOutlined, EditOutlined } from '@ant-design/icons';
 import { yantraColors } from 'helpers/yantraColors';
 import { useAPI } from '@app/common/hooks/api';
 import { dateFormatter } from '@app/common/helpers/dateFomatter';
-import { deleteAddress } from '@app/common/api/shipper';
 import { Popconfirm } from 'antd';
 import { deleteTripManagement } from '@app/common/api/supplier';
 import { deleteHOC } from '../../../hocs/form';
 import { TripManagementForm } from '../../../forms/tripManagement.form';
 
 export const TripManagementFtl = () => {
-  const { data,loading, reload } = useAPI(`trip-list/`);
+  const { data, loading, reload } = useAPI(`trip-list/`);
   const [selectedRow, setSelectedRow] = useState({
     id: 0,
     isEditable: true,
     showModal: false,
   });
-  // path('trip-management/', TripManagementAPIView.as_view()),
-  //   path('edit-trip/<int:pk>/', TripManagementDetailAPIView.as_view()),
-  //   path('trip-list/', TripManagementListAPIView.as_view()),
   const columns = [
     ...supplierTripManagementColumn,
     {
       title: 'Date',
       dataIndex: 'date',
       key: 'date',
-      render: (row) => (
-        <div>
-          {dateFormatter(row)}
-        </div>
-      )
+      render: (row) => <div>{dateFormatter(row)}</div>,
     },
     {
       title: 'Action',
@@ -53,11 +45,8 @@ export const TripManagementFtl = () => {
               api: deleteTripManagement,
               success: 'Deleted trip successfully',
               failure: 'Error in deleting Trip',
-            })}
-          >
-            <CloseSquareOutlined
-              style={{ color: '#ff0000', fontSize: 30, margin: 5 }}
-            />
+            })}>
+            <CloseSquareOutlined style={{ color: '#ff0000', fontSize: 30, margin: 5 }} />
           </Popconfirm>
         </div>
       ),

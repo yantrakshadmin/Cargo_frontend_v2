@@ -59,7 +59,7 @@ export const ScreenWrapper = ({ routes, navigate, children }) => {
               {user.username}
               )
             </p>
-            <Avatar size='large' icon={<UserOutlined />} />
+            <Avatar size='large' src={user.dp} icon={<UserOutlined />} />
           </div>
         </Dropdown>
       </Header>

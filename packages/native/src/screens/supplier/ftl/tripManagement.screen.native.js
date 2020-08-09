@@ -7,9 +7,9 @@ import { CustomModal } from '../../../components/customModal';
 import { yantraColors } from '../../../styles/default';
 import { getFlex } from '../../../styles/advanceStyles';
 import { CardTripManagement } from '../../../components/cards/cardTripManagement';
-import {FormTripManagement} from '../../../forms/formTripManagement.native';
+import { FormTripManagement } from '../../../forms/formTripManagement.native';
 
-export const  TripManagementScreenNative  = ({ navigation }) => {
+export const TripManagementScreenNative = ({ navigation }) => {
   const [visible, setVisible] = useState(false);
   const { data, loading, reload } = useAPI(`trip-list/`);
   return (
@@ -33,8 +33,15 @@ export const  TripManagementScreenNative  = ({ navigation }) => {
             </View>
           )}>
           <FormTripManagement
-            onDone={()=>{reload(); setVisible(false)}}
-            onCancel={()=>{reload(); setVisible(false)}} />
+            onDone={() => {
+              reload();
+              setVisible(false);
+            }}
+            onCancel={() => {
+              reload();
+              setVisible(false);
+            }}
+          />
         </CustomModal>
       )}
       onRefresh={() => {

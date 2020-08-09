@@ -231,3 +231,22 @@ export const dashboardStyle = {
   },
   topCardText: { color: yantraColors.white, textAlign: 'center' },
 };
+
+export const shippingStyle = {
+  mapDimensions: {
+    height: Dimensions.get('window').height / 2,
+    width: Dimensions.get('window').width - 20,
+  },
+  webViewContainer: {
+    height: Dimensions.get('window').height - Dimensions.get('window').height / 5,
+    width: Dimensions.get('window').width,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+};
+export const userImageStyle = {
+  height: 35,
+  width: 35,
+  borderRadius: 17.5,
+};

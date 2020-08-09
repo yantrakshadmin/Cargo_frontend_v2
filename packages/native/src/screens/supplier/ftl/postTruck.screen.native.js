@@ -33,15 +33,22 @@ export const PostTruckScreenNative = ({ navigation }) => {
             </View>
           )}>
           <FormPostTruckNative
-            onDone={()=>{reload(); setVisible(false)}}
-            onCancel={()=>{reload(); setVisible(false)}} />
+            onDone={() => {
+              reload();
+              setVisible(false);
+            }}
+            onCancel={() => {
+              reload();
+              setVisible(false);
+            }}
+          />
         </CustomModal>
       )}
       onRefresh={() => {
         reload();
       }}>
       {(data || []).map((Item) => (
-        <CardLiveTruck reload={reload} truck={Item} />
+        <CardLiveTruck reload={reload} truck={Item} isSupplier />
       ))}
     </ScreenWrapperNative>
   );

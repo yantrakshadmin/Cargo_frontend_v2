@@ -5,12 +5,16 @@ import { Router } from '@reach/router';
 
 import { useUser } from '@app/common/hooks/user';
 import { getUserMeta } from '@app/common/helpers/auth';
-import { $User$SHIPPER, $User$Supplier$FTL,
-  $User$Supplier$PTL } from '@app/common/constants/userTypes';
+import {
+  $User$SHIPPER,
+  $User$Supplier$FTL,
+  $User$Supplier$PTL,
+} from '@app/common/constants/userTypes';
 
 import {
   extraRoutesShipper,
   extraRoutesSupplierFTL,
+  extraRoutesSupplierPTL,
   publicRoutes,
   shipperRoutes,
   supplierFTLRoutes,
@@ -69,7 +73,7 @@ export const RootRouter = () => {
     case $User$Supplier$FTL:
       return <PrivateRoutes routes={supplierFTLRoutes} extraRoutes={extraRoutesSupplierFTL} />;
     case $User$Supplier$PTL:
-      return <PrivateRoutes routes={supplierPTLRoutes} />;
+      return <PrivateRoutes routes={supplierPTLRoutes} extraRoutes={extraRoutesSupplierPTL} />;
 
     default:
       return null;

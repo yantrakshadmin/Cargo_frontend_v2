@@ -13,6 +13,7 @@ import { Tag } from '../tag';
 import { ConfirmDialog } from '../ConfirmDialog';
 import { CustomModal } from '../customModal';
 import { FormVendorNative } from '../../forms/formVendor.native';
+import { onCallButtonClicked } from '../../helpers/shared';
 
 export const CardVendor = ({ vendor, reload, style }) => {
   const [visible, setVisible] = useState(false);
@@ -163,7 +164,7 @@ export const CardVendor = ({ vendor, reload, style }) => {
             />
           )}
           onPress={() => {
-            console.log('click');
+            onCallButtonClicked(vendor.primary_phone);
           }}>
           Contact
         </YantraButton>

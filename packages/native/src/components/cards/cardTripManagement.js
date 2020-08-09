@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { Toast } from '@ant-design/react-native';
 import { dateFormatter } from '@app/common/helpers/dateFomatter';
 import { deleteTripManagement } from '@app/common/api/supplier';
 import { cardStyle } from '../../styles/cardsStyles';
-import { getFlex, font, row } from '../../styles/advanceStyles';
+import { getFlex, font, row, userImageStyle } from '../../styles/advanceStyles';
 import { margin, yantraColors } from '../../styles/default';
 import { Divider } from '../divider.component';
 import { YantraButton } from '../button';
 import { CustomModal } from '../customModal';
 import { ConfirmDialog } from '../ConfirmDialog';
 import { FormTripManagement } from '../../forms/formTripManagement.native';
+import { onCallButtonClicked } from '../../helpers/shared';
+import { useUser } from '../../hooks/user';
 
 export const CardTripManagement = ({ trip, style, reload }) => {
+  const user = useUser();
   const [visible, setVisible] = useState(false);
 
   const onDelete = async () => {
@@ -24,23 +27,6 @@ export const CardTripManagement = ({ trip, style, reload }) => {
     } catch (e) {
       Toast.info('Error in Deleting !!!', 1);
     }
-  };
-  const LOG = {
-    advance: '0',
-    balance: '0',
-    broker_name: '0',
-    date: '2020-07-31T11:16:14.090000Z',
-    driver_name: 'Ggg',
-    driver_number: '7887878888',
-    id: 1,
-    invoice_number: '76565',
-    lr_number: '0',
-    order: 23,
-    other_charges: '8776',
-    owner: 5,
-    vehicle_charges: '877',
-    vehicle_number: 'Dl23U8989',
-    vehicle_source: 'Own',
   };
 
   return (
@@ -109,7 +95,11 @@ export const CardTripManagement = ({ trip, style, reload }) => {
       <Divider />
       <View style={[row, margin('padding').md]}>
         <View style={[getFlex(2, 'column', 'center', 'center', 'paddingRight', 5)]}>
-          <Icon name='user-circle' size={35} color='#444' />
+          {user.dp ? (
+            <Image source={{ uri: user.dp }} style={userImageStyle} />
+          ) : (
+            <Icon name='user-circle' size={35} color='#444' />
+          )}
         </View>
         <View style={getFlex(6, 'column', 'flex-start', 'flex-start')}>
           <Text style={font(13, 'bold')}>{trip.driver_name}</Text>
@@ -124,7 +114,7 @@ export const CardTripManagement = ({ trip, style, reload }) => {
             />
           )}
           onPress={() => {
-            console.log('click');
+            onCallButtonClicked(trip.driver_number);
           }}>
           Contact
         </YantraButton>

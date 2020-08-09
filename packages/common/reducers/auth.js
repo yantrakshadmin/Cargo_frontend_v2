@@ -10,8 +10,6 @@ const initialState = {
 
 export const auth = (state = initialState, action) => {
   const $ = (newState) => ({ ...state, ...newState });
-  console.log(action);
-
   switch (action.type) {
     case USER_AUTH_SUCCESS:
       return $({
@@ -19,6 +17,7 @@ export const auth = (state = initialState, action) => {
         isAuthenticated: true,
         type: action.userType,
         username: action.username,
+        dp: action.dp,
       });
     case LOGOUT:
       return $(initialState);

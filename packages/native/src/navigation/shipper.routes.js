@@ -1,7 +1,11 @@
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { $User$SHIPPER, $User$Supplier$FTL } from '@app/common/constants/userTypes';
-import { shipperRoutes, supplierFTLRoutes } from '../constants/routes';
+import {
+  $User$SHIPPER,
+  $User$Supplier$FTL,
+  $User$Supplier$PTL,
+} from '@app/common/constants/userTypes';
+import { shipperRoutes, supplierFTLRoutes, supplierPTLRoutes } from '../constants/routes';
 import { drawerConfig } from './config';
 import PublicStack from './stack.navigator';
 
@@ -21,17 +25,30 @@ export const PrivateRoutes = ({ userType }) => {
           ))}
         </Drawer.Navigator>
       );
-    case $User$Supplier$FTL:return(
-      <Drawer.Navigator initialRouteName='Home' {...drawerConfig}>
-        {supplierFTLRoutes.map((Route) => (
-          <Drawer.Screen
-            name={Route.name}
-            component={Route.Component}
-            options={{ ...Route.navigationOptions }}
-          />
-        ))}
-      </Drawer.Navigator>
-    )
+    case $User$Supplier$FTL:
+      return (
+        <Drawer.Navigator initialRouteName='Home' {...drawerConfig}>
+          {supplierFTLRoutes.map((Route) => (
+            <Drawer.Screen
+              name={Route.name}
+              component={Route.Component}
+              options={{ ...Route.navigationOptions }}
+            />
+          ))}
+        </Drawer.Navigator>
+      );
+    case $User$Supplier$PTL:
+      return (
+        <Drawer.Navigator initialRouteName='Home' {...drawerConfig}>
+          {supplierPTLRoutes.map((Route) => (
+            <Drawer.Screen
+              name={Route.name}
+              component={Route.Component}
+              options={{ ...Route.navigationOptions }}
+            />
+          ))}
+        </Drawer.Navigator>
+      );
     default:
       return <PublicStack />;
   }

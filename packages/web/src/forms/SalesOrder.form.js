@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Col, Row, Button, Divider, Typography, Spin, Space, Input } from 'antd';
+import { Form, Col, Row, Button, Divider, Typography, Spin } from 'antd';
 import { formItem } from 'hocs/formItem.hoc';
-import {
-  itemDropDown,
-  salesOrderFormFields,
-  salesOrderItemFormField,
-} from '@app/common/formsFields/salesOrder.formFields';
+import { itemDropDown, salesOrderFormFields } from '@app/common/formsFields/salesOrder.formFields';
 import { useAPI } from '@app/common/hooks/api';
 import { useHandelForm } from 'hooks/form';
 import { createOrders, editOrders, retrieveOrders } from '@app/common/api/shipper';
@@ -17,9 +13,9 @@ export const SalesOrderForm = ({ id, onCancel, onDone }) => {
   const [error, setError] = useState(null);
 
   const { data: addresses, loading: addressLoading } = useAPI(`/address/`);
-  const { data: items, loading: itemsLoading } = useAPI(`/items/`);
+  const { data: items } = useAPI(`/items/`);
   const { form, data, submit, loading } = useHandelForm({
-    create: async ({ order_id, shipment_type, sender_address, receiver_address,packages }) =>
+    create: async ({ order_id, shipment_type, sender_address, receiver_address, packages }) =>
       // eslint-disable-next-line no-return-await
       await createOrders({
         order_id,
@@ -29,18 +25,15 @@ export const SalesOrderForm = ({ id, onCancel, onDone }) => {
         packages,
         // packages: items,
       }),
-    edit: async (orderId,
-      { order_id, shipment_type,
-        sender_address, receiver_address, packages }) =>
+    edit: async (orderId, { order_id, shipment_type, sender_address, receiver_address, packages }) =>
       // eslint-disable-next-line no-return-await
       await editOrders(orderId, {
         order_id,
         shipment_type,
         sender_address,
         receiver_address,
-        packages
+        packages,
         // packages: items,
-
       }),
     retrieve: retrieveOrders,
     success: 'Order created/edited successfully.',
@@ -56,7 +49,7 @@ export const SalesOrderForm = ({ id, onCancel, onDone }) => {
     }, 5000);
     if (id && data) {
       const { order_id, shipment_type, sender_address, receiver_address, package: packages } = data;
-      form.setFieldsValue({ order_id, shipment_type, sender_address, receiver_address,packages });
+      form.setFieldsValue({ order_id, shipment_type, sender_address, receiver_address, packages });
       // setItems(packages);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -122,7 +115,7 @@ export const SalesOrderForm = ({ id, onCancel, onDone }) => {
           {(fields, { add, remove }) => {
             return (
               <div>
-                {fields.map(field => (
+                {fields.map((field) => (
                   <Row align='middle'>
                     <Col span={13}>
                       {itemDropDown.slice(0, 1).map((item) => (
@@ -133,12 +126,13 @@ export const SalesOrderForm = ({ id, onCancel, onDone }) => {
                             item.kwargs,
                             item.type,
                             {
-                              ...itemsOtherConfigsDropdown,formOptions:
-                                {
-                                  ...field,
-                                  name: [field.name, item.key],
-                                  fieldKey: [field.fieldKey, item.key]
-                                } },
+                              ...itemsOtherConfigsDropdown,
+                              formOptions: {
+                                ...field,
+                                name: [field.name, item.key],
+                                fieldKey: [field.fieldKey, item.key],
+                              },
+                            },
                             item.label,
                           )}
                         </div>
@@ -146,27 +140,30 @@ export const SalesOrderForm = ({ id, onCancel, onDone }) => {
                     </Col>
                     <Col span={7}>
                       <div className='p-2'>
-                        {itemDropDown.slice(1, 2).map((item) => (
-                          formItem(item.key,
-                            item.rules, item.kwargs, item.type,
+                        {itemDropDown.slice(1, 2).map((item) =>
+                          formItem(
+                            item.key,
+                            item.rules,
+                            item.kwargs,
+                            item.type,
                             {
                               ...item.others,
-                              formOptions:
-                                  {
-                                    ...field,
-                                    name: [field.name, item.key],
-                                    fieldKey: [field.fieldKey, item.key]
-                                  } },
-                            item.label)
-                        ))}
+                              formOptions: {
+                                ...field,
+                                name: [field.name, item.key],
+                                fieldKey: [field.fieldKey, item.key],
+                              },
+                            },
+                            item.label,
+                          ),
+                        )}
                       </div>
                     </Col>
                     <Button
                       type='danger'
                       onClick={() => {
                         remove(field.name);
-                      }}
-                    >
+                      }}>
                       <MinusCircleOutlined />
                       {' '}
                       Delete
@@ -179,8 +176,7 @@ export const SalesOrderForm = ({ id, onCancel, onDone }) => {
                     onClick={() => {
                       add();
                     }}
-                    block
-                  >
+                    block>
                     <PlusOutlined />
                     {' '}
                     Add Item

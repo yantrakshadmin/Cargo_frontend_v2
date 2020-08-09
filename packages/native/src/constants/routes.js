@@ -18,6 +18,7 @@ import { PostTruckScreenNative } from '../screens/supplier/ftl/postTruck.screen.
 import { MyBidsScreenNative } from '../screens/supplier/ftl/myBids.screen.native';
 import { TripManagementScreenNative } from '../screens/supplier/ftl/tripManagement.screen.native';
 import { SignOutScreen } from '../screens/public/signOut.screen';
+import { ViewPickupRequestsScreenNative } from '../screens/supplier/ptl/viewPickupRequests.screen.native';
 
 export const SalesOrder = [
   {
@@ -165,6 +166,25 @@ export const supplierFTLRoutes = [
   {
     name: 'Log Out',
     Component: ({ navigation }) => <SignOutScreen home='Available Loads' navigation={navigation} />,
+    navigationOptions: {
+      drawerIcon: ({ tintColor }) => <Icon name='sign-out-alt' color={tintColor} size={18} />,
+    },
+  },
+];
+
+export const supplierPTLRoutes = [
+  {
+    name: 'View Pickup Request',
+    Component: ViewPickupRequestsScreenNative,
+    navigationOptions: {
+      drawerIcon: ({ tintColor }) => <Icon name='luggage-cart' color={tintColor} size={18} />,
+    },
+  },
+  {
+    name: 'Log Out',
+    Component: ({ navigation }) => (
+      <SignOutScreen home='View Pickup Request' navigation={navigation} />
+    ),
     navigationOptions: {
       drawerIcon: ({ tintColor }) => <Icon name='sign-out-alt' color={tintColor} size={18} />,
     },
