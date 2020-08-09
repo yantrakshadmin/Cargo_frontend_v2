@@ -65,7 +65,7 @@ export const signInStyle = {
     width: '100%',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent:'flex-start',
+    justifyContent: 'flex-start',
     padding: 10,
   },
   buttonsContainer: {
@@ -189,6 +189,25 @@ export const tagsStyle = {
     margin: 5,
   }),
 };
+export const verifiedStyle = {
+  container: (bg, shadow, borderColor) => ({
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: bg,
+    borderRadius: 5,
+    borderColor,
+    borderWidth: 1,
+    shadowColor: shadow,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.8,
+    shadowRadius: 5,
+    elevation: 1,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    margin: 5,
+  }),
+};
 
 export const dashboardStyle = {
   topMenuContainer: {
@@ -198,17 +217,17 @@ export const dashboardStyle = {
     marginBottom: 5,
   },
   row: { flexDirection: 'row', width: '100%' },
-  topCardBody: color => {
+  topCardBody: (color) => {
     return {
       flex: 1,
       borderRadius: 10,
       borderTopWidth: 0,
       borderLeftWidth: 0,
-      margin:5,
+      margin: 5,
       backgroundColor: color,
-      padding:15,
+      padding: 15,
       color: yantraColors.white,
     };
   },
   topCardText: { color: yantraColors.white, textAlign: 'center' },
-}
+};

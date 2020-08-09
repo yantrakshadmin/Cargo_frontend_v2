@@ -105,7 +105,6 @@ export const TripManagementForm = ({ onCancel, onDone }) => {
               </div>
             ))}
           </Col>
-          {console.log(shouldGetBrokerName)}
           {shouldGetBrokerName ? (
             <Col span={8}>
               {mainFormFields.slice(10, 11).map((item) => (

@@ -1,21 +1,30 @@
 import { useEffect, useState } from 'react';
-import { Portal, Toast } from '@ant-design/react-native'
+import { Portal, Toast } from '@ant-design/react-native';
 
+const successToast = (msg) => {
+  Toast.info(msg || 'Load success !!!', 1);
+};
+const failToast = (msg) => {
+  Toast.info(msg || 'Load failed !!!');
+};
 
-const successToast=(msg)=> {
-  Toast.info(msg||'Load success !!!', 1);
-}
-const failToast=(msg)=> {
-  Toast.info(msg||'Load failed !!!');
-}
-
-export const useHandelForm = ({ create, edit, retrieve, id, success, failure, done, close,form,setForm }) => {
+export const useHandelForm = ({
+  create,
+  edit,
+  retrieve,
+  id,
+  success,
+  failure,
+  done,
+  close,
+  form,
+  setForm,
+}) => {
   const isEdit = !!id;
   const [loading, setLoading] = useState(isEdit);
   const [apiData, setApiData] = useState(undefined);
   const successMessage = (isEdit ? success.edit : success.create) || success || 'Done';
   const failureMessage = (isEdit ? failure.edit : failure.create) || failure || 'Error';
-
 
   const submit = async () => {
     try {
@@ -27,10 +36,10 @@ export const useHandelForm = ({ create, edit, retrieve, id, success, failure, do
       if (error) {
         close();
         failToast(failureMessage);
-        console.log(error,'error')
+        console.log(error, 'error');
         throw Error(error);
       }
-      successToast(successMessage)
+      successToast(successMessage);
       done();
     } catch (e) {
       failToast(failureMessage);
@@ -49,7 +58,7 @@ export const useHandelForm = ({ create, edit, retrieve, id, success, failure, do
         setApiData(data);
       }
     } catch (e) {
-      failToast('Error in getting data')
+      failToast('Error in getting data');
       close();
     }
 

@@ -26,26 +26,4 @@ export const salesOrderFormFields = [
     type: FORM_ELEMENT_TYPES.RADIO,
     title: 'Select',
   },
-  // {
-  //   key: 'date',
-  //   rules: [{ required: true, message: 'Please select date!' }],
-  //   kwargs: {
-  //     title: 'E.g: 10/07/2019',
-  //   },
-  //   type: FORM_ELEMENT_TYPES.DATE,
-  //   others: null,
-  //   label: 'Date',
-  // },
-  {
-    key: 'prod_name',
-    type: FORM_ELEMENT_TYPES.RADIO,
-    title: 'item',
-  },
-  {
-    key: 'quantity',
-    title: 'Quantity',
-    type: FORM_ELEMENT_TYPES.INPUT,
-    inputParams: { keyboardType: 'number-pad' },
-    others: null,
-  },
 ];
