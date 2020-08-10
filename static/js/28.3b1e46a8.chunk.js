@@ -1,2 +1,0 @@
-(this["webpackJsonp@app/web"]=this["webpackJsonp@app/web"]||[]).push([[28],{810:function(a,e,t){"use strict";t.r(e);var n=t(0),p=t.n(n),s=t(28);e.default=function(){return p.a.createElement(s.b,{to:"/available-loads/"})}}}]);
-//# sourceMappingURL=28.3b1e46a8.chunk.js.map
