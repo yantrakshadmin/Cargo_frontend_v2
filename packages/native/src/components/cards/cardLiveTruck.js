@@ -9,10 +9,12 @@ import { Divider } from '../divider.component';
 import { YantraButton } from '../button';
 import { CustomModal } from '../customModal';
 import { useUser } from '../../hooks/user';
+import { onCallButtonClicked } from '../../helpers/shared';
 
 export const CardLiveTruck = ({ truck, style, isSupplier }) => {
   const user = useUser();
   const [visible, setVisible] = useState(false);
+  const contactUs = '+919560453585';
   const Verified = ({ status }) => (
     <View
       style={verifiedStyle.container(
@@ -118,12 +120,22 @@ export const CardLiveTruck = ({ truck, style, isSupplier }) => {
               <View style={getFlex(1, 'row', 'flex-start', 'center')}>
                 <Text style={font(15, 'bold')}>
                   Email :
-                  <Text style={font(15, 'normal')}>{` ${truck.owner.email}`}</Text>
+                  <Text style={font(15, 'normal')}>{` xxxxxxxxxx@gmail.com`}</Text>
                 </Text>
               </View>
               <View style={getFlex(1, 'row', 'flex-start', 'center')}>
                 <Text style={font(15, 'bold')}>Verified :</Text>
                 <Verified status={truck.owner.verified} />
+                <View style={getFlex(1, 'row', 'flex-start', 'center')} />
+                <View style={getFlex(1, 'row', 'flex-start', 'center')}>
+                  <YantraButton
+                    type='primary'
+                    onPress={() => {
+                      onCallButtonClicked(contactUs);
+                    }}>
+                    Contact
+                  </YantraButton>
+                </View>
               </View>
             </View>
           </View>

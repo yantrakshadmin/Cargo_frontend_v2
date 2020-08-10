@@ -18,9 +18,10 @@ export const AddressShipperScreen = () => {
     ...shipperAddressColumn,
     {
       title: 'Action',
+      width: 100,
       key: 'operation',
       render: (row) => (
-        <div className='row align-center justify-between'>
+        <div className='row align-center justify-center'>
           <EditOutlined
             style={{ color: yantraColors.primary, fontSize: 30, margin: 5 }}
             onClick={() => {
@@ -35,11 +36,8 @@ export const AddressShipperScreen = () => {
               api: deleteAddress,
               success: 'Deleted address successfully',
               failure: 'Error in deleting address',
-            })}
-          >
-            <CloseSquareOutlined
-              style={{ color: '#ff0000', fontSize: 30, margin: 5 }}
-          />
+            })}>
+            <CloseSquareOutlined style={{ color: '#ff0000', fontSize: 30, margin: 5 }} />
           </Popconfirm>
         </div>
       ),

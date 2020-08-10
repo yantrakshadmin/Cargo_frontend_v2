@@ -55,30 +55,34 @@ export const formItem = (key, rules, kwargs, type, others, customLabel, noLabel)
           <Select {...kwargs}>
             {others.selectOptions.map((item, index) => (
               <Option
+                search={
+                  others.customTitle
+                    ? item[others.customTitle]
+                    : item.label || item[others.key] || item
+                }
                 key={index.toString()}
                 value={others.valueIndex ? index : item.value || item[others.key] || item}>
                 {others.customTitle ? (
-                  <text style={{ fontSize: 13, fontWeight: 'bold' }}>
-                    {item[others.customTitle]}
-                  </text>
+                  <text style={{ fontSize: 13, fontWeight: 'bold' }}>{item[others.customTitle]}</text>
                 ) : (
                   item.label || item[others.key] || item
                 )}
                 {others.dataKeys ? (
                   <div className='row' style={{ flexWrap: 'wrap' }}>
-                    {others.dataKeys.map((i,index1) => (
+                    {others.dataKeys.map((i, index1) => (
                       <div className='row'>
-                        {others.dataLabel?(
+                        {others.dataLabel ? (
                           <text
-                            style={{ fontSize: 11,fontWeight:'bold',
-                              marginLeft: 5, marginRight: 5 }}>
-                            {others.dataLabel[index1]?others.dataLabel[index1]:null}
+                            style={{
+                              fontSize: 11,
+                              fontWeight: 'bold',
+                              marginLeft: 5,
+                              marginRight: 5,
+                            }}>
+                            {others.dataLabel[index1] ? others.dataLabel[index1] : null}
                           </text>
-                        ):null}
-                        <text
-                          style={{ fontSize: 11, marginLeft: 5, marginRight: 5 }}>
-                          {item[i]}
-                        </text>
+                        ) : null}
+                        <text style={{ fontSize: 11, marginLeft: 5, marginRight: 5 }}>{item[i]}</text>
                       </div>
                     ))}
                   </div>

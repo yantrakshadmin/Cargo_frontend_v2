@@ -53,10 +53,11 @@ export const CarrierSelection = () => {
     {
       title: 'Action',
       key: 'operation',
+      width: 100,
       render: (row) => (
-        <div className='row align-center justify-between'>
+        <div className='row align-center justify-center'>
           <EditOutlined
-            style={{ color: yantraColors.primary, fontSize: 30 }}
+            style={{ color: yantraColors.primary, fontSize: 30, margin: 5 }}
             onClick={() => setEditingId(row.id)}
           />
           <Popconfirm
@@ -68,7 +69,7 @@ export const CarrierSelection = () => {
               success: 'Deleted address successfully',
               failure: 'Error in deleting address',
             })}>
-            <CloseSquareOutlined style={{ color: '#ff0000', fontSize: 30 }} />
+            <CloseSquareOutlined style={{ color: '#ff0000', fontSize: 30, margin: 5 }} />
           </Popconfirm>
           {/* eslint-disable-next-line no-nested-ternary */}
 

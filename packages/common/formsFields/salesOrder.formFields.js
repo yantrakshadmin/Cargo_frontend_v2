@@ -29,6 +29,9 @@ export const salesOrderFormFields = [
     type: FORM_ELEMENT_TYPES.SELECT,
     kwargs: {
       placeholder: 'Select',
+      showSearch: true,
+      filterOption: (input, option) =>
+        option.search.toLowerCase().indexOf(input.toLowerCase()) >= 0,
     },
     label: 'Consignor',
   },
@@ -38,19 +41,12 @@ export const salesOrderFormFields = [
     type: FORM_ELEMENT_TYPES.SELECT,
     kwargs: {
       placeholder: 'Select',
+      showSearch: true,
+      filterOption: (input, option) =>
+        option.search.toLowerCase().indexOf(input.toLowerCase()) >= 0,
     },
     label: 'Consignee',
   },
-  // {
-  //   key: 'date',
-  //   rules: [{ required: true, message: 'Please select date!' }],
-  //   kwargs: {
-  //     placeholder: 'E.g: 10/07/2019',
-  //   },
-  //   type: FORM_ELEMENT_TYPES.DATE,
-  //   others: null,
-  //   label: 'Date',
-  // },
 ];
 
 export const salesOrderItemFormField = [
@@ -124,6 +120,9 @@ export const itemDropDown = [
     type: FORM_ELEMENT_TYPES.SELECT,
     kwargs: {
       placeholder: 'Select',
+      showSearch: true,
+      filterOption: (input, option) =>
+        option.search.toLowerCase().indexOf(input.toLowerCase()) >= 0,
     },
     label: 'Add Item',
   },

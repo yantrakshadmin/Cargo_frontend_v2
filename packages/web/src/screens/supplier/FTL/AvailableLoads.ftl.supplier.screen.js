@@ -18,27 +18,34 @@ function AvailableLoadsFtlSupplierScreen() {
     ...shipperSalesOrderColumn,
     {
       title: 'Action',
+      width: 100,
       key: 'operation',
       render: (row) => (
-        <Button
-          type='primary'
-          onClick={() => {
-            setBiddingLoad(row);
-            setModalVisible(true);
-          }}>
-          Bid Now
-        </Button>
+        <div className='row align-center justify-center'>
+          <Button
+            type='primary'
+            onClick={() => {
+              setBiddingLoad(row);
+              setModalVisible(true);
+            }}>
+            Bid Now
+          </Button>
+        </div>
       ),
     },
   ];
-  const { form, submit, loading:loadingForm } = useHandelForm({
+  const { form, submit, loading: loadingForm } = useHandelForm({
     create: async ({ bid_amount, comments }) =>
       // eslint-disable-next-line no-return-await
-      await createBid({ bid_amount,comments,id:bid.id } ),
+      await createBid({ bid_amount, comments, id: bid.id }),
     success: 'Bid created/edited successfully.',
     failure: 'Error in creating/editing order.',
-    done: ()=>{setModalVisible(false)},
-    close: ()=>{setModalVisible(false)},
+    done: () => {
+      setModalVisible(false);
+    },
+    close: () => {
+      setModalVisible(false);
+    },
   });
 
   return (
@@ -54,14 +61,12 @@ function AvailableLoadsFtlSupplierScreen() {
       <Modal
         visible={modalVisible}
         title='Bid Now'
-        onCancel={()=>{setModalVisible(false)}}
+        onCancel={() => {
+          setModalVisible(false);
+        }}
         footer={null}>
         <Spin spinning={loadingForm}>
-          <Form
-            form={form}
-            layout='vertical'
-            onFinish={submit}
-            hideRequiredMark>
+          <Form form={form} layout='vertical' onFinish={submit} hideRequiredMark>
             {bidCreateFormFields.map((item) => (
               <div className='p-2'>
                 {formItem(item.key, item.rules, item.kwargs, item.type, item.others, item.label)}
@@ -72,7 +77,11 @@ function AvailableLoadsFtlSupplierScreen() {
                 Save
               </Button>
               <div className='p-2' />
-              <Button type='primary' onClick={()=>{setModalVisible(false)}}>
+              <Button
+                type='primary'
+                onClick={() => {
+                  setModalVisible(false);
+                }}>
                 Cancel
               </Button>
             </Row>

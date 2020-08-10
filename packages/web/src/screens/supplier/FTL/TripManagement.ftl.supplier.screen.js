@@ -29,8 +29,9 @@ export const TripManagementFtl = () => {
     {
       title: 'Action',
       key: 'operation',
+      width: 100,
       render: (row) => (
-        <div className='row align-center justify-between'>
+        <div className='row align-center justify-center'>
           <EditOutlined
             style={{ color: yantraColors.primary, fontSize: 30, margin: 5 }}
             onClick={() => {

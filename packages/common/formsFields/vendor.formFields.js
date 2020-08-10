@@ -57,8 +57,10 @@ export const vendorFormField = [
     key: 'states_dealtin',
     rules: [{ required: true, message: 'Please select states !' }],
     kwargs: {
+      filterOption: (input, option) =>
+        option.search.toLowerCase().indexOf(input.toLowerCase()) >= 0,
       mode: 'multiple',
-      placeholder: 'States Dealt In',
+      placeholder: 'Select',
     },
     type: FORM_ELEMENT_TYPES.SELECT,
     others: {

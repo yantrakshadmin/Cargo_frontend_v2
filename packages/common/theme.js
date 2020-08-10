@@ -47,12 +47,12 @@ exports.default = {
 
   // 字体尺寸
   // ---
-  font_size_icontext: 10,
-  font_size_caption_sm: 12,
-  font_size_base: 14,
-  font_size_subhead: 15,
-  font_size_caption: 16,
-  font_size_heading: 17,
+  font_size_icontext: 8,
+  font_size_caption_sm: 10,
+  font_size_base: 12,
+  font_size_subhead: 13,
+  font_size_caption: 14,
+  font_size_heading: 15,
 
   // 圆角
   // ---

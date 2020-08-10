@@ -10,6 +10,7 @@ export const MasterHOC = ({
   modalParams,
   modalBody: ModalBody,
   modalStyle,
+  size = 'small',
   hideRightButton,
   tableOptions,
   customModalTitle,
@@ -39,7 +40,7 @@ export const MasterHOC = ({
         <Modal
           visible={modalVisible}
           onCancel={onCancel}
-          style={modalStyle||{ minWidth: '80vw' }}
+          style={modalStyle || { minWidth: '80vw' }}
           title={customModalTitle || customRightButtonLabel || `Add ${title}`}
           footer={null}>
           <ModalBody
@@ -69,7 +70,14 @@ export const MasterHOC = ({
       <Divider style={{ margin: 0, padding: 0 }} />
       <Row>
         <Col span={24}>
-          <Table bordered dataSource={data} columns={columns} loading={loading} {...tableOptions} />
+          <Table
+            size={size}
+            bordered
+            dataSource={data}
+            columns={columns}
+            loading={loading}
+            {...tableOptions}
+          />
         </Col>
       </Row>
     </div>

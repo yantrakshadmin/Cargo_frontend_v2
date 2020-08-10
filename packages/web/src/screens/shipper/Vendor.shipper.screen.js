@@ -20,23 +20,26 @@ export const VendorShipperScreen = () => {
     {
       title: 'Truck Type',
       dataIndex: 'truck_type',
+      width: 150,
       key: 'truck_type',
       render: (row) => <GetTruckType array={row} />,
     },
     {
       title: 'States Dealt In',
       dataIndex: 'states_dealtin',
+      width: 150,
       key: 'states_dealtin',
       render: (row) => <MapArray array={row} containerClass='column' />,
     },
     {
       title: 'Action',
       key: 'operation',
+      width: 100,
       fixed: 'right',
       render: (row) => (
-        <div className='row align-center justify-between'>
+        <div className='row align-center justify-center'>
           <EditOutlined
-            style={{ color: yantraColors.primary, fontSize: 30 }}
+            style={{ color: yantraColors.primary, fontSize: 30, margin: 5 }}
             onClick={() => {
               setSelectedRow({ id: row.id, isEditable: false, showModal: true });
             }}
@@ -49,11 +52,8 @@ export const VendorShipperScreen = () => {
               api: deleteVendor,
               success: 'Deleted item successfully',
               failure: 'Error in deleting item',
-            })}
-          >
-            <CloseSquareOutlined
-              style={{ color: '#ff0000', fontSize: 30, margin: 5 }}
-            />
+            })}>
+            <CloseSquareOutlined style={{ color: '#ff0000', fontSize: 30, margin: 5 }} />
           </Popconfirm>
         </div>
       ),

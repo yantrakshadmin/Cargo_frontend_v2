@@ -31,7 +31,7 @@ export const SalesOrderShipperScreen = ({ navigation, route }) => {
       loading,
       menu: [
         {
-          title: 'Ready To Dispatch',
+          title: 'Plan To Dispatch',
           onClick: async () => {
             // eslint-disable-next-line no-restricted-syntax
             for (const id of selected)

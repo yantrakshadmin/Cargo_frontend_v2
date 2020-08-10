@@ -12,6 +12,7 @@ export const TableWithTabHOC = ({
   rowSelection,
   rowKey,
   reset,
+  size = 'small',
   editingId,
   cancelEditing,
   hideRightButton,
@@ -19,7 +20,7 @@ export const TableWithTabHOC = ({
   customRowSelectionType,
   expandHandleKey,
   ExpandBody,
-  expandParams
+  expandParams,
 }) => {
   const [modalVisible, setModalVisible] = useState(!!editingId);
   const [activeTab, setActiveTab] = useState(tabs[0].key);
@@ -51,7 +52,7 @@ export const TableWithTabHOC = ({
 
   return (
     <div>
-      {!hideRightButton || showModal?(
+      {!hideRightButton || showModal ? (
         <Modal
           visible={modalVisible || !!editingId}
           destroyOnClose
@@ -61,7 +62,7 @@ export const TableWithTabHOC = ({
           footer={null}>
           <ModalBody onCancel={onCancel} onDone={onDone} id={editingId} />
         </Modal>
-      ):null}
+      ) : null}
       <Row justify='space-between' align='middle'>
         <Col>
           <Title level={3}>{title}</Title>
@@ -89,13 +90,13 @@ export const TableWithTabHOC = ({
           }
         </Col>
         <Col>
-          { hideRightButton?null: (
+          {hideRightButton ? null : (
             <Button
               type='primary'
               onClick={() => {
                 setModalVisible(true);
               }}>
-              Add
+              Add 
               {' '}
               {title}
             </Button>
@@ -111,23 +112,31 @@ export const TableWithTabHOC = ({
               {tabs.map((tab) => (
                 <TabPane tab={tab.name} key={tab.key}>
                   <Table
+                    size={size}
                     bordered
                     rowKey={rowKey}
+                    expandRowByClick
+                    expandIcon={({ expanded, onExpand, record }) => null}
                     rowSelection={
-                      customRowSelectionType?
-                        { ...rowSelection,type:customRowSelectionType[tab.key] }
-                        :rowSelection
-}
-                    expandable={ExpandBody? {
-                      expandedRowRender: record => (
-                        <p style={{ margin: 0 }}>
-                          <ExpandBody {...expandParams} {...record} />
-                        </p>
-                      ),
-                      rowExpandable: record => expandHandleKey?record[expandHandleKey]:null,
-                      expandRowByClick:true,
-                    }:null}
-
+                      customRowSelectionType
+                        ? { ...rowSelection, type: customRowSelectionType[tab.key] }
+                        : rowSelection
+                    }
+                    expandIconColumnIndex={-1}
+                    expandable={
+                      ExpandBody
+                        ? {
+                          expandedRowRender: (record) => (
+                            <p style={{ margin: 0 }}>
+                              <ExpandBody {...expandParams} {...record} />
+                            </p>
+                          ),
+                          rowExpandable: (record) =>
+                            expandHandleKey ? !!record[expandHandleKey].length : true,
+                          expandRowByClick: true,
+                        }
+                        : null
+                    }
                     dataSource={tab.data}
                     loading={tab.loading}
                     columns={tab.columns}

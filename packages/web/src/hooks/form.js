@@ -1,10 +1,10 @@
-import { useForm } from 'antd/es/form/util';
+import { Form, notification } from 'antd';
 import { useEffect, useState } from 'react';
-import { notification } from 'antd';
 
 export const useHandelForm = ({ create, edit, retrieve, id, success, failure, done, close }) => {
   const isEdit = !!id;
-  const [form] = useForm();
+  const [form] = Form.useForm();
+
   const [loading, setLoading] = useState(isEdit);
   const [apiData, setApiData] = useState(undefined);
 

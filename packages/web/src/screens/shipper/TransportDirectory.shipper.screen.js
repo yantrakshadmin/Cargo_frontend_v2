@@ -22,17 +22,19 @@ export const TransportDirectory = () => {
     {
       title: 'Contact',
       key: 'contact',
+      width: 100,
       render: (row) => (
-        <Button
-          block
-          type='primary'
-          icon={<ContactsFilled />}
-          onClick={() => {
-            console.log(row);
-            setModal({ visible: true, data: row });
-          }}>
-          View Contact
-        </Button>
+        <div className='row align-center justify-center'>
+          <Button
+            block
+            type='primary'
+            icon={<ContactsFilled />}
+            onClick={() => {
+              setModal({ visible: true, data: row });
+            }}>
+            View Contact
+          </Button>
+        </div>
       ),
     },
   ];
@@ -59,6 +61,9 @@ export const TransportDirectory = () => {
               'state',
               null,
               {
+                showSearch: true,
+                filterOption: (input, option) =>
+                  option.search.toLowerCase().indexOf(input.toLowerCase()) >= 0,
                 placeholder: 'Select State',
               },
               FORM_ELEMENT_TYPES.SELECT,
@@ -76,6 +81,9 @@ export const TransportDirectory = () => {
               'city',
               null,
               {
+                showSearch: true,
+                filterOption: (input, option) =>
+                  option.search.toLowerCase().indexOf(input.toLowerCase()) >= 0,
                 placeholder: 'Select City',
               },
               FORM_ELEMENT_TYPES.SELECT,

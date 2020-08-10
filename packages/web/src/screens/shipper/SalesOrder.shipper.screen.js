@@ -51,10 +51,11 @@ export const SalesOrderShipperScreen = () => {
     {
       title: 'Action',
       key: 'operation',
+      width: 100,
       render: (row) => (
-        <div className='row align-center justify-start'>
+        <div className='row align-center justify-center'>
           <EditOutlined
-            style={{ color: yantraColors.primary, fontSize: 30 }}
+            style={{ color: yantraColors.primary, fontSize: 30, margin: 5 }}
             onClick={() => setEditingId(row.id)}
           />
           <Popconfirm
@@ -89,7 +90,7 @@ export const SalesOrderShipperScreen = () => {
       loading,
       menu: [
         {
-          title: 'Ready To Dispatch',
+          title: 'Plan To Dispatch',
           onClick: async () => {
             // eslint-disable-next-line no-restricted-syntax
             for (const id of selected)
