@@ -9,6 +9,21 @@ export const PTLRateTable = ({ loading }) => {
       carrier_name: 'DHFL',
       price: 1000,
     },
+    {
+      id: 2,
+      carrier_name: 'FedEx',
+      price: 1200,
+    },
+    {
+      id: 3,
+      carrier_name: 'Blue Dart',
+      price: 900,
+    },
+    {
+      id: 1,
+      carrier_name: 'DHL',
+      price: 1050,
+    },
   ];
   return (
     <Row>
